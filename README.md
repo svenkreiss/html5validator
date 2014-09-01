@@ -23,4 +23,4 @@ from `.travis.yml`. I am using this on [my own user page](https://github.com/sve
 
 ### Technical
 
-On the backend, this does a request to [http://html5.validator.nu/](http://html5.validator.nu/).
+On the backend, this does a request to [http://html5.validator.nu/](http://html5.validator.nu/). Please read their [about page](http://about.validator.nu/).
