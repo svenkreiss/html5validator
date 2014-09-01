@@ -1,4 +1,12 @@
-"""Validates HTML5 pages."""
+"""Validates HTML5 pages.
+
+     Authors: Sven Kreiss and contributors
+     License: MIT
+Project page: http://github.com/svenkreiss/travisci_html5/
+
+"""
+
+__version__ = "0.0.2"
 
 import sys
 import requests
