@@ -1,8 +1,20 @@
 # HTML5 Validator Integration for TravisCI
 
-> This was written with static site generators in mind. Currently only checks the front page.
+> This was written with static site generators in mind.
 
-Copy the `.travis.yml` and `validate.py` files of this repo's `gh-pages` branch to your repository with static html files and get HTML5 validation on every `git push`. Adjust the `URL` parameter inside the `validate.py` file to your website and enable the repository on [TravisCI](https://travis-ci.org).
+Create a `.travis.yml` file
+
+    language: python
+    branches:
+      only:
+        - gh-pages
+    python:
+     - "2.7"
+    install:
+     - "pip install git+https://github.com/svenkreiss/travisci_html5.git"
+    script: "html5validator"
+
+in your repository with static html files and get HTML5 validation on every `git push`. Enable the repository on [TravisCI](https://travis-ci.org).
 
 You probably don't want TravisCI to run on the `master` branch but only on the `gh-pages` branch. TravisCI has an option (off by default) to run tests only on branches that have a `.travis.yml`.
 
@@ -23,4 +35,6 @@ from `.travis.yml`. I am using this on [my own user page](https://github.com/sve
 
 ### Technical
 
-On the backend, this does a request to [http://html5.validator.nu/](http://html5.validator.nu/). Please read their [about page](http://about.validator.nu/).
+The backend uses the same validator that powers the [validator.nu backend](https://github.com/validator/validator.github.io).
+
+If you are using grunt already, maybe consider using the [grunt-html](https://github.com/jzaefferer/grunt-html) plugin for grunt instead or in addition.
