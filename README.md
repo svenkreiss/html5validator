@@ -37,7 +37,7 @@ from `.travis.yml`. I am using this on [my own user page](https://github.com/sve
 
 ### pip install
 
-To facilitate the primary use case, this repository contains a Python package called `html5validator` which can be installed using `pip`:
+To facilitate the primary use case with `TravisCI`, this repository also contains a Python package called `html5validator` which can be installed using `pip`:
 
     pip install git+http://github.com/svenkreiss/html5validator.git
 
