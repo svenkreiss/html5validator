@@ -2,7 +2,7 @@
 
      Authors: Sven Kreiss and contributors
      License: MIT
-Project page: http://github.com/svenkreiss/travisci_html5/
+Project page: https://github.com/svenkreiss/travisci_html5/
 
 """
 
