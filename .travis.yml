@@ -2,6 +2,7 @@ language: python
 branches:
   only:
     - gh-pages
+    - gh-pages-failing
 python:
  - "2.7"
 install:
