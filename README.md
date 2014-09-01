@@ -35,6 +35,13 @@ You can also use this for user pages (repositories of the form `<username>.githu
 from `.travis.yml`. I am using this on [my own user page](https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml).
 
 
+### pip install
+
+To facilitate the primary use case, this repository contains a Python package called `html5validator` which can be installed using `pip`:
+
+    pip install git+http://github.com/svenkreiss/html5validator.git
+
+
 ### Technical
 
 The backend uses the same validator that powers the [validator.nu backend](https://github.com/validator/validator.github.io).
