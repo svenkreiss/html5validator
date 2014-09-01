@@ -1,10 +1,12 @@
-"""Validates HTML5 files."""
+"""Validates HTML5 pages."""
 
 import sys
 import requests
 
 
-URL = "http://www.svenkreiss.com/travisci_html5/"
+# Change to your username and project of the form
+# http://<username>.github.io/<project>/
+URL = 'http://svenkreiss.github.io/travisci_html5/'
 
 
 def main():
@@ -15,7 +17,7 @@ def main():
 
     # there were problems. here is the output:
     print r.text
-    sys.exit(-1)
+    sys.exit(1)
 
 
 if __name__ == "__main__":
