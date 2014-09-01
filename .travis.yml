@@ -5,6 +5,6 @@ branches:
 python:
  - "2.7"
 install:
- - "pip install git+https://github.com/svenkreiss/travisci_html5.git"
+ - "pip install git+https://github.com/svenkreiss/html5validator.git"
 script: "html5validator"
 
