@@ -21,6 +21,9 @@ You probably don't want TravisCI to run on the `master` branch but only on the `
 This button shows the HTML5 validity of this `gh-pages` branch:
 ![travisci build status](https://travis-ci.org/svenkreiss/travisci_html5.svg?branch=gh-pages)
 
+And this one shows the validity of the `gh-pages-failing` branch:
+![travisci build status](https://travis-ci.org/svenkreiss/travisci_html5.svg?branch=gh-pages-failing)
+
 
 ### User Pages
 
