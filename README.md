@@ -1,6 +1,6 @@
 # HTML5 Validator Integration for TravisCI
 
-> This was written with static site generators in mind.
+> This was written with static site generators in mind. Currently only checks the front page.
 
 Copy the files of this repo to your repository with static HTML5 files and get continuous integrations validation for HTML5. Adjust the `URL` parameter inside the `validate.py` file to your website.
 
