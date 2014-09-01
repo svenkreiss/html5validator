@@ -1,6 +1,6 @@
 # HTML5 Validator Integration for TravisCI
 
-> This was written with static site generators in mind.
+> This was written with static site generators like [Jekyll](http://jekyllrb.com/) and [Pelican](http://blog.getpelican.com/) in mind.
 
 Create a `.travis.yml` file
 
