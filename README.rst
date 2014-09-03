@@ -30,13 +30,6 @@ You probably don't want TravisCI to run on the ``master`` branch but only on
 the ``gh-pages`` branch. TravisCI has an option (off by default) to run tests
 only on branches that have a ``.travis.yml``.
 
-These buttons show the HTML5 validity of the `gh-pages` and `gh-pages-failing` branches:
-
-.. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=gh-pages
-    :target: https://travis-ci.org/svenkreiss/html5validator)
-.. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=gh-pages-failing
-    :target: https://travis-ci.org/svenkreiss/html5validator)
-
 
 User Pages
 ----------
