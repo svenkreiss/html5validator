@@ -13,7 +13,7 @@ setup(
     packages=['html5validator', 'scripts'],
     license='LICENSE',
     description='Validate HTML5 files.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='Sven Kreiss',
     author_email='me@svenkreiss.com',
     url='https://github.com/svenkreiss/html5validator',
