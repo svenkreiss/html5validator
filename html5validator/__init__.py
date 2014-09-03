@@ -19,16 +19,27 @@ class Validator(object):
     def __init__(self, directory='.', match='*.html', blacklist=[]):
         self.directory = directory
         self.match = match
-        self.blacklist = ['.git', '.svn'] + blacklist
+        self.blacklist = blacklist
         self.vnu_jar_location = sys.prefix+'/vnu.jar'
 
-    def all_files(self):
+    def all_files(self, skip_invisible=True):
         files = []
         for root, dirnames, filenames in os.walk(self.directory):
+            # filter out blacklisted directory names
             for b in self.blacklist:
                 if b in dirnames:
                     dirnames.remove(b)
+
+            if skip_invisible:
+                # filter out directory names starting with '.'
+                invisible_dirs = [d for d in dirnames if d[0] == '.']
+                for d in invisible_dirs:
+                    dirnames.remove(d)
+
             for filename in fnmatch.filter(filenames, self.match):
+                if skip_invisible and filename[0] == '.':
+                    # filter out invisible files
+                    continue
                 files.append(os.path.join(root, filename))
         return files
 
