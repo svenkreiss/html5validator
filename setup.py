@@ -5,7 +5,7 @@ import re
 # extract version from __init__.py
 with open('html5validator/__init__.py', 'r') as f:
     INIT = f.read()
-    VERSION = re.finditer('__version__ = \"(.*?)\"', INIT).next().group(1)
+    VERSION = next(re.finditer('__version__ = \"(.*?)\"', INIT)).group(1)
 
 setup(
     name='html5validator',

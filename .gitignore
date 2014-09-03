@@ -1,5 +1,5 @@
 *.py[cod]
-venv
+venv*
 *.egg-info
 dist
 

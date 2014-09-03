@@ -22,7 +22,7 @@ def main():
                                  match=args.match,
                                  blacklist=args.blacklist)
     files = v.all_files()
-    print 'Found files to validate: {0}'.format(len(files))
+    print('Found files to validate: {0}'.format(len(files)))
     sys.exit(v.validate(files, errors_only=args.error_only))
 
 
