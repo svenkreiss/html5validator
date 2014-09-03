@@ -1,4 +1,4 @@
-"""Command line tool for HTML5 validation."""
+"""Command line tool for HTML5 validation. Return code is 0 for valid HTML5."""
 
 import sys
 import argparse

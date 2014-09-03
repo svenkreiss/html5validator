@@ -31,10 +31,6 @@ class Validator(object):
         if errors_only:
             opts.append('--errors-only')
         files = self.all_files()
-        try:
-            subprocess.check_output(['java', '-jar', self.vnu_jar_location] +
-                                    opts + files)
-        except subprocess.CalledProcessError:
-            print '===> Not HTML5 compatible.'
-            return 1
-        return 0
+
+        return subprocess.call(['java', '-jar', self.vnu_jar_location] +
+                               opts + files)
