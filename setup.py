@@ -23,14 +23,17 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        '',
     ],
-
     entry_points={
         'console_scripts': [
             'html5validator = scripts.validate:main',
         ]
     },
+
+    tests_require=[
+        'nose',
+    ],
+    test_suite='nose.collector',
 
     classifiers=[
         "Development Status :: 3 - Alpha",
