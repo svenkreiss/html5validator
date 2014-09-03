@@ -16,6 +16,8 @@ setup(
     long_description=open('README.md').read(),
     author='Sven Kreiss',
     author_email='me@svenkreiss.com',
+    url='https://github.com/svenkreiss/html5validator',
+    download_url='https://github.com/svenkreiss/html5validator/tarball/0.1.0',
 
     data_files=[('', ['vnu/vnu.jar'])],
     include_package_data=True,
@@ -28,5 +30,14 @@ setup(
         'console_scripts': [
             'html5validator = scripts.validate:main',
         ]
-    }
+    },
+
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+    ]
 )
