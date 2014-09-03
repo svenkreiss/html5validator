@@ -8,6 +8,12 @@ import fnmatch
 import subprocess
 
 
+class JavaNotFoundException(Exception):
+    def __str__(self):
+        return 'Missing Java Runtime Environment on this system. ' +\
+               'The command "java" must be available.'
+
+
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=[]):
@@ -35,9 +41,7 @@ class Validator(object):
         with open(os.devnull, 'w') as f_null:
             if subprocess.call(['java', '-version'],
                                stdout=f_null, stderr=f_null) != 0:
-                print 'Missing Java Runtime Environment on this system. ' +\
-                      'The command "java" must be available. Abort.'
-                return 255
+                raise JavaNotFoundException()
 
         return subprocess.call(['java', '-jar', self.vnu_jar_location] +
                                opts + files)
