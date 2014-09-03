@@ -11,7 +11,7 @@ setup(
     name='html5validator',
     version=VERSION,
     packages=['html5validator', 'scripts'],
-    license='LICENSE',
+    license='MIT',
     description='Validate HTML5 files.',
     long_description=open('README.rst').read(),
     author='Sven Kreiss',
