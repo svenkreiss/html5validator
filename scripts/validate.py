@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Command line tool for HTML5 validation. Return code is 0 for valid HTML5."""
 
 import sys

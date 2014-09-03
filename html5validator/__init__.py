@@ -32,5 +32,12 @@ class Validator(object):
             opts.append('--errors-only')
         files = self.all_files()
 
+        with open(os.devnull, 'w') as f_null:
+            if subprocess.call(['java', '-version'],
+                               stdout=f_null, stderr=f_null) != 0:
+                print 'Missing Java Runtime Environment on this system. ' +\
+                      'The command "java" must be available. Abort.'
+                return 255
+
         return subprocess.call(['java', '-jar', self.vnu_jar_location] +
                                opts + files)

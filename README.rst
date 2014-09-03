@@ -53,6 +53,10 @@ Python package called ``html5validator`` which can be installed using ``pip``::
 
     pip install html5validator
 
+This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
+which is written in Java. Therefore, a Java Runtime Environment must be
+available on your system.
+
 
 Technical
 ---------
@@ -61,4 +65,4 @@ The backend uses the same validator that powers the
 `validator.nu backend <https://github.com/validator/validator.github.io>`_.
 
 If you are using grunt already, maybe consider using the
-`grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead or in addition.
+`grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
