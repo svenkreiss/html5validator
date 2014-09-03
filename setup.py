@@ -17,7 +17,6 @@ setup(
     author='Sven Kreiss',
     author_email='me@svenkreiss.com',
     url='https://github.com/svenkreiss/html5validator',
-    download_url='https://github.com/svenkreiss/html5validator/tarball/0.1.2',
 
     data_files=[('', ['vnu/vnu.jar'])],
     include_package_data=True,

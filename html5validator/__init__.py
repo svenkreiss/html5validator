@@ -1,6 +1,6 @@
 """Validate HTML5 files."""
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 import os
 import sys
