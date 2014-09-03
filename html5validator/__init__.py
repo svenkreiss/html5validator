@@ -32,11 +32,12 @@ class Validator(object):
                 files.append(os.path.join(root, filename))
         return files
 
-    def validate(self, errors_only=True):
+    def validate(self, files=None, errors_only=True):
         opts = []
         if errors_only:
             opts.append('--errors-only')
-        files = self.all_files()
+        if not files:
+            files = self.all_files()
 
         with open(os.devnull, 'w') as f_null:
             if subprocess.call(['java', '-version'],

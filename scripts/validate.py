@@ -21,7 +21,9 @@ def main():
     v = html5validator.Validator(directory=args.root,
                                  match=args.match,
                                  blacklist=args.blacklist)
-    sys.exit(v.validate(args.error_only))
+    files = v.all_files()
+    print 'Found files to validate: {0}'.format(len(files))
+    sys.exit(v.validate(files, errors_only=args.error_only))
 
 
 if __name__ == "__main__":
