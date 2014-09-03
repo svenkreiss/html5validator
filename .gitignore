@@ -1,3 +1,6 @@
 *.py[cod]
 venv
 *.egg-info
+dist
+
+.DS_Store
