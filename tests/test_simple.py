@@ -4,11 +4,8 @@ import subprocess
 
 
 def test_valid():
-    subprocess.check_call(['html5validator', '--root=tests/valid/'])
+    assert subprocess.call(['html5validator', '--root=tests/valid/']) == 0
 
 
 def test_invalid():
-    try:
-        subprocess.check_call(['html5validator', '--root=tests/invalid/'])
-    except subprocess.CalledProcessError, e:
-        assert e.returncode == 1
+    assert subprocess.call(['html5validator', '--root=tests/invalid/']) == 1
