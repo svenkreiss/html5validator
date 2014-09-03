@@ -4,6 +4,13 @@ HTML5 Validator Integration for TravisCI
     This was written with static site generators like `Jekyll <http://jekyllrb.com/>`_
     and `Pelican <http://blog.getpelican.com/>`_ in mind.
 
+.. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=master
+    :target: https://travis-ci.org/svenkreiss/html5validator)
+.. image:: https://pypip.in/v/html5validator/badge.svg
+        :target: https://pypi.python.org/pypi/html5validator/
+
+----
+
 Create a ``.travis.yml`` file::
 
     language: python
@@ -13,14 +20,14 @@ Create a ``.travis.yml`` file::
     python:
      - "2.7"
     install:
-     - "pip install git+https://github.com/svenkreiss/html5validator.git"
+     - "pip install html5validator"
     script: "html5validator"
 
-in your repository with static html files and get HTML5 validation on every 
+in your repository with static html files and get HTML5 validation on every
 ``git push``. Enable the repository on `TravisCI <https://travis-ci.org>`_.
 
-You probably don't want TravisCI to run on the ``master`` branch but only on 
-the ``gh-pages`` branch. TravisCI has an option (off by default) to run tests 
+You probably don't want TravisCI to run on the ``master`` branch but only on
+the ``gh-pages`` branch. TravisCI has an option (off by default) to run tests
 only on branches that have a ``.travis.yml``.
 
 These buttons show the HTML5 validity of the `gh-pages` and `gh-pages-failing` branches:
@@ -51,7 +58,7 @@ pip install
 To facilitate the primary use case with ``TravisCI``, this repository also contains a
 Python package called ``html5validator`` which can be installed using ``pip``::
 
-    pip install git+http://github.com/svenkreiss/html5validator.git
+    pip install html5validator
 
 
 Technical
