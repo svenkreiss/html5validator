@@ -3,7 +3,8 @@
 
 import sys
 import argparse
-import html5validator
+
+from .validator import Validator
 
 
 def main():
@@ -18,9 +19,8 @@ def main():
                         action='store_false', default=True)
     args = parser.parse_args()
 
-    v = html5validator.Validator(directory=args.root,
-                                 match=args.match,
-                                 blacklist=args.blacklist)
+    v = Validator(directory=args.root, match=args.match,
+                  blacklist=args.blacklist)
     files = v.all_files()
     print('Found files to validate: {0}'.format(len(files)))
     sys.exit(v.validate(files, errors_only=args.error_only))
