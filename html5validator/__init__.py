@@ -20,7 +20,13 @@ class Validator(object):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist
+
+        # Determine jar location.
+        # Used with normal 'pip install html5validator':
         self.vnu_jar_location = sys.prefix+'/vnu.jar'
+        if not os.path.isfile(self.vnu_jar_location):
+            # Used with 'pip install -e html5validator':
+            self.vnu_jar_location = os.path.dirname(__file__)+'/../vnu/vnu.jar'
 
     def all_files(self, skip_invisible=True):
         files = []
