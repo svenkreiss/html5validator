@@ -10,7 +10,7 @@ with open('html5validator/__init__.py', 'r') as f:
 setup(
     name='html5validator',
     version=VERSION,
-    packages=['html5validator', 'scripts'],
+    packages=['html5validator'],
     license='MIT',
     description='Validate HTML5 files.',
     long_description=open('README.rst').read(),
@@ -25,7 +25,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'html5validator = scripts.validate:main',
+            'html5validator = html5validator.cli:main',
         ]
     },
 
