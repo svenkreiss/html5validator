@@ -1,11 +1,30 @@
 from setuptools import setup
 
 import re
+import sys
 
-# extract version from __init__.py
+# workaround: nosetests don't exit cleanly with older
+# python version (<=2.6 and even <2.7.4)
+try:
+    import multiprocessing
+except ImportError:
+    pass
+
+
+INSTALL_REQUIRES = []
+
+
+# extract html5validator version from __init__.py
 with open('html5validator/__init__.py', 'r') as f:
     INIT = f.read()
     VERSION = next(re.finditer('__version__ = \"(.*?)\"', INIT)).group(1)
+
+
+# add argparse dependency for python < 2.7
+major, minor1, minor2, release, serial = sys.version_info
+if major <= 2 and minor1 < 7:
+    INSTALL_REQUIRES.append('argparse==1.2.1')
+
 
 setup(
     name='html5validator',
@@ -21,8 +40,7 @@ setup(
     data_files=[('', ['vnu/vnu.jar'])],
     include_package_data=True,
 
-    install_requires=[
-    ],
+    install_requires=INSTALL_REQUIRES,
     entry_points={
         'console_scripts': [
             'html5validator = html5validator.cli:main',
