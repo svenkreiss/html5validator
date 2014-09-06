@@ -59,5 +59,5 @@ class Validator(object):
                                stdout=f_null, stderr=f_null) != 0:
                 raise JavaNotFoundException()
 
-        return subprocess.call(['java', '-jar', self.vnu_jar_location] +
+        return subprocess.call(['java', '-Xss512k', '-jar', self.vnu_jar_location] +
                                opts + files)
