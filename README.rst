@@ -6,6 +6,8 @@ HTML5 Validator Integration for TravisCI
 
 .. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=master
     :target: https://travis-ci.org/svenkreiss/html5validator
+.. image:: https://pypip.in/d/html5validator/badge.svg
+    :target: https://pypi.python.org/pypi/html5validator/
 .. image:: https://pypip.in/v/html5validator/badge.svg
     :target: https://pypi.python.org/pypi/html5validator/
 
