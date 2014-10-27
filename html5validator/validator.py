@@ -22,6 +22,8 @@ class Validator(object):
         # Determine jar location.
         self.vnu_jar_location = vnujar.__file__.replace(
             '__init__.pyc', 'vnu.jar'
+        ).replace(
+            '__init__.py', 'vnu.jar'
         )
 
     def all_files(self, skip_invisible=True):
