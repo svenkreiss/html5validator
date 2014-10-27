@@ -1,5 +1,5 @@
-HTML5 Validator Integration for TravisCI
-========================================
+HTML5 Validator
+===============
 
     This was written with static site generators like `Jekyll <http://jekyllrb.com/>`_
     and `Pelican <http://blog.getpelican.com/>`_ in mind.
@@ -11,9 +11,31 @@ HTML5 Validator Integration for TravisCI
 .. image:: https://pypip.in/v/html5validator/badge.svg
     :target: https://pypi.python.org/pypi/html5validator/
 
-----
 
-Create a ``.travis.yml`` file::
+Integration with CircleCI
+-------------------------
+
+Create a ``circle.yml`` file:
+
+.. code-block:: yml
+
+    dependencies:
+      pre:
+        - sudo pip install html5validator
+    test:
+      override:
+        - html5validator
+
+in your repository with static html files and get HTML5 validation on every
+``git push``.
+
+
+Integration with TravisCI
+-------------------------
+
+Create a ``.travis.yml`` file:
+
+.. code-block:: yml
 
     language: python
     branches:
@@ -25,19 +47,16 @@ Create a ``.travis.yml`` file::
      - "pip install html5validator"
     script: "html5validator"
 
-in your repository with static html files and get HTML5 validation on every
-``git push``. Enable the repository on `TravisCI <https://travis-ci.org>`_.
+Enable the repository on `TravisCI <https://travis-ci.org>`_.
 
 You probably don't want TravisCI to run on the ``master`` branch but only on
 the ``gh-pages`` branch. TravisCI has an option (off by default) to run tests
 only on branches that have a ``.travis.yml``.
 
-
-User Pages
-----------
-
 You can also use this for user pages (repositories of the form ``<username>.github.io``)
-where the html files are in the master branch. You only have to remove::
+where the html files are in the master branch. You only have to remove:
+
+.. code-block:: yml
 
     branches:
       only:
@@ -51,7 +70,9 @@ pip install
 -----------
 
 To facilitate the primary use case with ``TravisCI``, this repository also contains a
-Python package called ``html5validator`` which can be installed using ``pip``::
+Python package called ``html5validator`` which can be installed using ``pip``:
+
+.. code-block:: bash
 
     pip install html5validator
 
