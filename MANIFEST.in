@@ -1,2 +1,3 @@
-include README.rst LICENSE vnu/vnu.jar
+include README.rst LICENSE vnujar/vnu.jar
 recursive-include tests *
+recursive-exclude tests *.pyc .DS_Store

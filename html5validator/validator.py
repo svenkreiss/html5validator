@@ -1,7 +1,7 @@
 """The main validator class."""
 
 import os
-import sys
+import vnujar
 import fnmatch
 import subprocess
 
@@ -20,11 +20,9 @@ class Validator(object):
         self.blacklist = blacklist
 
         # Determine jar location.
-        # Used with normal 'pip install html5validator':
-        self.vnu_jar_location = sys.prefix+'/vnu.jar'
-        if not os.path.isfile(self.vnu_jar_location):
-            # Used with 'pip install -e html5validator':
-            self.vnu_jar_location = os.path.dirname(__file__)+'/../vnu/vnu.jar'
+        self.vnu_jar_location = vnujar.__file__.replace(
+            '__init__.pyc', 'vnu.jar'
+        )
 
     def all_files(self, skip_invisible=True):
         files = []
