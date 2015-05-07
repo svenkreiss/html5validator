@@ -66,7 +66,7 @@ class Validator(object):
             o = subprocess.check_output(['java', '-Xss512k', '-jar',
                                          self.vnu_jar_location] + opts + files,
                                         stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             o = e.output
 
         o = o.splitlines()
