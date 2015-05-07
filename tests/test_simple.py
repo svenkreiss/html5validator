@@ -20,7 +20,17 @@ def test_angularjs():
     ]) == 0
 
 
+def test_multiple_ignores():
+    o = subprocess.call([
+        'html5validator',
+        '--root=tests/multiple_ignores/',
+        '--ignore', 'Attribute “ng-[a-z-]+” not allowed', 'Start tag seen without seeing a doctype first',
+    ])
+    assert o == 0
+
+
 if __name__ == '__main__':
     # test_valid()
     # test_invalid()
-    test_angularjs()
+    # test_angularjs()
+    test_multiple_ignores()

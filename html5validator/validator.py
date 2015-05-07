@@ -73,4 +73,5 @@ class Validator(object):
         for i in self.ignore:
             regex = re.compile(i)
             o = [l for l in o if not regex.search(l)]
+        print('\n'.join(o))
         return len(o)
