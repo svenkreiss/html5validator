@@ -15,6 +15,9 @@ HTML5 Validator
     :target: https://pypi.python.org/pypi/html5validator/
 
 
+Install
+-------
+
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
@@ -34,7 +37,7 @@ Integration with CircleCI
 
 Create a ``circle.yml`` file:
 
-.. code-block:: yml
+.. code-block:: yaml
 
     dependencies:
       pre:
@@ -52,7 +55,7 @@ Integration with TravisCI
 
 Create a ``.travis.yml`` file:
 
-.. code-block:: yml
+.. code-block:: yaml
 
     language: python
     branches:
@@ -73,7 +76,7 @@ only on branches that have a ``.travis.yml``.
 You can also use this for user pages (repositories of the form ``<username>.github.io``)
 where the html files are in the master branch. You only have to remove:
 
-.. code-block:: yml
+.. code-block:: yaml
 
     branches:
       only:
@@ -83,16 +86,12 @@ from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
 
 
-Technical
----------
+Technical Notes
+---------------
 
-The backend uses the same validator that powers the
-`validator.nu backend <https://github.com/validator/validator.github.io>`_.
-
-If you are using grunt already, maybe consider using the
-`grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
-
-Use ``--ignore=Attribute “ng-[a-z-]+” not allowed`` with angular.js apps.
+* If you are using grunt already, maybe consider using the
+  `grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
+* Use ``--ignore=Attribute “ng-[a-z-]+” not allowed`` with angular.js apps.
 
 
 Changelog
