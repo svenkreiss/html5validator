@@ -71,7 +71,10 @@ class Validator(object):
 
         o = o.splitlines()
         for i in self.ignore:
+            if not isinstance(i, bytes):
+                i = i.encode('utf-8')
             regex = re.compile(i)
             o = [l for l in o if not regex.search(l)]
-        print('\n'.join(o))
-        return len(o)
+        num_messages = len(o)
+        print(b'\n'.join(o).decode('utf-8'))
+        return num_messages
