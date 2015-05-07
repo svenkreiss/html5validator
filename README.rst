@@ -100,9 +100,8 @@ Changelog
 ---------
 
 * `master <https://github.com/svenkreiss/html5validator/compare/v0.1.11...master>`_
-* `0.1.11 <https://github.com/svenkreiss/html5validator/compare/v0.1.10...v0.1.11>`_ (2015-05-07)
+* `0.1.12 <https://github.com/svenkreiss/html5validator/compare/v0.1.9...v0.1.12>`_ (2015-05-07)
     * document how to specify multiple regular expressions to be ignored
-* `0.1.10 <https://github.com/svenkreiss/html5validator/compare/v0.1.9...v0.1.10>`_ (2015-05-07)
     * add ``--ignore`` as command line argument. Takes a regular expression
       for warnings and errors that should be ignored.
 * `0.1.9 <https://github.com/svenkreiss/html5validator/compare/v0.1.8...v0.1.9>`_ (2015-03-02)

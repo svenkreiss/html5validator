@@ -1,5 +1,5 @@
 """Validate HTML5 files."""
 
-__version__ = "0.1.11"
+__version__ = "0.1.12"
 
 from .validator import Validator, JavaNotFoundException
