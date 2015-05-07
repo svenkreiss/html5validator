@@ -1,6 +1,7 @@
 """The main validator class."""
 
 import os
+import re
 import vnujar
 import fnmatch
 import subprocess
@@ -14,10 +15,12 @@ class JavaNotFoundException(Exception):
 
 class Validator(object):
 
-    def __init__(self, directory='.', match='*.html', blacklist=[]):
+    def __init__(self, directory='.', match='*.html', blacklist=None,
+                 ignore=None):
         self.directory = directory
         self.match = match
-        self.blacklist = blacklist
+        self.blacklist = blacklist if blacklist else []
+        self.ignore = ignore if ignore else []
 
         # Determine jar location.
         self.vnu_jar_location = vnujar.__file__.replace(
@@ -59,5 +62,15 @@ class Validator(object):
                                stdout=f_null, stderr=f_null) != 0:
                 raise JavaNotFoundException()
 
-        return subprocess.call(['java', '-Xss512k', '-jar',
-                                self.vnu_jar_location] + opts + files)
+        try:
+            o = subprocess.check_output(['java', '-Xss512k', '-jar',
+                                         self.vnu_jar_location] + opts + files,
+                                        stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError, e:
+            o = e.output
+
+        o = o.splitlines()
+        for i in self.ignore:
+            regex = re.compile(i)
+            o = [l for l in o if not regex.search(l)]
+        return len(o)

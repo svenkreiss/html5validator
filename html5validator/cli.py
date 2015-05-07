@@ -17,10 +17,12 @@ def main():
                         'directory names', default=[])
     parser.add_argument('--show-warnings', dest='error_only',
                         action='store_false', default=True)
+    parser.add_argument('--ignore', nargs='*', default=None,
+                        help='Regex of message to be ignored.')
     args = parser.parse_args()
 
     v = Validator(directory=args.root, match=args.match,
-                  blacklist=args.blacklist)
+                  blacklist=args.blacklist, ignore=args.ignore)
     files = v.all_files()
     print('Found files to validate: {0}'.format(len(files)))
     sys.exit(v.validate(files, errors_only=args.error_only))

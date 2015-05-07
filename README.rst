@@ -3,7 +3,7 @@ HTML5 Validator
 
     This was written with static site generators like `Jekyll <http://jekyllrb.com/>`_
     and `Pelican <http://blog.getpelican.com/>`_ in mind that push to a static
-    server. `html5validator` is a command line executable that integrates
+    server. ``html5validator`` is a command line executable that integrates
     well with CircleCI and TravisCI and tests all static html files for
     HTML5 validity.
 
@@ -13,6 +13,20 @@ HTML5 Validator
     :target: https://pypi.python.org/pypi/html5validator/
 .. image:: https://pypip.in/v/html5validator/badge.svg
     :target: https://pypi.python.org/pypi/html5validator/
+
+
+Install with ``pip install html5validator`` and run with
+
+.. code-block:: bash
+
+    html5validator --root=_build/ --ignore='Attribute “ng-[a-z-]+” not allowed'
+
+to validate all html files in the ``_build`` directory and to ignore all messages
+that match the regular expression ``Attribute “ng-[a-z-]+” not allowed``.
+
+This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
+which is written in Java. Therefore, a Java Runtime Environment must be
+available on your system.
 
 
 Integration with CircleCI
@@ -69,21 +83,6 @@ from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
 
 
-pip install
------------
-
-To facilitate the primary use case with ``TravisCI``, this repository also contains a
-Python package called ``html5validator`` which can be installed using ``pip``:
-
-.. code-block:: bash
-
-    pip install html5validator
-
-This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
-which is written in Java. Therefore, a Java Runtime Environment must be
-available on your system.
-
-
 Technical
 ---------
 
@@ -92,3 +91,15 @@ The backend uses the same validator that powers the
 
 If you are using grunt already, maybe consider using the
 `grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
+
+Use ``--ignore=Attribute “ng-[a-z-]+” not allowed`` with angular.js apps.
+
+
+Changelog
+---------
+
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.1.10...master>`_
+* `0.1.10 <https://github.com/svenkreiss/html5validator/compare/v0.1.9...v0.1.10>`_ (2015-05-07)
+    * add ``--ignore`` as command line argument. Takes a regular expression
+      for warnings and errors that should be ignored.
+* `0.1.9 <https://github.com/svenkreiss/html5validator/compare/v0.1.8...v0.1.9>`_ (2015-03-02)
