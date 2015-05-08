@@ -5,10 +5,12 @@ import sys
 import argparse
 
 from .validator import Validator
+from . import __version__ as VERSION
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description='[v'+VERSION+'] '+__doc__,
+                                     prog='html5validator')
     parser.add_argument('--root', default='.')
     parser.add_argument('--match', default='*.html',
                         help='file matching pattern')
@@ -19,6 +21,8 @@ def main():
                         action='store_false', default=True)
     parser.add_argument('--ignore', nargs='*', default=None,
                         help='Regex of message to be ignored.')
+    parser.add_argument('--version', action='version',
+                        version='%(prog)s '+VERSION)
     args = parser.parse_args()
 
     v = Validator(directory=args.root, match=args.match,
