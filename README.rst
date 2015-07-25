@@ -9,9 +9,9 @@ HTML5 Validator
 
 .. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=master
     :target: https://travis-ci.org/svenkreiss/html5validator
-.. image:: https://pypip.in/d/html5validator/badge.svg
+.. image:: https://img.shields.io/pypi/dm/html5validator.svg
     :target: https://pypi.python.org/pypi/html5validator/
-.. image:: https://pypip.in/v/html5validator/badge.svg
+.. image:: https://badge.fury.io/py/html5validator.svg
     :target: https://pypi.python.org/pypi/html5validator/
 
 
