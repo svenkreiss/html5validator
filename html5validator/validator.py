@@ -1,10 +1,15 @@
 """The main validator class."""
 
+from __future__ import unicode_literals
+
 import os
 import re
 import vnujar
 import fnmatch
+import logging
 import subprocess
+
+LOGGER = logging.getLogger(__name__)
 
 
 class JavaNotFoundException(Exception):
@@ -67,14 +72,16 @@ class Validator(object):
                                          self.vnu_jar_location] + opts + files,
                                         stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
-            o = e.output
+            o = e.output.decode('utf-8')
 
         o = o.splitlines()
         for i in self.ignore:
-            if not isinstance(i, bytes):
-                i = i.encode('utf-8')
             regex = re.compile(i)
             o = [l for l in o if not regex.search(l)]
-        num_messages = len(o)
-        print(b'\n'.join(o).decode('utf-8'))
-        return num_messages
+
+        if o:
+            LOGGER.warn('\n'.join(o))
+        else:
+            LOGGER.info('All good.')
+
+        return len(o)

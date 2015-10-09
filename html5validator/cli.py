@@ -2,10 +2,13 @@
 """Command line tool for HTML5 validation. Return code is 0 for valid HTML5."""
 
 import sys
+import logging
 import argparse
 
 from .validator import Validator
 from . import __version__ as VERSION
+
+LOGGER = logging.getLogger(__name__)
 
 
 def main():
@@ -21,14 +24,19 @@ def main():
                         action='store_false', default=True)
     parser.add_argument('--ignore', nargs='*', default=None,
                         help='Regex of message to be ignored.')
+    parser.add_argument('--log', default='WARNING',
+                        help='Level of log messages: DEBUG, INFO, WARNING.')
     parser.add_argument('--version', action='version',
                         version='%(prog)s '+VERSION)
     args = parser.parse_args()
 
+    logging.basicConfig(level=getattr(logging, args.log))
+
     v = Validator(directory=args.root, match=args.match,
                   blacklist=args.blacklist, ignore=args.ignore)
     files = v.all_files()
-    print('Found files to validate: {0}'.format(len(files)))
+    LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
+    LOGGER.info('Number of files: {0}'.format(len(files)))
     sys.exit(v.validate(files, errors_only=args.error_only))
 
 
