@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """Command line tool for HTML5 validation. Return code is 0 for valid HTML5."""
 
+from __future__ import unicode_literals
+
 import sys
 import logging
 import argparse
@@ -23,6 +25,7 @@ def main():
     parser.add_argument('--show-warnings', dest='error_only',
                         action='store_false', default=True)
     parser.add_argument('--ignore', nargs='*', default=None,
+                        type=lambda s: s.decode(sys.getfilesystemencoding()),
                         help='Regex of message to be ignored.')
     parser.add_argument('--log', default='WARNING',
                         help='Level of log messages: DEBUG, INFO, WARNING.')

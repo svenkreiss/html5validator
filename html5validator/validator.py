@@ -70,7 +70,8 @@ class Validator(object):
         try:
             o = subprocess.check_output(['java', '-Xss512k', '-jar',
                                          self.vnu_jar_location] + opts + files,
-                                        stderr=subprocess.STDOUT)
+                                        stderr=subprocess.STDOUT,
+                                        ).decode('utf-8')
         except subprocess.CalledProcessError as e:
             o = e.output.decode('utf-8')
 
