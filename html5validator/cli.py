@@ -25,7 +25,8 @@ def main():
     parser.add_argument('--show-warnings', dest='error_only',
                         action='store_false', default=True)
     parser.add_argument('--ignore', nargs='*', default=None,
-                        type=lambda s: s.decode(sys.getfilesystemencoding()),
+                        type=lambda s: (s.decode('utf-8')
+                                        if isinstance(s, bytes) else s),
                         help='Regex of message to be ignored.')
     parser.add_argument('--log', default='WARNING',
                         help='Level of log messages: DEBUG, INFO, WARNING.')
