@@ -28,6 +28,21 @@ def main():
                         type=lambda s: (s.decode('utf-8')
                                         if isinstance(s, bytes) else s),
                         help='Regex of message to be ignored.')
+    parser.add_argument('-l', action='store_const', const=2048,
+                        dest='stack_size',
+                        help=('Run on larger files. Increases Java '
+                              'stack size to 2048k.')
+                        )
+    parser.add_argument('-ll', action='store_const', const=4096,
+                        dest='stack_size',
+                        help=('Run on larger files. Increases Java '
+                              'stack size to 4096k.')
+                        )
+    parser.add_argument('-lll', action='store_const', const=8192,
+                        dest='stack_size',
+                        help=('Run on larger files. Increases Java '
+                              'stack size to 8192k.')
+                        )
     parser.add_argument('--log', default='WARNING',
                         help='Level of log messages: DEBUG, INFO, WARNING.')
     parser.add_argument('--version', action='version',
@@ -41,7 +56,11 @@ def main():
     files = v.all_files()
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
-    sys.exit(v.validate(files, errors_only=args.error_only))
+    sys.exit(v.validate(
+        files,
+        errors_only=args.error_only,
+        stack_size=args.stack_size,
+    ))
 
 
 if __name__ == "__main__":

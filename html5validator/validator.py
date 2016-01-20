@@ -55,10 +55,12 @@ class Validator(object):
                 files.append(os.path.join(root, filename))
         return files
 
-    def validate(self, files=None, errors_only=True):
+    def validate(self, files=None, errors_only=True, stack_size=None):
         opts = []
         if errors_only:
             opts.append('--errors-only')
+        if stack_size:
+            opts.append('-Xss{}k'.format(stack_size))
         if not files:
             files = self.all_files()
 
@@ -68,7 +70,7 @@ class Validator(object):
                 raise JavaNotFoundException()
 
         try:
-            o = subprocess.check_output(['java', '-Xss512k', '-jar',
+            o = subprocess.check_output(['java', '-jar',
                                          self.vnu_jar_location] + opts + files,
                                         stderr=subprocess.STDOUT,
                                         ).decode('utf-8')
