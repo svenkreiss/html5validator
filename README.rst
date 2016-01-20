@@ -63,6 +63,13 @@ Create a ``.travis.yml`` file:
         - gh-pages
     python:
      - "2.7"
+
+    # install Java8 as required by vnu.jar
+    before_install:
+     - sudo apt-get update
+     - sudo apt-get install oracle-java8-installer
+     - sudo update-java-alternatives -s java-8-oracle
+
     install:
      - "pip install html5validator"
     script: "html5validator"
@@ -85,9 +92,15 @@ where the html files are in the master branch. You only have to remove:
 from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
 
-If you encounter a ``Permission denied`` error at the
-``pip install html5validator`` step, please try
-``pip install --user html5validator``.
+
+Possible problems:
+
+- If you encounter a ``Permission denied`` error at the
+  ``pip install html5validator`` step, please try
+  ``pip install --user html5validator``.
+- In ``.travis.yml`` files with ``language: java``, Java 8 should not be
+  installed with the method in the example, but with ``jdk: - oraclejdk8``
+  (see the `TravisCI docs <https://docs.travis-ci.com/user/languages/java#Testing-Against-Multiple-JDKs>`_).
 
 
 Technical Notes
