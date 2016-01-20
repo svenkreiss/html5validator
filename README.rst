@@ -39,6 +39,9 @@ Create a ``circle.yml`` file:
 
 .. code-block:: yaml
 
+    machine:
+      java:
+        version: oraclejdk8
     dependencies:
       pre:
         - sudo pip install html5validator
