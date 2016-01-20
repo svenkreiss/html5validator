@@ -85,6 +85,10 @@ where the html files are in the master branch. You only have to remove:
 from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
 
+If you encounter a ``Permission denied`` error at the
+``pip install html5validator`` step, please try
+``pip install --user html5validator``.
+
 
 Technical Notes
 ---------------
