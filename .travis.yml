@@ -4,7 +4,9 @@ python:
  - "3.4"
  - "3.5"
 before_install:
- - java install oraclejdk8
+ - sudo apt-get update
+ - sudo apt-get install oracle-java8-installer
+ - sudo update-java-alternatives -s java-8-oracle
 install:
  - "pip install ."
 script: "python setup.py test"
