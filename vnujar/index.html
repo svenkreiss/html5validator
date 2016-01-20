@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf-8>
-<title>The Nu HTML Checker (v.Nu)</title>
+<title>The Nu Html Checker (v.Nu)</title>
 <link href="site/icon.png" rel="icon">
 <style>
 html {
@@ -120,14 +120,14 @@ li > ul {
 </style>
 </head>
 <body>
-  <h1>The Nu HTML Checker (v.Nu)
+  <h1>The Nu Html Checker (v.Nu)
     <a href="https://gitter.im/validator/validator"
-    ><img src="https://goo.gl/1kHqwI" alt="Nu HTML Checker chat room"></a>
+    ><img src="https://goo.gl/1kHqwI" alt="Nu Html Checker chat room"></a>
   </h1>
     <p>
-    The Nu HTML Checker (v.Nu) is a name for the backend of
+    The Nu Html Checker (v.Nu) is a name for the backend of
     <a href="https://html5.validator.nu">html5.validator.nu</a>,
-    <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>,
+    <a href="http://validator.w3.org/nu/">validator.w3.org/nu</a>,
     and the HTML5 facet of the legacy
     <a href="http://validator.w3.org">W3C Validator</a>.
 
@@ -147,7 +147,7 @@ li > ul {
     </ul>
 
     <p>
-    To use the Nu HTML Checker on your own,
+    To use the Nu Html Checker on your own,
     <a href="https://github.com/validator/validator/releases/latest">get the latest release</a>
     and see the
     <a href="#usage"><b>Usage</b></a>
@@ -159,7 +159,7 @@ li > ul {
 <li>
 <a href="https://github.com/jzaefferer/grunt-html">Grunt plugin for HTML validation</a>
 <li>
-<a href="https://github.com/watilde/gulp-html">gulp plugin for HTML validation</a>
+<a href="https://github.com/watilde/gulp-html">Gulp plugin for HTML validation</a>
 <li>
 <a href="https://github.com/svenkreiss/html5validator">HTML5 Validator Integration for Travis CI</a>
 (auto-check documents pushed to a github repo)
@@ -182,7 +182,7 @@ command-line checking of documents by invoking it like this:
 <pre>
   java -jar ~/vnu.jar [--errors-only] [--no-stream]
        [--format gnu|xml|json|text] [--help] [--html]
-       [--verbose] [--version] FILES
+       [--skip-non-html] [--verbose] [--version] FILES
 </pre>
 
 <p class=note><b>Note:</b> In these instructions, replace
@@ -250,7 +250,7 @@ default: <span class=option-value>"gnu"</span>
 
 possible values: <span class=option-value>"gnu"</span>, <span class=option-value>"xml"</span>, <span class=option-value>"json"</span>, <span class=option-value>"text"</span> [see information at URL below]
 
-https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#out
+https://github.com/validator/validator/wiki/Service:-Common-parameters#out
 </pre>
 
 <h4 id="help">--help</h4>
@@ -298,7 +298,7 @@ Shows the <code>vnu.jar</code> version number.
 
 <h2 id="web-based-checking">Web-based checking with vnu.war or vnu.jar</h2>
 
-  <p>The Nu HTML Checkerーalong with being usable as
+  <p>The Nu Html Checkerーalong with being usable as
   <a href="https://validator.github.io/validator/#usage">a standalone command-line client</a>ーcan
   be run as an HTTP service, similar to
   <a href="https://html5.validator.nu/">html5.validator.nu</a>
@@ -467,8 +467,8 @@ INFO: Deploying web application archive /var/lib/tomcat7/webapps/vnu.war
 
     <p>Most of the properties listed below map to the validator.nu common input
     parameters documented at
-    <a href="https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters"
-      >wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters</a>.
+    <a href="https://github.com/validator/validator/wiki/Service:-Common-parameters"
+      >github.com/validator/validator/wiki/Service:-Common-parameters</a>.
 
 <h4 id="nuvalidatorclienthost">nu.validator.client.host</h4>
 <pre>
@@ -507,7 +507,7 @@ default: <span class=option-value>"html"</span>; or, for *.xhtml input files, <s
 
 possible values: [see information at URL below]
 
-https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#parser"
+https://github.com/validator/validator/wiki/Service:-Common-parameters#parser
 </pre>
 
 <h4 id="nuvalidatorclientcharset">nu.validator.client.charset</h4>
@@ -532,7 +532,7 @@ default: "gnu"
 
 possible values: [see information at URL below]
 
-https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#out"
+https://github.com/validator/validator/wiki/Service:-Common-parameters#out
 </pre>
 
 <h4 id="nuvalidatorclientasciiquotes">nu.validator.client.asciiquotes</h4>
@@ -561,9 +561,9 @@ Follow the steps below to build, test, and run the checker such that you can ope
 <pre>export JAVA_HOME=@@/PATH/TO/JDK/ON/YOUR/SYSTEM@@</pre>
 For example:
 <ul>
-<li><code>export JAVA_HOME=/usr/lib/jvm/java-6-openjdk</code> (older Ubuntu)
-<li><code>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</code> (newer Ubuntu)
-<li><code>export JAVA_HOME=$(/usr/libexec/java_home)</code> (Mac OS X)
+<li>export JAVA_HOME=/usr/lib/jvm/java-6-openjdk (older Ubuntu)
+<li>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 (newer Ubuntu)
+<li>export JAVA_HOME=$(/usr/libexec/java_home) (Mac OS X)
 </ul>
 
 <li>Create a working directory:
@@ -573,13 +573,11 @@ For example:
 <pre>cd validator</pre>
 
 <li>Start the build script:
-<pre>python ./build/build.py all; python ./build/build.py all</pre>
+<pre>python ./build/build.py all</pre>
 
-<p class=note><b>Important:</b>
-   Yes, you must run the script twice the first time you buildーto work
-   around known issues that cause it to fail to complete when run from scratch in a
-   fresh working directory. For subsequent builds you only have to run it once. And note
-   that the first time you run it, it will need time to download ~300MB of dependencies.
+<p class=note>
+The first time you run the build script, you’ll need to be online and the
+build will need time to download several megabytes of dependencies.
 </li>
 </ol>
 
@@ -595,6 +593,7 @@ behavior of the script, as well as build-target names you can call separately; e
 <li><code>python ./build/build.py build</code> (to build only)
 <li><code>python ./build/build.py build test</code> (to build and test)
 <li><code>python ./build/build.py run</code> (to run only)
+<li><code>python ./build/build.py jar</code> (to compile <code>vnu.jar</code>)
 </ul>
 </div>
 </section>

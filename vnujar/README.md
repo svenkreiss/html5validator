@@ -1,15 +1,15 @@
-# The Nu HTML Checker (v.Nu) [![Nu HTML Checker chat room][1]][2]
+# The Nu Html Checker (v.Nu) [![Nu Html Checker chat room][1]][2]
 
    [1]: https://goo.gl/1kHqwI
    [2]: https://gitter.im/validator/validator
 
-The Nu HTML Checker (v.Nu) is a name for the backend of [html5.validator.nu][3],
+The Nu Html Checker (v.Nu) is a name for the backend of [html5.validator.nu][3],
 [validator.w3.org/nu][4], and the HTML5 facet of the legacy [W3C Validator][5].
 Its [source code is available][6], as are [instructions on how to build, test,
 and run the code][7]. The checker is released as two separate packages:
 
    [3]: https://html5.validator.nu
-   [4]: https://validator.w3.org/nu/
+   [4]: http://validator.w3.org/nu/
    [5]: http://validator.w3.org
    [6]: https://github.com/validator/validator
    [7]: https://validator.github.io/validator/#build-instructions
@@ -25,7 +25,7 @@ and run the code][7]. The checker is released as two separate packages:
    [9]: https://validator.github.io/validator/#standalone
    [10]: https://validator.github.io/validator/#servlet
 
-To use the Nu HTML Checker on your own, [get the latest release][11] and see the
+To use the Nu Html Checker on your own, [get the latest release][11] and see the
 **Usage** and **Web-based checking** sections belowーor alternatively, consider
 automating your HTML checking with a frontend such as:
 
@@ -33,7 +33,7 @@ automating your HTML checking with a frontend such as:
 
   * [Grunt plugin for HTML validation][12]
 
-  * [gulp plugin for HTML validation][13]
+  * [Gulp plugin for HTML validation][13]
 
   * [HTML5 Validator Integration for Travis CI][14] (auto-check documents pushed
   to a github repo)
@@ -52,8 +52,8 @@ You can use the `vnu.jar` HTML checker as an executable for command-line
 checking of documents by invoking it like this:
 
       java -jar ~/vnu.jar [--errors-only] [--no-stream]
-           [--format gnu|xml|json|text] [--help] [--html] [--verbose]
-           [--version] FILES
+           [--format gnu|xml|json|text] [--help] [--html] [--skip-non-html]
+           [--verbose] [--version] FILES
 
 **Note:** In these instructions, replace _"~/vnu.jar"_ with the actual path to
 the file on your system.
@@ -108,7 +108,7 @@ executable provides the following options:
 
     possible values: "gnu", "xml", "json", "text" [see information at URL below]
 
-    https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#out
+    https://github.com/validator/validator/wiki/Service:-Common-parameters#out
 
 #### --help
 
@@ -147,7 +147,7 @@ executable provides the following options:
 
 ## Web-based checking with vnu.war or vnu.jar
 
-The Nu HTML Checkerーalong with being usable as [a standalone command-line
+The Nu Html Checkerーalong with being usable as [a standalone command-line
 client][16]ーcan be run as an HTTP service, similar to [html5.validator.nu][17]
 and [validator.w3.org/nu][18], for browser-based checking of HTML documents over
 the Web. To that end, the checker is released as two separate packages:
@@ -276,9 +276,9 @@ ones by setting the value of the `nu.validator.client.level` system property to
 
 Most of the properties listed below map to the validator.nu common input
 parameters documented at
-[wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters][25].
+[github.com/validator/validator/wiki/Service:-Common-parameters][25].
 
-   [25]: https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters
+   [25]: https://github.com/validator/validator/wiki/Service:-Common-parameters
 
 #### nu.validator.client.host
 
@@ -314,7 +314,7 @@ parameters documented at
 
     possible values: [see information at URL below]
 
-    https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#parser"
+    https://github.com/validator/validator/wiki/Service:-Common-parameters#parser
 
 #### nu.validator.client.charset
 
@@ -336,7 +336,7 @@ parameters documented at
 
     possible values: [see information at URL below]
 
-    https://wiki.whatwg.org/wiki/Validator.nu_Common_Input_Parameters#out"
+    https://github.com/validator/validator/wiki/Service:-Common-parameters#out
 
 #### nu.validator.client.asciiquotes
 
@@ -360,11 +360,11 @@ open `http://localhost:8888/` in a Web browser to use the checker Web UI.
 
 For example:
 
-    * `export JAVA_HOME=/usr/lib/jvm/java-6-openjdk` (older Ubuntu)
+    * export JAVA_HOME=/usr/lib/jvm/java-6-openjdk (older Ubuntu)
 
-    * `export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64` (newer Ubuntu)
+    * export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 (newer Ubuntu)
 
-    * `export JAVA_HOME=$(/usr/libexec/java_home)` (Mac OS X)
+    * export JAVA_HOME=$(/usr/libexec/java_home) (Mac OS X)
 
   3. Create a working directory:
 
@@ -376,13 +376,10 @@ For example:
 
   5. Start the build script:
 
-    python ./build/build.py all; python ./build/build.py all
+    python ./build/build.py all
 
-**Important:** Yes, you must run the script twice the first time you buildーto
-work around known issues that cause it to fail to complete when run from scratch
-in a fresh working directory. For subsequent builds you only have to run it
-once. And note that the first time you run it, it will need time to download
-~300MB of dependencies.
+The first time you run the build script, you’ll need to be online and the build
+will need time to download several megabytes of dependencies.
 
 The steps above will build, test, and run the checker such that you can open
 `http://localhost:8888/` in a Web browser to use the checker Web UI.
@@ -396,4 +393,6 @@ separately; e.g.:
   * `python ./build/build.py build test` (to build and test)
 
   * `python ./build/build.py run` (to run only)
+
+  * `python ./build/build.py jar` (to compile `vnu.jar`)
 
