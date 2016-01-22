@@ -37,6 +37,12 @@ def test_multiple_ignores():
     assert o == 0
 
 
+def test_stack_size():
+    assert subprocess.call(['html5validator',
+                            '--root=tests/valid/',
+                            '-lll']) == 0
+
+
 if __name__ == '__main__':
     # test_valid()
     # test_invalid()
