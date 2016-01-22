@@ -29,7 +29,7 @@ that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
 
 This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
-available on your system.
+available on your system. Since version 0.2, Java 8 is required.
 
 
 Integration with CircleCI
