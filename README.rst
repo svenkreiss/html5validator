@@ -21,6 +21,7 @@ Install
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
+
     html5validator --root _build/ --ignore 'Attribute "ng-[a-z-]+" not allowed'
 
 to validate all html files in the ``_build`` directory and to ignore all messages
