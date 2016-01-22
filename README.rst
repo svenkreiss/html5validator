@@ -118,6 +118,8 @@ Technical Notes
 Changelog
 ---------
 
+Install a particular version, for example ``0.1.12``, with ``pip install html5validator==0.1.12``.
+
 * `master <https://github.com/svenkreiss/html5validator/compare/v0.2.0...master>`_
 * `0.2.0 <https://github.com/svenkreiss/html5validator/compare/v0.1.12...v0.2.0>`_ (2016-01-21)
     * curly quotes and straight quotes can now be used interchangeably
