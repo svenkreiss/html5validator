@@ -16,35 +16,36 @@ LOGGER = logging.getLogger(__name__)
 def main():
     parser = argparse.ArgumentParser(description='[v'+VERSION+'] '+__doc__,
                                      prog='html5validator')
-    parser.add_argument('--root', default='.')
+    parser.add_argument('--root', default='.',
+                        help='start directory to search for files to validate')
     parser.add_argument('--match', default='*.html',
-                        help='file matching pattern')
+                        help='match file pattern (default: *.html)')
     parser.add_argument('--blacklist', type=str, nargs='*',
-                        help='specify a space-separated list of blacklisted ' +
-                        'directory names', default=[])
+                        help='directory names to skip', default=[])
     parser.add_argument('--show-warnings', dest='error_only',
                         action='store_false', default=True)
     parser.add_argument('--ignore', nargs='*', default=None,
                         type=lambda s: (s.decode('utf-8')
                                         if isinstance(s, bytes) else s),
-                        help='Regex of message to be ignored.')
+                        help='regular expression of messages to ignore')
     parser.add_argument('-l', action='store_const', const=2048,
                         dest='stack_size',
-                        help=('Run on larger files. Increases Java '
-                              'stack size to 2048k.')
+                        help=('run on larger files: sets Java '
+                              'stack size to 2048k')
                         )
-    parser.add_argument('-ll', action='store_const', const=4096,
+    parser.add_argument('-ll', action='store_const', const=8192,
                         dest='stack_size',
-                        help=('Run on larger files. Increases Java '
-                              'stack size to 4096k.')
+                        help=('run on larger files: sets Java '
+                              'stack size to 8192k')
                         )
-    parser.add_argument('-lll', action='store_const', const=8192,
+    parser.add_argument('-lll', action='store_const', const=32768,
                         dest='stack_size',
-                        help=('Run on larger files. Increases Java '
-                              'stack size to 8192k.')
+                        help=('run on larger files: sets Java '
+                              'stack size to 32768k')
                         )
     parser.add_argument('--log', default='WARNING',
-                        help='Level of log messages: DEBUG, INFO, WARNING.')
+                        help=('log level: DEBUG, INFO or WARNING '
+                              '(default: WARNING)'))
     parser.add_argument('--version', action='version',
                         version='%(prog)s '+VERSION)
     args = parser.parse_args()

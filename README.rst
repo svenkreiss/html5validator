@@ -26,6 +26,7 @@ Install with ``pip install html5validator`` and run with
 
 to validate all html files in the ``_build`` directory and to ignore all messages
 that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
+Run ``html5validator --help`` to see the list of command line options.
 
 This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
