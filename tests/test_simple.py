@@ -20,6 +20,14 @@ def test_angularjs():
     ]) == 0
 
 
+def test_angularjs_normal_quotes():
+    assert subprocess.call([
+        'html5validator',
+        '--root=tests/angularjs/',
+        '--ignore=Attribute \"ng-[a-z-]+\" not allowed',
+    ]) == 0
+
+
 def test_multiple_ignores():
     o = subprocess.call([
         'html5validator',

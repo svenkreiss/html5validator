@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """The main validator class."""
 
 from __future__ import unicode_literals
@@ -27,12 +28,20 @@ class Validator(object):
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
 
+        # process fancy quotes in ignore
+        self.ignore = [self._normalize_string(s) for s in self.ignore]
+
         # Determine jar location.
         self.vnu_jar_location = vnujar.__file__.replace(
             '__init__.pyc', 'vnu.jar'
         ).replace(
             '__init__.py', 'vnu.jar'
         )
+
+    def _normalize_string(self, s):
+        s = s.replace('“', '"')
+        s = s.replace('”', '"')
+        return s
 
     def all_files(self, skip_invisible=True):
         files = []
@@ -76,6 +85,9 @@ class Validator(object):
                                         ).decode('utf-8')
         except subprocess.CalledProcessError as e:
             o = e.output.decode('utf-8')
+
+        # process fancy quotes into standard quotes
+        o = self._normalize_string(o)
 
         o = o.splitlines()
         for i in self.ignore:
