@@ -125,10 +125,13 @@ Changelog
 Install a particular version, for example ``0.1.12``, with ``pip install html5validator==0.1.12``.
 
 * `master <https://github.com/svenkreiss/html5validator/compare/v0.2.0...master>`_
-* `0.2.0 <https://github.com/svenkreiss/html5validator/compare/v0.1.12...v0.2.0>`_ (2016-01-21)
+* `0.2.0 <https://github.com/svenkreiss/html5validator/compare/v0.1.14...v0.2.0>`_ (2016-01-21)
     * curly quotes and straight quotes can now be used interchangeably
     * change Java stack size handling (introduced the new command line options ``-l``, ``-ll`` and ``-lll``)
     * update vnu.jar to 16.1.1 (which now requires Java 8)
+* `0.1.14 <https://github.com/svenkreiss/html5validator/compare/v0.1.12...v0.1.14>`_ (2015-10-09)
+    * change text encoding handling
+    * adding command line arguments ``--log`` and ``--version``
 * `0.1.12 <https://github.com/svenkreiss/html5validator/compare/v0.1.9...v0.1.12>`_ (2015-05-07)
     * document how to specify multiple regular expressions to be ignored
     * add ``--ignore`` as command line argument. Takes a regular expression
