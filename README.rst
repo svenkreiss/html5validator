@@ -47,7 +47,7 @@ Create a ``circle.yml`` file:
         - sudo pip install html5validator
     test:
       override:
-        - html5validator
+        - "html5validator --root _build/"
 
 in your repository with static html files and get HTML5 validation on every
 ``git push``.
@@ -56,32 +56,48 @@ in your repository with static html files and get HTML5 validation on every
 Integration with TravisCI
 -------------------------
 
-Create a ``.travis.yml`` file:
+Create a ``.travis.yml`` file. This is an example for a Python project:
 
 .. code-block:: yaml
 
     language: python
-    branches:
-      only:
-        - gh-pages
     python:
      - "2.7"
 
-    # install Java8 as required by vnu.jar
+    branches:
+      only:
+        - gh-pages
+
+    # install Java 8 as required by vnu.jar
     before_install:
      - sudo apt-get update
      - sudo apt-get install oracle-java8-installer
      - sudo update-java-alternatives -s java-8-oracle
 
     install:
-     - "pip install html5validator"
-    script: "html5validator"
+     - "pip install --user html5validator"
+
+    script: "html5validator --root _build/"
+
+This is an example for Java project:
+
+.. code-block:: yaml
+
+    language: java
+    jdk:
+     - oraclejdk8  # vnu.jar requires Java 8
+
+    branches:
+      only:
+        - gh-pages
+
+    install:
+     - "pip install --user html5validator"
+
+    script: "html5validator --root _build/"
+
 
 Enable the repository on `TravisCI <https://travis-ci.org>`_.
-
-You probably don't want TravisCI to run on the ``master`` branch but only on
-the ``gh-pages`` branch. TravisCI has an option (off by default) to run tests
-only on branches that have a ``.travis.yml``.
 
 You can also use this for user pages (repositories of the form ``<username>.github.io``)
 where the html files are in the master branch. You only have to remove:
@@ -94,16 +110,6 @@ where the html files are in the master branch. You only have to remove:
 
 from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
-
-
-Possible problems:
-
-- If you encounter a ``Permission denied`` error at the
-  ``pip install html5validator`` step, please try
-  ``pip install --user html5validator``.
-- In ``.travis.yml`` files with ``language: java``, Java 8 should not be
-  installed with the method in the example, but with ``jdk: - oraclejdk8``
-  (see the `TravisCI docs <https://docs.travis-ci.com/user/languages/java#Testing-Against-Multiple-JDKs>`_).
 
 
 Technical Notes
