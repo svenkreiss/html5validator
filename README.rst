@@ -97,8 +97,6 @@ This is an example for Java project:
     script: "html5validator --root _build/"
 
 
-Enable the repository on `TravisCI <https://travis-ci.org>`_.
-
 You can also use this for user pages (repositories of the form ``<username>.github.io``)
 where the html files are in the master branch. You only have to remove:
 
