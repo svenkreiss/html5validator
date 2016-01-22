@@ -111,9 +111,8 @@ Technical Notes
 
 * If you are using grunt already, maybe consider using the
   `grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
-* Use ``--ignore "Attribute “ng-[a-z-]+” not allowed"`` with angular.js apps.
-* Example with multiple ignores: ``html5validator --root tests/multiple_ignores/ --ignore "Attribute “ng-[a-z-]+” not allowed" "Start tag seen without seeing a doctype first"``
-* Be careful with the non-standard quotes in the error messages when constructing the expressions to ignore.
+* Use ``--ignore 'Attribute "ng-[a-z-]+" not allowed'`` with angular.js apps.
+* Example with multiple ignores: ``html5validator --root tests/multiple_ignores/ --ignore 'Attribute "ng-[a-z-]+" not allowed' 'Start tag seen without seeing a doctype first'``
 
 
 Changelog
