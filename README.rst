@@ -22,7 +22,7 @@ Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
 
-    html5validator --root _build/ --ignore 'Attribute "ng-[a-z-]+" not allowed'
+    html5validator --root _build/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed'
 
 to validate all html files in the ``_build`` directory and to ignore all messages
 that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
@@ -116,8 +116,8 @@ Technical Notes
 
 * If you are using grunt already, maybe consider using the
   `grunt-html <https://github.com/jzaefferer/grunt-html>`_ plugin for grunt instead.
-* Use ``--ignore 'Attribute "ng-[a-z-]+" not allowed'`` with angular.js apps.
-* Example with multiple ignores: ``html5validator --root tests/multiple_ignores/ --ignore 'Attribute "ng-[a-z-]+" not allowed' 'Start tag seen without seeing a doctype first'``
+* Use ``--ignore-re 'Attribute "ng-[a-z-]+" not allowed'`` with angular.js apps.
+* Example with multiple ignores: ``html5validator --root tests/multiple_ignores/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed' 'Start tag seen without seeing a doctype first'``
 
 
 Changelog
@@ -127,6 +127,8 @@ Install a particular version, for example ``0.1.12``, with ``pip install html5va
 
 * `master <https://github.com/svenkreiss/html5validator/compare/v0.2.0...master>`_
 * `0.2.0 <https://github.com/svenkreiss/html5validator/compare/v0.1.14...v0.2.0>`_ (2016-01-21)
+    * ``--ignore``, ``--ignore-re``: ignore messages containing an exact pattern or
+      matching a regular expression (migration from version 0.1.14: replace ``--ignore`` with ``--ignore-re``)
     * curly quotes and straight quotes can now be used interchangeably
     * change Java stack size handling (introduced the new command line options ``-l``, ``-ll`` and ``-lll``)
     * update vnu.jar to 16.1.1 (which now requires Java 8)

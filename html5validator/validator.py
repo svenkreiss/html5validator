@@ -22,14 +22,16 @@ class JavaNotFoundException(Exception):
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
-                 ignore=None):
+                 ignore=None, ignore_re=None):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
+        self.ignore_re = ignore_re if ignore_re else []
 
         # process fancy quotes in ignore
         self.ignore = [self._normalize_string(s) for s in self.ignore]
+        self.ignore_re = [self._normalize_string(s) for s in self.ignore_re]
 
         # Determine jar location.
         self.vnu_jar_location = vnujar.__file__.replace(
@@ -91,6 +93,8 @@ class Validator(object):
 
         o = o.splitlines()
         for i in self.ignore:
+            o = [l for l in o if i not in l]
+        for i in self.ignore_re:
             regex = re.compile(i)
             o = [l for l in o if not regex.search(l)]
 

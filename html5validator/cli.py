@@ -27,6 +27,11 @@ def main():
     parser.add_argument('--ignore', nargs='*', default=None,
                         type=lambda s: (s.decode('utf-8')
                                         if isinstance(s, bytes) else s),
+                        help='ignore messages containing the given strings')
+    parser.add_argument('--ignore-re', nargs='*', default=None,
+                        type=lambda s: (s.decode('utf-8')
+                                        if isinstance(s, bytes) else s),
+                        dest='ignore_re',
                         help='regular expression of messages to ignore')
     parser.add_argument('-l', action='store_const', const=2048,
                         dest='stack_size',
@@ -53,7 +58,8 @@ def main():
     logging.basicConfig(level=getattr(logging, args.log))
 
     v = Validator(directory=args.root, match=args.match,
-                  blacklist=args.blacklist, ignore=args.ignore)
+                  blacklist=args.blacklist,
+                  ignore=args.ignore, ignore_re=args.ignore_re)
     files = v.all_files()
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))

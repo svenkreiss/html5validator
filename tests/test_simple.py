@@ -16,7 +16,7 @@ def test_angularjs():
     assert subprocess.call([
         'html5validator',
         '--root=tests/angularjs/',
-        '--ignore=Attribute “ng-[a-z-]+” not allowed',
+        '--ignore-re=Attribute “ng-[a-z-]+” not allowed',
     ]) == 0
 
 
@@ -24,15 +24,25 @@ def test_angularjs_normal_quotes():
     assert subprocess.call([
         'html5validator',
         '--root=tests/angularjs/',
-        '--ignore=Attribute \"ng-[a-z-]+\" not allowed',
+        '--ignore-re=Attribute "ng-[a-z-]+" not allowed',
     ]) == 0
 
 
-def test_multiple_ignores():
+def test_multiple_ignoreres():
     o = subprocess.call([
         'html5validator',
         '--root=tests/multiple_ignores/',
-        '--ignore', 'Attribute “ng-[a-z-]+” not allowed', 'Start tag seen without seeing a doctype first',
+        '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed', 'Start tag seen without seeing a doctype first',
+    ])
+    assert o == 0
+
+
+def test_multiple_ignore_and_ignorere():
+    o = subprocess.call([
+        'html5validator',
+        '--root=tests/multiple_ignores/',
+        '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed',
+        '--ignore', 'Start tag seen without seeing a doctype first',
     ])
     assert o == 0
 
