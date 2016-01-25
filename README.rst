@@ -48,7 +48,7 @@ Create a ``circle.yml`` file:
         - sudo pip install html5validator
     test:
       override:
-        - "html5validator --root _build/"
+        - html5validator --root _build/
 
 in your repository with static html files and get HTML5 validation on every
 ``git push``.
@@ -76,9 +76,9 @@ Create a ``.travis.yml`` file. This is an example for a Python project:
      - sudo update-java-alternatives -s java-8-oracle
 
     install:
-     - "pip install --user html5validator"
+     - pip install html5validator
 
-    script: "html5validator --root _build/"
+    script: html5validator --root _build/
 
 This is an example for Java project:
 
@@ -93,9 +93,9 @@ This is an example for Java project:
         - gh-pages
 
     install:
-     - "pip install --user html5validator"
+     - pip install --user html5validator
 
-    script: "html5validator --root _build/"
+    script: html5validator --root _build/
 
 
 Fix the ``html5validator`` version by using
@@ -126,10 +126,10 @@ Technical Notes
 Changelog
 ---------
 
-Install a particular version, for example ``0.1.12``, with ``pip install html5validator==0.1.12``.
+Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.0...master>`_
-* `0.2.0 <https://github.com/svenkreiss/html5validator/compare/v0.1.14...v0.2.0>`_ (2016-01-21)
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.1...master>`_
+* `0.2.1 <https://github.com/svenkreiss/html5validator/compare/v0.1.14...v0.2.1>`_ (2016-01-25)
     * ``--ignore``, ``--ignore-re``: ignore messages containing an exact pattern or
       matching a regular expression (migration from version 0.1.14: replace ``--ignore`` with ``--ignore-re``)
     * curly quotes and straight quotes can now be used interchangeably
