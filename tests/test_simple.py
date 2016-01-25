@@ -37,7 +37,7 @@ def test_multiple_ignoreres():
     assert o == 0
 
 
-def test_multiple_ignore_and_ignorere():
+def test_ignore_and_ignorere():
     o = subprocess.call([
         'html5validator',
         '--root=tests/multiple_ignores/',
@@ -54,7 +54,8 @@ def test_stack_size():
 
 
 if __name__ == '__main__':
-    # test_valid()
-    # test_invalid()
-    # test_angularjs()
-    test_multiple_ignores()
+    test_valid()
+    test_invalid()
+    test_angularjs()
+    test_multiple_ignoreres()
+    test_ignore_and_ignorere()
