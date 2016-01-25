@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """The main validator class."""
 
 from __future__ import unicode_literals
@@ -21,11 +22,16 @@ class JavaNotFoundException(Exception):
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
-                 ignore=None):
+                 ignore=None, ignore_re=None):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
+        self.ignore_re = ignore_re if ignore_re else []
+
+        # process fancy quotes in ignore
+        self.ignore = [self._normalize_string(s) for s in self.ignore]
+        self.ignore_re = [self._normalize_string(s) for s in self.ignore_re]
 
         # Determine jar location.
         self.vnu_jar_location = vnujar.__file__.replace(
@@ -33,6 +39,11 @@ class Validator(object):
         ).replace(
             '__init__.py', 'vnu.jar'
         )
+
+    def _normalize_string(self, s):
+        s = s.replace('“', '"')
+        s = s.replace('”', '"')
+        return s
 
     def all_files(self, skip_invisible=True):
         files = []
@@ -55,10 +66,12 @@ class Validator(object):
                 files.append(os.path.join(root, filename))
         return files
 
-    def validate(self, files=None, errors_only=True):
+    def validate(self, files=None, errors_only=True, stack_size=None):
         opts = []
         if errors_only:
             opts.append('--errors-only')
+        if stack_size:
+            opts.append('-Xss{}k'.format(stack_size))
         if not files:
             files = self.all_files()
 
@@ -68,15 +81,20 @@ class Validator(object):
                 raise JavaNotFoundException()
 
         try:
-            o = subprocess.check_output(['java', '-Xss512k', '-jar',
+            o = subprocess.check_output(['java', '-jar',
                                          self.vnu_jar_location] + opts + files,
                                         stderr=subprocess.STDOUT,
                                         ).decode('utf-8')
         except subprocess.CalledProcessError as e:
             o = e.output.decode('utf-8')
 
+        # process fancy quotes into standard quotes
+        o = self._normalize_string(o)
+
         o = o.splitlines()
         for i in self.ignore:
+            o = [l for l in o if i not in l]
+        for i in self.ignore_re:
             regex = re.compile(i)
             o = [l for l in o if not regex.search(l)]
 
