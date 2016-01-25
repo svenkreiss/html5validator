@@ -98,6 +98,9 @@ This is an example for Java project:
     script: "html5validator --root _build/"
 
 
+Fix the ``html5validator`` version by using
+``pip install --user html5validator==<version number>``.
+
 You can also use this for user pages (repositories of the form ``<username>.github.io``)
 where the html files are in the master branch. You only have to remove:
 
