@@ -28,6 +28,8 @@ to validate all html files in the ``_build`` directory and to ignore all message
 that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
 Run ``html5validator --help`` to see the list of command line options.
 
+.. image:: https://raw.githubusercontent.com/svenkreiss/html5validator/master/cmdlinehelp.png
+
 This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
 available on your system. Since version 0.2, Java 8 is required.
