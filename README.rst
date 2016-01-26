@@ -29,6 +29,7 @@ that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
 Run ``html5validator --help`` to see the list of command line options.
 
 .. image:: https://raw.githubusercontent.com/svenkreiss/html5validator/master/cmdlinehelp.png
+    :width: 600
 
 This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
