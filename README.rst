@@ -116,6 +116,29 @@ from ``.travis.yml``. I am using this on
 `my own user page <https://github.com/svenkreiss/svenkreiss.github.io/blob/master/.travis.yml>`_.
 
 
+Integration with CodeShip
+-------------------------
+
+Add this lines to the ``Setup Commands``:
+
+.. code-block:: yaml
+
+    jdk_switcher use oraclejdk8
+    pip install html5validator
+    
+    
+This is an example for Ruby project:
+
+.. code-block:: yaml
+
+    rvm use 2.2.0 --install
+    bundle install
+    bundle update
+    export RAILS_ENV=test
+    jdk_switcher use oraclejdk8
+    pip install html5validator
+
+
 Technical Notes
 ---------------
 
