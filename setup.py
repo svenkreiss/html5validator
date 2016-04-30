@@ -40,15 +40,16 @@ setup(
     include_package_data=True,
 
     install_requires=INSTALL_REQUIRES,
+    extras_require={
+        'tests': ['nose'],
+    },
     entry_points={
         'console_scripts': [
             'html5validator = html5validator.cli:main',
         ]
     },
 
-    tests_require=[
-        'nose',
-    ],
+    tests_require=['nose'],
     test_suite='nose.collector',
 
     classifiers=[

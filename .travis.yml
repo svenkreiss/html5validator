@@ -13,5 +13,5 @@ before_install:
  - sudo update-java-alternatives -s java-8-oracle
 
 install:
- - "pip install ."
-script: "python setup.py test"
+ - "pip install .[tests]"
+script: nosetests -vv
