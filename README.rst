@@ -18,6 +18,7 @@ HTML5 Validator
 Install
 -------
 
+This module requires Python 2.7, 3.4 or 3.5 and Java 8.
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
@@ -30,7 +31,7 @@ Run ``html5validator --help`` to see the list of command line options.
 
 .. image:: https://raw.githubusercontent.com/svenkreiss/html5validator/master/cmdlinehelp.png
 
-This package uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
+This module uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
 available on your system. Since version 0.2, Java 8 is required.
 
@@ -125,8 +126,8 @@ Add this lines to the ``Setup Commands``:
 
     jdk_switcher use oraclejdk8
     pip install html5validator
-    
-    
+
+
 This is an example for Ruby project:
 
 .. code-block:: yaml
