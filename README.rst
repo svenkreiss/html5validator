@@ -154,7 +154,9 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.1...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.2...master>`_
+* `0.2.2 <https://github.com/svenkreiss/html5validator/compare/v0.2.1...v0.2.2>`_ (2016-04-30)
+    * ``vnu.jar`` updated to 16.3.3
 * `0.2.1 <https://github.com/svenkreiss/html5validator/compare/v0.1.14...v0.2.1>`_ (2016-01-25)
     * ``--ignore``, ``--ignore-re``: ignore messages containing an exact pattern or
       matching a regular expression (migration from version 0.1.14: replace ``--ignore`` with ``--ignore-re``)
