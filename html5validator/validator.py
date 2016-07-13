@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import re
+import sys
 import vnujar
 import fnmatch
 import logging
@@ -39,6 +40,8 @@ class Validator(object):
         ).replace(
             '__init__.py', 'vnu.jar'
         )
+        if sys.platform == 'cygwin':
+            self.vnu_jar_location = subprocess.check_output(['cygpath', '-w', self.vnu_jar_location]).strip().decode('utf8')
 
     def _normalize_string(self, s):
         s = s.replace('“', '"')
