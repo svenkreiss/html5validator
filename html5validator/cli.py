@@ -24,6 +24,9 @@ def main():
                         help='directory names to skip', default=[])
     parser.add_argument('--show-warnings', dest='error_only',
                         action='store_false', default=True)
+    parser.add_argument('--remove-mustaches', action='store_true', default=False)
+    parser.add_argument('--mustache-remover-copy-ext', default='~~')
+    parser.add_argument('--mustache-remover-default-value', default='DUMMY')
     parser.add_argument('--ignore', nargs='*', default=None,
                         type=lambda s: (s.decode('utf-8')
                                         if isinstance(s, bytes) else s),
@@ -59,7 +62,9 @@ def main():
 
     v = Validator(directory=args.root, match=args.match,
                   blacklist=args.blacklist,
-                  ignore=args.ignore, ignore_re=args.ignore_re)
+                  ignore=args.ignore, ignore_re=args.ignore_re,
+                  mustache_remover_copy_ext=args.mustache_remover_copy_ext,
+                  mustache_remover_default_value=args.mustache_remover_default_value)
     files = v.all_files()
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
@@ -67,6 +72,7 @@ def main():
         files,
         errors_only=args.error_only,
         stack_size=args.stack_size,
+        remove_mustaches=args.remove_mustaches
     ))
 
 

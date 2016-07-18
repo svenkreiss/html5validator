@@ -11,7 +11,7 @@ except ImportError:
     pass
 
 
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = ['pystache']
 
 
 # extract html5validator version from __init__.py

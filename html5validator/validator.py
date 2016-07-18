@@ -3,13 +3,17 @@
 
 from __future__ import unicode_literals
 
-import os
-import re
-import sys
-import vnujar
+from collections import defaultdict
+import contextlib
 import fnmatch
 import logging
+import os
+import pystache
+import re
+import shutil
 import subprocess
+import sys
+import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
@@ -23,12 +27,14 @@ class JavaNotFoundException(Exception):
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
-                 ignore=None, ignore_re=None):
+                 ignore=None, ignore_re=None, mustache_remover_copy_ext='~', mustache_remover_default_value='DUMMY'):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
+        self.mustache_remover_copy_ext = mustache_remover_copy_ext
+        self.mustache_remover_default_value = mustache_remover_default_value
 
         # process fancy quotes in ignore
         self.ignore = [self._normalize_string(s) for s in self.ignore]
@@ -69,14 +75,21 @@ class Validator(object):
                 files.append(os.path.join(root, filename))
         return files
 
-    def validate(self, files=None, errors_only=True, stack_size=None):
+    def validate(self, files=None, remove_mustaches=False, **kwargs):
+        if not files:
+            files = self.all_files()
+        if remove_mustaches:
+            with generate_mustachefree_tmpfiles(files, copy_ext=self.mustache_remover_copy_ext, default_value=self.mustache_remover_default_value) as files:
+                return self._validate(files, **kwargs)
+        else:
+            return self._validate(files, **kwargs)
+
+    def _validate(self, files, errors_only=True, stack_size=None):
         opts = []
         if errors_only:
             opts.append('--errors-only')
         if stack_size:
             opts.append('-Xss{}k'.format(stack_size))
-        if not files:
-            files = self.all_files()
 
         with open(os.devnull, 'w') as f_null:
             if subprocess.call(['java', '-version'],
@@ -107,3 +120,31 @@ class Validator(object):
             LOGGER.info('All good.')
 
         return len(o)
+
+@contextlib.contextmanager
+def generate_mustachefree_tmpfiles(filepaths, copy_ext, default_value):
+    mustachefree_tmpfiles = []
+
+    for filepath in filepaths:
+        tmpfile = filepath + copy_ext
+        shutil.copyfile(filepath, tmpfile)
+        with open(filepath, 'r') as src_file:
+            src_code = src_file.read()
+            code_without_mustaches = pystache.render(src_code, DefaultDictContainsEverything(lambda: default_value))
+            with open(tmpfile, 'w+') as new_tmpfile:
+                new_tmpfile.write(code_without_mustaches)
+        mustachefree_tmpfiles.append(tmpfile)
+
+    try:
+        yield mustachefree_tmpfiles
+    finally:
+        for tmpfile in mustachefree_tmpfiles:
+            os.remove(tmpfile)
+
+class DefaultDictContainsEverything(defaultdict):
+    """
+    Workaround because pystache.render does not follow EAFP and hence does not support defaultdicts,
+    cf. https://github.com/defunkt/pystache/issues/188
+    """
+    def __contains__(self, item):
+        return True
