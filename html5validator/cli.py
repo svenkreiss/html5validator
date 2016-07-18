@@ -63,11 +63,13 @@ def main():
     files = v.all_files()
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
-    sys.exit(v.validate(
+
+    error_count = v.validate(
         files,
         errors_only=args.error_only,
         stack_size=args.stack_size,
-    ))
+    )
+    sys.exit(min(error_count, 255))
 
 
 if __name__ == "__main__":
