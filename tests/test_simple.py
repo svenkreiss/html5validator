@@ -54,7 +54,7 @@ def test_stack_size():
 
 
 def test_with_mustaches_fail():
-    assert subprocess.call(['html5validator', '--root=tests/with_mustaches/']) == 1
+    assert subprocess.call(['html5validator', '--root=tests/with_mustaches/']) == 2
 
 def test_with_mustaches_ok():
     assert subprocess.call(['html5validator', '--root=tests/with_mustaches/', '--remove-mustaches']) == 0

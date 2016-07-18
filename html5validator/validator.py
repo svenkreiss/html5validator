@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+from collections import defaultdict
 import contextlib
 import fnmatch
 import logging
@@ -26,13 +27,14 @@ class JavaNotFoundException(Exception):
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
-                 ignore=None, ignore_re=None, mustache_remover_copy_ext='~'):
+                 ignore=None, ignore_re=None, mustache_remover_copy_ext='~', mustache_remover_default_value='DUMMY'):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
         self.mustache_remover_copy_ext = mustache_remover_copy_ext
+        self.mustache_remover_default_value = mustache_remover_default_value
 
         # process fancy quotes in ignore
         self.ignore = [self._normalize_string(s) for s in self.ignore]
@@ -77,7 +79,7 @@ class Validator(object):
         if not files:
             files = self.all_files()
         if remove_mustaches:
-            with generate_mustachefree_tmpfiles(files, copy_ext=self.mustache_remover_copy_ext) as files:
+            with generate_mustachefree_tmpfiles(files, copy_ext=self.mustache_remover_copy_ext, default_value=self.mustache_remover_default_value) as files:
                 return self._validate(files, **kwargs)
         else:
             return self._validate(files, **kwargs)
@@ -120,15 +122,17 @@ class Validator(object):
         return len(o)
 
 @contextlib.contextmanager
-def generate_mustachefree_tmpfiles(filepaths, copy_ext):
+def generate_mustachefree_tmpfiles(filepaths, copy_ext, default_value):
     mustachefree_tmpfiles = []
 
     for filepath in filepaths:
         tmpfile = filepath + copy_ext
         shutil.copyfile(filepath, tmpfile)
         with open(filepath, 'r') as src_file:
+            src_code = src_file.read()
+            code_without_mustaches = pystache.render(src_code, DefaultDictContainsEverything(lambda: default_value))
             with open(tmpfile, 'w+') as new_tmpfile:
-                new_tmpfile.write(pystache.render(src_file.read()))
+                new_tmpfile.write(code_without_mustaches)
         mustachefree_tmpfiles.append(tmpfile)
 
     try:
@@ -136,3 +140,11 @@ def generate_mustachefree_tmpfiles(filepaths, copy_ext):
     finally:
         for tmpfile in mustachefree_tmpfiles:
             os.remove(tmpfile)
+
+class DefaultDictContainsEverything(defaultdict):
+    """
+    Workaround because pystache.render does not follow EAFP and hence does not support defaultdicts,
+    cf. https://github.com/defunkt/pystache/issues/188
+    """
+    def __contains__(self, item):
+        return True
