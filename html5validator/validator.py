@@ -41,12 +41,15 @@ class Validator(object):
             '__init__.py', 'vnu.jar'
         )
         if sys.platform == 'cygwin':
-            self.vnu_jar_location = subprocess.check_output(['cygpath', '-w', self.vnu_jar_location]).strip().decode('utf8')
+            self.vnu_jar_location = self._cygwin_path_convert(self.vnu_jar_location)
 
     def _normalize_string(self, s):
         s = s.replace('“', '"')
         s = s.replace('”', '"')
         return s
+
+    def _cygwin_path_convert(self, filepath):
+        return subprocess.check_output(['cygpath', '-w', filepath]).strip().decode('utf8')
 
     def all_files(self, skip_invisible=True):
         files = []
@@ -77,6 +80,9 @@ class Validator(object):
             opts.append('-Xss{}k'.format(stack_size))
         if not files:
             files = self.all_files()
+
+        if sys.platform == 'cygwin':
+            files = [self._cygwin_path_convert(f) for f in files]
 
         with open(os.devnull, 'w') as f_null:
             if subprocess.call(['java', '-version'],
