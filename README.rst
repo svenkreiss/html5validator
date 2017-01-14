@@ -18,7 +18,7 @@ HTML5 Validator
 Install
 -------
 
-This module requires Python 2.7, 3.4 or 3.5 and Java 8.
+This module requires Python 2.7, 3.4, 3.5 or 3.6 and Java 8.
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
