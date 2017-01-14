@@ -1,11 +1,13 @@
 HTML5 Validator
 ===============
 
-    This was written with static site generators like `Jekyll <http://jekyllrb.com/>`_
-    and `Pelican <http://blog.getpelican.com/>`_ in mind that push to a static
-    server. ``html5validator`` is a command line executable that integrates
-    well with CircleCI and TravisCI and tests all static html files for
-    HTML5 validity.
+    ``html5validator`` is a command line tool that tests files for
+    HTML5 validity. This was written with static site generators like
+    `Jekyll <http://jekyllrb.com/>`_ and
+    `Pelican <http://blog.getpelican.com/>`_ in mind. Dynamic html content
+    (for example from JS template engines) can be crawled
+    (e.g. with `localcrawl <https://github.com/svenkreiss/localcrawl>`_)
+    and then validated.
 
 .. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=master
     :target: https://travis-ci.org/svenkreiss/html5validator
