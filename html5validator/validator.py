@@ -3,13 +3,13 @@
 
 from __future__ import unicode_literals
 
-import os
-import re
-import sys
-import vnujar
 import fnmatch
 import logging
+import os
+import re
 import subprocess
+import sys
+import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
@@ -41,7 +41,8 @@ class Validator(object):
             '__init__.py', 'vnu.jar'
         )
         if sys.platform == 'cygwin':
-            self.vnu_jar_location = self._cygwin_path_convert(self.vnu_jar_location)
+            self.vnu_jar_location = self._cygwin_path_convert(
+                self.vnu_jar_location)
 
     def _normalize_string(self, s):
         s = s.replace('“', '"')
@@ -49,7 +50,8 @@ class Validator(object):
         return s
 
     def _cygwin_path_convert(self, filepath):
-        return subprocess.check_output(['cygpath', '-w', filepath]).strip().decode('utf8')
+        return subprocess.check_output(
+            ['cygpath', '-w', filepath]).strip().decode('utf8')
 
     def all_files(self, skip_invisible=True):
         files = []

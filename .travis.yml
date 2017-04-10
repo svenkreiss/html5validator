@@ -16,4 +16,4 @@ before_install:
 
 install:
  - "pip install .[tests]"
-script: nosetests -vv
+script: flake8 && nosetests -vv

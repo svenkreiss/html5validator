@@ -11,10 +11,15 @@ def test_valid():
 def test_invalid():
     assert subprocess.call(['html5validator', '--root=tests/invalid/']) == 1
 
+
 def test_return_value():
-    assert subprocess.call(['html5validator', '--root=tests/return_value/', '--match=254.html']) == 254
-    assert subprocess.call(['html5validator', '--root=tests/return_value/', '--match=255.html']) == 255
-    assert subprocess.call(['html5validator', '--root=tests/return_value/', '--match=256.html']) == 255
+    assert subprocess.call(['html5validator', '--root=tests/return_value/',
+                            '--match=254.html']) == 254
+    assert subprocess.call(['html5validator', '--root=tests/return_value/',
+                            '--match=255.html']) == 255
+    assert subprocess.call(['html5validator', '--root=tests/return_value/',
+                            '--match=256.html']) == 255
+
 
 def test_angularjs():
     assert subprocess.call([
@@ -36,7 +41,8 @@ def test_multiple_ignoreres():
     o = subprocess.call([
         'html5validator',
         '--root=tests/multiple_ignores/',
-        '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed', 'Start tag seen without seeing a doctype first',
+        '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed',
+        'Start tag seen without seeing a doctype first',
     ])
     assert o == 0
 

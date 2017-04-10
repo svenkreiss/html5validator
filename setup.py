@@ -3,14 +3,6 @@ from setuptools import setup
 import re
 import sys
 
-# workaround: nosetests don't exit cleanly with older
-# python version (<=2.6 and even <2.7.4)
-try:
-    import multiprocessing
-except ImportError:
-    pass
-
-
 INSTALL_REQUIRES = []
 
 
@@ -41,7 +33,10 @@ setup(
 
     install_requires=INSTALL_REQUIRES,
     extras_require={
-        'tests': ['nose'],
+        'tests': [
+            'hacking',
+            'nose',
+        ],
     },
     entry_points={
         'console_scripts': [

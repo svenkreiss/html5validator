@@ -3,19 +3,21 @@
 
 from __future__ import unicode_literals
 
-import sys
-import logging
-import argparse
-
 from .validator import Validator
+import argparse
+import logging
+import sys
+
 from . import __version__ as VERSION
 
 LOGGER = logging.getLogger(__name__)
 
 
 def main():
-    parser = argparse.ArgumentParser(description='[v'+VERSION+'] '+__doc__,
-                                     prog='html5validator')
+    parser = argparse.ArgumentParser(
+        description='[v' + VERSION + '] ' + __doc__,
+        prog='html5validator'
+    )
     parser.add_argument('--root', default='.',
                         help='start directory to search for files to validate')
     parser.add_argument('--match', default='*.html',
@@ -52,7 +54,7 @@ def main():
                         help=('log level: DEBUG, INFO or WARNING '
                               '(default: WARNING)'))
     parser.add_argument('--version', action='version',
-                        version='%(prog)s '+VERSION)
+                        version='%(prog)s ' + VERSION)
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.log))
