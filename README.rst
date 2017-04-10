@@ -154,11 +154,14 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.5...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.7...master>`_
+* `0.2.7 <https://github.com/svenkreiss/html5validator/compare/v0.2.5...v0.2.7>`_ (2017-04-09)
+    * update vnu jar to 17.3.0
+    * lint Python code
 * `0.2.5 <https://github.com/svenkreiss/html5validator/compare/v0.2.4...v0.2.5>`_ (2016-07-30)
-    * clamp CLI return value at 255: `PR <https://github.com/svenkreiss/html5validator/pull/26>`_
+    * clamp CLI return value at 255: `PR26 <https://github.com/svenkreiss/html5validator/pull/26>`_
 * `0.2.4 <https://github.com/svenkreiss/html5validator/compare/v0.2.3...v0.2.4>`_ (2016-07-14)
-    * a fix for Cygwin thanks to this `PR <https://github.com/svenkreiss/html5validator/pull/20>`_
+    * a fix for Cygwin thanks to this `PR20 <https://github.com/svenkreiss/html5validator/pull/20>`_
 * `0.2.3 <https://github.com/svenkreiss/html5validator/compare/v0.2.2...v0.2.3>`_ (2016-07-05)
     * ``vnu.jar`` updated to 16.6.29 thanks to this `PR <https://github.com/svenkreiss/html5validator/pull/19>`_
 * `0.2.2 <https://github.com/svenkreiss/html5validator/compare/v0.2.1...v0.2.2>`_ (2016-04-30)
