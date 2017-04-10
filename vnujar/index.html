@@ -127,11 +127,11 @@ li > ul {
     ><img src="https://goo.gl/3PC2Qn" alt="Download latest"></a>
   </h1>
     <p>
-    The Nu Html Checker (v.Nu) is a name for the backend of
+    The Nu Html Checker (v.Nu) is the backend of
     <a href="https://checker.html5.org/">checker.html5.org</a>,
     <a href="https://html5.validator.nu">html5.validator.nu</a>,
     and
-    <a href="http://validator.w3.org/nu/">validator.w3.org/nu</a>.
+    <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>.
 
     Its
     <a href="https://github.com/validator/validator">source code is available</a>,
@@ -153,22 +153,29 @@ li > ul {
     older environment.
 
     <p>
-    To use the Nu Html Checker on your own,
+    You can
     <a href="https://github.com/validator/validator/releases/latest">get the latest release</a>
+    or run
+    <a href="https://www.npmjs.com/package/vnu-jar"><code>npm install vnu-jar</code></a>,
+    <a href="https://github.com/svenkreiss/html5validator"><code>pip install html5validator</code></a>
+    or
+    <a href="https://libraries.io/homebrew/vnu"><code>brew install vnu</code></a>,
     and see the
     <a href="#usage"><b>Usage</b></a>
     and
     <a href="#web-based-checking"><b>Web-based checking</b></a>
-    sections belowーor alternatively, consider automating your HTML
-    checking with a frontend such as:
+    sections below.
+    Or automate your HTML checking with a frontend such as:
 <ul>
 <li>
 <a href="https://github.com/jzaefferer/grunt-html">Grunt plugin for HTML validation</a>
-<li>
+or
 <a href="https://github.com/watilde/gulp-html">Gulp plugin for HTML validation</a>
 <li>
-<a href="https://github.com/svenkreiss/html5validator">HTML5 Validator Integration for Travis CI</a>
-(auto-check documents pushed to a github repo)
+<a href="https://github.com/svenkreiss/html5validator">html5validator <code>pip</code> package</a>
+(for HTML checking integration in Travis CI, CircleCI, CodeShip,
+<a href="https://jekyllrb.com/">Jekyll</a>,
+<a href="https://blog.getpelican.com/">Pelican</a> etc.)
 <li>
 <a href="https://github.com/cvrebert/lmvtfy/">LMVTFY: Let Me Validate That For You</a>
 (auto-check HTML of JSFiddle/JSBin etc. links in github issue comments)
@@ -183,12 +190,13 @@ li > ul {
   <section id=usage>
   <h2>Usage</h2>
 
-<p>You can use the <code>vnu.jar</code> HTML checker as an executable for
+<p>Use the <code>vnu.jar</code> HTML checker as an executable for
 command-line checking of documents by invoking it like this:
 <pre>
-  java -jar ~/vnu.jar [--errors-only] [--no-stream]
-       [--format gnu|xml|json|text] [--help] [--html]
-       [--skip-non-html] [--verbose] [--version] FILES
+  java -jar ~/vnu.jar [--errors-only] [--exit-zero-always]
+       [--asciiquotes] [--no-stream] [--format gnu|xml|json|text]
+       [--html] [--skip-non-html] [--no-langdetect]
+       [--help] [--verbose] [--version] FILES
 </pre>
 
 <p class=note><b>Note:</b> In these instructions, replace
@@ -240,12 +248,29 @@ whose names don’t end with the extensions <code>.html</code>,
 <p>When used from the command line as described in this section, the
 <code>vnu.jar</code> executable provides the following options:
 
+<h4 id="errors-only">--asciiquotes</h4>
+<pre>
+Specifies whether ASCII quotation marks are substituted for Unicode
+smart quotation marks in messages.
+
+default: "no"
+
+possible values: "yes" or "no"
+</pre>
+
 <h4 id="errors-only">--errors-only</h4>
 <pre>
 Specifies that only error-level messages and non-document-error messages
 are reported (so that warnings and info messages are not reported).
 
 default: [unset; all message reported, including warnings & info messages]
+</pre>
+
+<h4 id="exit-zero-always">--exit-zero-always</h4>
+<pre>
+Makes the checker exit zero even if errors are reported for any documents.
+
+default: [unset; checker exits 1 if errors are reported for any documents]
 </pre>
 
 <h4 id="format">--format <var>format</var></h4>
@@ -256,7 +281,7 @@ default: <span class=option-value>"gnu"</span>
 
 possible values: <span class=option-value>"gnu"</span>, <span class=option-value>"xml"</span>, <span class=option-value>"json"</span>, <span class=option-value>"text"</span> [see information at URL below]
 
-https://github.com/validator/validator/wiki/Service:-Common-parameters#out
+https://github.com/validator/validator/wiki/Service-%C2%BB-Common-params#out
 </pre>
 
 <h4 id="help">--help</h4>
@@ -276,6 +301,14 @@ default: [unset; all documents found are checked, regardless of extension]
 Forces any *.xhtml or *.xht documents to be parsed using the HTML parser.
 
 default: [unset; XML parser is used for *.xhtml and *.xht documents]
+</pre>
+
+<h4 id="no-langdetect">--no-langdetect</h4>
+<pre>
+Disables language detection, so that documents are not checked for missing
+or mislabeled <code>html[lang]</code> attributes.
+
+default: [unset; language detection &amp; <code>html[lang]</code> checking are performed]
 </pre>
 
 <h4 id="no-stream">--no-stream</h4>
@@ -310,7 +343,7 @@ Shows the <code>vnu.jar</code> version number.
   <a href="https://checker.html5.org/">checker.html5.org</a>,
   <a href="https://html5.validator.nu/">html5.validator.nu</a>,
   and
-  <a href="http://validator.w3.org/nu/">validator.w3.org/nu</a>,
+  <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>,
   for browser-based checking of HTML documents over
   the Web.
   To that end, the checker is released as two separate packages:
@@ -361,7 +394,7 @@ with the actual paths to those files on your system.
     replace <code class=arg>8888</code> with the port number.)
 
     <p>You’ll see a form similar to
-    <a href="http://validator.w3.org/nu/">validator.w3.org/nu</a>
+    <a href="https://validator.w3.org/nu/">validator.w3.org/nu</a>
     that allows you to enter the URL of an HTML document and have the
     results for that document displayed in the browser.
 
@@ -382,7 +415,7 @@ providing the <code>-Xss</code> option to java:
     such as Apache Tomcat you will need to deploy the <code>vnu.war</code>
     file to that server following its documentation.
     For example, on Apache Tomcat you could do this using
-    the <a href="http://tomcat.apache.org/tomcat-8.0-doc/manager-howto.html">Manager</a> application or simply by copying the file to
+    the <a href="https://tomcat.apache.org/tomcat-8.0-doc/manager-howto.html">Manager</a> application or simply by copying the file to
     the <code>webapps</code> directory
     (since that is the default <code>appBase</code> setting).
 	Typically you would see a message similar to the following
@@ -442,7 +475,7 @@ INFO: Deploying web application archive /var/lib/tomcat7/webapps/vnu.war
 </pre>
 </ol>
      To send documents to an instance of the checker on the Web, such as
-     <a href="http://html5.validator.nu/">html5.validator.nu/</a>,
+     <a href="https://html5.validator.nu/">html5.validator.nu/</a>,
      use the
      <a href="#nuvalidatorclienthost">nu.validator.client.host</a>
      and
@@ -474,7 +507,7 @@ INFO: Deploying web application archive /var/lib/tomcat7/webapps/vnu.war
 
     <p>Most of the properties listed below map to the validator.nu common input
     parameters documented at
-    <a href="https://github.com/validator/validator/wiki/Service:-Common-parameters"
+    <a href="https://github.com/validator/validator/wiki/Service-%C2%BB-Common-params"
       >github.com/validator/validator/wiki/Service:-Common-parameters</a>.
 
 <h4 id="nuvalidatorclienthost">nu.validator.client.host</h4>
@@ -514,7 +547,7 @@ default: <span class=option-value>"html"</span>; or, for *.xhtml input files, <s
 
 possible values: [see information at URL below]
 
-https://github.com/validator/validator/wiki/Service:-Common-parameters#parser
+https://github.com/validator/validator/wiki/Service-%C2%BB-Common-params#parser
 </pre>
 
 <h4 id="nuvalidatorclientcharset">nu.validator.client.charset</h4>
@@ -539,7 +572,7 @@ default: "gnu"
 
 possible values: [see information at URL below]
 
-https://github.com/validator/validator/wiki/Service:-Common-parameters#out
+https://github.com/validator/validator/wiki/Service-%C2%BB-Common-params#out
 </pre>
 
 <h4 id="nuvalidatorclientasciiquotes">nu.validator.client.asciiquotes</h4>
@@ -550,6 +583,30 @@ smart quotation marks in messages.
 default: "yes"
 
 possible values: "yes" or "no"
+</pre>
+
+    <h3 id="http-servlet-options">HTTP servlet options</h3>
+
+<h4 id="nuvalidatorservletconnectiontimeout">nu.validator.servlet.connection-timeout</h4>
+<pre>
+Specifies the connection timeout.
+
+default: 5000
+
+possible values: number of milliseconds
+
+example: -Dnu.validator.servlet.connection-timeout=5000
+</pre>
+
+<h4 id="nuvalidatorservletsockettimeout">nu.validator.servlet.socket-timeout</h4>
+<pre>
+Specifies the socket timeout.
+
+default: 5000
+
+possible values: number of milliseconds
+
+example: -Dnu.validator.servlet.socket-timeout=5000
 </pre>
 
   </section>
@@ -565,12 +622,8 @@ Follow the steps below to build, test, and run the checker such that you can ope
 <li>Make sure you have git, python, and JDK 8 installed.
 
 <li>Set the <code>JAVA_HOME</code> environment variable:
-<pre>export JAVA_HOME=@@/PATH/TO/JDK/ON/YOUR/SYSTEM@@</pre>
-For example:
-<ul>
-<li><code>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64</code>
-<li><code>export JAVA_HOME=$(/usr/libexec/java_home)</code> (Mac OS X)
-</ul>
+<pre>export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64    &lt;-- Ubuntu, etc.</pre>
+<pre>export JAVA_HOME=$(/usr/libexec/java_home)            &lt;-- MacOS</pre>
 
 <li>Create a working directory:
 <pre>git clone https://github.com/validator/validator.git</pre>

@@ -2,6 +2,96 @@ With a few exceptions, this is a record of mainly just user-facing
 changes—that is, either changes to the actual behavior of the checker, or
 changes to any options/interfaces the checker exposes for developers.
 
+# 17.3.0
+26 March 2017
+  - Allow “color” attribute with link[rel="mask-icon"]
+  - Allow `meta[name]` to have `itemref`/`itemscope`/`itemtype`/`itemid`
+  - Allow `allow-top-navigation-by-user-activation` in `iframe[sandbox]`
+  - Stop hiding “sectioning roots” headings in “Heading-level outline”
+  - Change error for `role=none` with `img[alt=""]` to warning
+  - Fix from @xfq for longstanding bug in “Show source” behavior in Web UI
+  - Fix from @xfq for controlling some runtime params for HTTP behavior
+  - Fix from @zcorpan to drop unneeded warning for `<menu type=toolbar>`
+  - Make “Corrupt GZIP trailer” a non-error
+  - Add `--asciiquotes` option to vnu.jar command-line checker
+  - Skip lang detection of elements w/ lang attributes not matching `html[lang]`
+  - Drop Bulgarian lang detection, to prevent Russian misidentification
+  - Update Estonian/Catalan lang profiles, to prevent Russian misidentification
+  - Update ICU4J to 58.2
+
+# 17.2.1
+06 February 2017
+  - Fix bug in language detector that when running the vnu.jar command-line
+    checker on a list of documents caused it to sometimes misidentify the
+    language of the 2nd, 3rd, 4th, etc., documents. The bug also caused the
+    memory used by the checker to increase as the number of documents
+    checked at the same time increased, and caused performance to degrade.
+  - Allow `aria-required` attribute everywhere `required` attribute is allowed
+  - Add `--exit-zero-always` option to vnu.jar command-line checker
+  - Fix longstanding bug around code for identifying overlapping cells in
+    table-integrity checker (the bug somewhat frequently gets hit when checking
+    Wikipedia pages but otherwise in the wild gets hit only extremely rarely)
+
+# 17.2.0
+30 January 2017
+  - Fix bug that broke vnu.jar command-line checking of URLs
+  - Fix bug in `rel="shortcut icon"` checking
+  - Add `nu.client.EmbeddedValidator` for use as library by other Java apps
+  - Disallow `tfoot` before `tbody`
+
+# 17.1.0
+15 January 2017
+  This release adds the following changes to the vnu.jar command-line
+  checker that had already been made available in the Web-based checker in
+  the 17.0.1 release.
+  - Allow **custom elements** (names containing “-”; e.g., `<foo-bar>`)
+  - Allow anything in `template` element subtrees (exclude from checking)
+
+# 17.0.1
+08 January 2017
+  - New language-detection feature; warns for missing/wrong `html[lang]`
+  - New option `--no-langdetect` for `vnu.jar` disables language detection
+  - Allow **custom elements** (names containing “-”; e.g., `<foo-bar>`)
+  - Allow the `is` attribute (for custom elements)
+  - Allow **ARIA 1.1** roles/states/properties
+  - Warn for viewport values that restrict resizing
+  - Allow `div` in `dl`, to group `dt`+`dd` sets
+  - Allow anything in `template` element subtrees (exclude from checking)
+  - Allow `link[rel=preload]` in body
+  - Disallow `sizes` attribute on non-icon `link`
+  - Allow `<link rel=apple-touch-icon sizes=…>`
+  - Allow comments before doctype (warning dropped)
+  - Allow `<video playsinline>`
+  - Allow `<iframe allowusermedia>`
+  - Warn for `sandbox="allow-scripts allow-same-origin"`
+  - New option to check error pages (404s and other non-200 responses)
+  - Allow `link[nonce]`
+  - Disallow `input[datetime]`
+  - Disallow `mediagroup` attribute
+  - Allow `menu[type=popup]`, disallow `menu[type=context]`
+  - Disallow non-http/https URLs in `a[ping]`
+  - Allow `referrerpolicy` attribute
+  - Warn for `html[manifest]` (obsolete)
+  - Disallow `keygen` (obsolete)
+  - Warn for `about:legacy-compat` in doctype
+  - Align SVG+ARIA checking with ARIA requirements in current SVG spec
+  - Allow `h1`-`h6` & `hgroup` in `legend`
+  - Ignore SSL errors when checking remote documents
+  - Allow `script[type=module]` (supported in Edge but not in other UAs yet)
+  - Disallow content in `iframe` (must be empty)
+  - Make `vnu.jar` check `.xhtml` files using XML-specific RelaxNG grammar
+  - Allow `th[abbr]`
+  - Allow any value in SVG `class` attribute (not just XML-compatible names)
+  - Disallow HTML4/XHTML1 Transitional doctype
+  - Allow CSP `require-sri-for` directive (updated to Salvation 2.2.0)
+  - Allow any element or text as content of SVG `desc`
+  - Allow SVG `vector-effect=non-scaling-stroke`
+  - Allow only text in `rp`
+  - Disallow multiple `meta[name=description]`
+  - Disallow URLs with port values greater than 65535
+  - Disallow `<input name=isindex>`
+  - Disallow empty `autocomplete` attribute
+
 # 16.6.29
 29 June 2016
   - JSON/gnu message formats updated to ensure doc URL is always included
