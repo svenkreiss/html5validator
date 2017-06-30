@@ -67,16 +67,14 @@ Create a ``.travis.yml`` file. This is an example for a Python project:
     language: python
     python:
      - "2.7"
+    addons:
+      apt:
+        packages:
+          - oracle-java8-set-default  # install Java8 as required by vnu.jar
 
     branches:
       only:
         - gh-pages
-
-    # install Java 8 as required by vnu.jar
-    before_install:
-     - sudo apt-get update
-     - sudo apt-get install oracle-java8-installer
-     - sudo update-java-alternatives -s java-8-oracle
 
     install:
      - pip install html5validator
