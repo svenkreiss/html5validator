@@ -5,13 +5,13 @@ python:
  - "3.5"
  - "3.6"
  - "pypy"
- - "pypy3"
+ #- "pypy3"  temporarily disable until updated to Python 3.3
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default  # install Java8 as required by vnu.jar
 
-# install Java8 as required by vnu.jar
 before_install:
- - sudo apt-get update
- - sudo apt-get install oracle-java8-installer
- - sudo update-java-alternatives -s java-8-oracle
  - pip install --upgrade pip
 
 install:
