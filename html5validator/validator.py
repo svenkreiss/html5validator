@@ -13,6 +13,8 @@ import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
+DEFAULT_IGNORE_RE = ['Picked up _JAVA_OPTIONS:.*']
+
 
 class JavaNotFoundException(Exception):
     def __str__(self):
@@ -30,16 +32,17 @@ class Validator(object):
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
 
+        # add default ignore_re
+        self.ignore_re += DEFAULT_IGNORE_RE
+
         # process fancy quotes in ignore
         self.ignore = [self._normalize_string(s) for s in self.ignore]
         self.ignore_re = [self._normalize_string(s) for s in self.ignore_re]
 
         # Determine jar location.
-        self.vnu_jar_location = vnujar.__file__.replace(
-            '__init__.pyc', 'vnu.jar'
-        ).replace(
-            '__init__.py', 'vnu.jar'
-        )
+        self.vnu_jar_location = (vnujar.__file__
+                                 .replace('__init__.pyc', 'vnu.jar')
+                                 .replace('__init__.py', 'vnu.jar'))
         if sys.platform == 'cygwin':
             self.vnu_jar_location = self._cygwin_path_convert(
                 self.vnu_jar_location)
@@ -92,10 +95,10 @@ class Validator(object):
                 raise JavaNotFoundException()
 
         try:
-            o = subprocess.check_output(['java', '-jar',
-                                         self.vnu_jar_location] + opts + files,
-                                        stderr=subprocess.STDOUT,
-                                        ).decode('utf-8')
+            o = subprocess.check_output(
+                ['java', '-jar', self.vnu_jar_location] + opts + files,
+                stderr=subprocess.STDOUT,
+            ).decode('utf-8')
         except subprocess.CalledProcessError as e:
             o = e.output.decode('utf-8')
 

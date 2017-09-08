@@ -152,7 +152,10 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.7...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.8...master>`_
+* `0.2.8 <https://github.com/svenkreiss/html5validator/compare/v0.2.7...v0.2.8>`_ (2017-09-08)
+    * update vnu jar to 17.9.0
+    * suppress a warning from the JDK about picked up environment variables
 * `0.2.7 <https://github.com/svenkreiss/html5validator/compare/v0.2.5...v0.2.7>`_ (2017-04-09)
     * update vnu jar to 17.3.0
     * lint Python code
