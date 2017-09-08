@@ -2,6 +2,37 @@ With a few exceptions, this is a record of mainly just user-facing
 changes—that is, either changes to the actual behavior of the checker, or
 changes to any options/interfaces the checker exposes for developers.
 
+# 17.9.0
+20 August 2017
+  - Allow script[nomodule]
+  - Allow the hover, any-hover, pointer, and any-pointer media features
+  - Allow @scope, @updateviacache, @workertype for link[rel=serviceworker]
+  - Allow `&;` (don’t report it as “`&` did not start a character reference”)
+  - Add `acceptlanguage` query parameter, to specify an Accept-Language
+    request-header value for checker to send when fetching remote documents
+  - Update CSP checking to Salvation 2.3.0
+    https://github.com/shapesecurity/salvation/releases/tag/v2.3.0
+
+# 17.7.0
+26 June 2017
+  - Add new major feature to filter out (drop/ignore/suppress) errors/warnings
+    by regex. See https://github.com/validator/validator/wiki/Message-filtering
+  - Replace a case of “Attribute "foo" not allowed on element "param" **in this
+    context**” wording in error message with “Attribute "foo" not allowed on
+    element "param" **at this point**” (for consistent working for that error
+    between the command-line checker and the web-based checker).
+  - Disallow the "contextmenu" attribute and type=contextmenu and type=toolbar
+    for the `menu` element.
+  - Allow link[rel=serviceworker]
+  - Allow floating-point numbers in attribute values to start with decimal point
+  - Allow a[href] in SVG wherever a[xlink:href] is allowed
+  - Allow the "focusable" and "tabindex" attributes on SVG elements
+  - Fix bug that disallowed `progress` & `meter` as label[for] targets
+  - Default to text/html for checking file uploads
+  - Emit warnings for use of rel={copyright,previous}
+  - Prevent Bulgarian ➡ Russian misidentifications in language detector
+  - Skip figcaption elements when running the language detector
+
 # 17.3.0
 26 March 2017
   - Allow “color” attribute with link[rel="mask-icon"]
