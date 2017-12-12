@@ -78,11 +78,11 @@ class Validator(object):
         return files
 
     def validate(self, files=None, errors_only=True, stack_size=None):
-        opts = []
+        vnu_opts, java_opts = [], []
         if errors_only:
-            opts.append('--errors-only')
+            vnu_opts.append('--errors-only')
         if stack_size:
-            opts.append('-Xss{}k'.format(stack_size))
+            java_opts.append('-Xss{}k'.format(stack_size))
         if not files:
             files = self.all_files()
 
@@ -96,7 +96,8 @@ class Validator(object):
 
         try:
             o = subprocess.check_output(
-                ['java', '-jar', self.vnu_jar_location] + opts + files,
+                ['java'] + java_opts +
+                ['-jar', self.vnu_jar_location] + vnu_opts + files,
                 stderr=subprocess.STDOUT,
             ).decode('utf-8')
         except subprocess.CalledProcessError as e:
