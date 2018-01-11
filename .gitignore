@@ -7,3 +7,4 @@ pypy*
 dist
 
 .DS_Store
+.vscode

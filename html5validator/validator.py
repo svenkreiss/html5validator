@@ -25,12 +25,15 @@ class JavaNotFoundException(Exception):
 class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
-                 ignore=None, ignore_re=None):
+                 ignore=None, ignore_re=None,
+                 java_options=None, vnu_options=None):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
+        self.java_options = java_options if java_options is not None else []
+        self.vnu_options = vnu_options if vnu_options is not None else []
 
         # add default ignore_re
         self.ignore_re += DEFAULT_IGNORE_RE
@@ -77,12 +80,7 @@ class Validator(object):
                 files.append(os.path.join(root, filename))
         return files
 
-    def validate(self, files=None, errors_only=True, stack_size=None):
-        vnu_opts, java_opts = [], []
-        if errors_only:
-            vnu_opts.append('--errors-only')
-        if stack_size:
-            java_opts.append('-Xss{}k'.format(stack_size))
+    def validate(self, files=None):
         if not files:
             files = self.all_files()
 
@@ -95,9 +93,10 @@ class Validator(object):
                 raise JavaNotFoundException()
 
         try:
+            cmd = (['java'] + self.java_options +
+                   ['-jar', self.vnu_jar_location] + self.vnu_options + files)
             o = subprocess.check_output(
-                ['java'] + java_opts +
-                ['-jar', self.vnu_jar_location] + vnu_opts + files,
+                cmd,
                 stderr=subprocess.STDOUT,
             ).decode('utf-8')
         except subprocess.CalledProcessError as e:
