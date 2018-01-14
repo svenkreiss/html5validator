@@ -26,14 +26,21 @@ class Validator(object):
 
     def __init__(self, directory='.', match='*.html', blacklist=None,
                  ignore=None, ignore_re=None,
-                 java_options=None, vnu_options=None):
+                 errors_only=False, detect_language=True, format=None,
+                 stack_size=None):
         self.directory = directory
         self.match = match
         self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
-        self.java_options = java_options if java_options is not None else []
-        self.vnu_options = vnu_options if vnu_options is not None else []
+
+        # java options
+        self.stack_size = stack_size
+
+        # vnu options
+        self.errors_only = errors_only
+        self.detect_language = detect_language
+        self.format = format
 
         # add default ignore_re
         self.ignore_re += DEFAULT_IGNORE_RE
@@ -49,6 +56,29 @@ class Validator(object):
         if sys.platform == 'cygwin':
             self.vnu_jar_location = self._cygwin_path_convert(
                 self.vnu_jar_location)
+
+    @property
+    def _java_options(self):
+        java_options = []
+
+        if self.stack_size is not None:
+            java_options.append('-Xss{}k'.format(self.stack_size))
+
+        return java_options
+
+    @property
+    def _vnu_options(self):
+        vnu_options = []
+
+        if self.errors_only:
+            vnu_options.append('--errors_only')
+        if not self.detect_language:
+            vnu_options.append('--no-langdetect')
+        if self.format is not None:
+            vnu_options.append('--format')
+            vnu_options.append(self.format)
+
+        return vnu_options
 
     def _normalize_string(self, s):
         s = s.replace('“', '"')
@@ -93,8 +123,8 @@ class Validator(object):
                 raise JavaNotFoundException()
 
         try:
-            cmd = (['java'] + self.java_options +
-                   ['-jar', self.vnu_jar_location] + self.vnu_options + files)
+            cmd = (['java'] + self._java_options +
+                   ['-jar', self.vnu_jar_location] + self._vnu_options + files)
             o = subprocess.check_output(
                 cmd,
                 stderr=subprocess.STDOUT,

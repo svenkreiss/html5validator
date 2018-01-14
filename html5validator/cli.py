@@ -28,8 +28,8 @@ def main():
     parser.add_argument('--show-warnings', dest='errors_only',
                         action='store_false', default=True,
                         help='show warnings')
-    parser.add_argument('--no-langdetect',
-                        action='store_true', default=False,
+    parser.add_argument('--no-langdetect', dest='detect_language',
+                        action='store_false', default=True,
                         help='disable language detection')
     parser.add_argument('--format', choices=['gnu', 'xml', 'json', 'text'],
                         help='output format', default=None)
@@ -64,19 +64,6 @@ def main():
                         version='%(prog)s ' + VERSION)
     args = parser.parse_args()
 
-    vnu_options = []
-    if args.errors_only:
-        vnu_options.append('--errors_only')
-    if args.no_langdetect:
-        vnu_options.append('--no-langdetect')
-    if args.format:
-        vnu_options.append('--format')
-        vnu_options.append(args.format)
-
-    java_options = []
-    if args.stack_size:
-        java_options.append('-Xss{}k'.format(args.stack_size))
-
     logging.basicConfig(level=getattr(logging, args.log))
 
     validator = Validator(directory=args.root,
@@ -84,8 +71,10 @@ def main():
                           blacklist=args.blacklist,
                           ignore=args.ignore,
                           ignore_re=args.ignore_re,
-                          java_options=java_options,
-                          vnu_options=vnu_options)
+                          errors_only=args.errors_only,
+                          detect_language=args.detect_language,
+                          format=args.format,
+                          stack_size=args.stack_size)
     files = validator.all_files()
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
