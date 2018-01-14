@@ -18,8 +18,8 @@ DEFAULT_IGNORE_RE = ['Picked up _JAVA_OPTIONS:.*']
 
 class JavaNotFoundException(Exception):
     def __str__(self):
-        return 'Missing Java Runtime Environment on this system. ' +\
-               'The command "java" must be available.'
+        return ('Missing Java Runtime Environment on this system. ' +
+                'The command "java" must be available.')
 
 
 class Validator(object):
@@ -113,14 +113,8 @@ class Validator(object):
     def validate(self, files=None):
         if not files:
             files = self.all_files()
-
         if sys.platform == 'cygwin':
             files = [self._cygwin_path_convert(f) for f in files]
-
-        with open(os.devnull, 'w') as f_null:
-            if subprocess.call(['java', '-version'],
-                               stdout=f_null, stderr=f_null) != 0:
-                raise JavaNotFoundException()
 
         try:
             cmd = (['java'] + self._java_options +
@@ -129,6 +123,11 @@ class Validator(object):
                 cmd,
                 stderr=subprocess.STDOUT,
             ).decode('utf-8')
+        except OSError as e:
+            if e.errno == os.errno.ENOENT:
+                raise JavaNotFoundException()
+            else:
+                raise
         except subprocess.CalledProcessError as e:
             o = e.output.decode('utf-8')
 
