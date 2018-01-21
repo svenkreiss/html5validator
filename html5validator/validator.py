@@ -71,7 +71,7 @@ class Validator(object):
         vnu_options = []
 
         if self.errors_only:
-            vnu_options.append('--errors_only')
+            vnu_options.append('--errors-only')
         if not self.detect_language:
             vnu_options.append('--no-langdetect')
         if self.format is not None:
@@ -119,6 +119,7 @@ class Validator(object):
         try:
             cmd = (['java'] + self._java_options +
                    ['-jar', self.vnu_jar_location] + self._vnu_options + files)
+            LOGGER.debug(cmd)
             o = subprocess.check_output(
                 cmd,
                 stderr=subprocess.STDOUT,
