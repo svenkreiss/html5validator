@@ -24,13 +24,10 @@ class JavaNotFoundException(Exception):
 
 class Validator(object):
 
-    def __init__(self, directory='.', match='*.html', blacklist=None,
+    def __init__(self,
                  ignore=None, ignore_re=None,
                  errors_only=False, detect_language=True, format=None,
                  stack_size=None):
-        self.directory = directory
-        self.match = match
-        self.blacklist = blacklist if blacklist else []
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
 
@@ -89,11 +86,15 @@ class Validator(object):
         return subprocess.check_output(
             ['cygpath', '-w', filepath]).strip().decode('utf8')
 
-    def all_files(self, skip_invisible=True):
+    def all_files(self, directory='.', match='*.html', blacklist=None,
+                  skip_invisible=True):
+        if blacklist is None:
+            blacklist = []
+
         files = []
-        for root, dirnames, filenames in os.walk(self.directory):
+        for root, dirnames, filenames in os.walk(directory):
             # filter out blacklisted directory names
-            for b in self.blacklist:
+            for b in blacklist:
                 if b in dirnames:
                     dirnames.remove(b)
 
@@ -103,16 +104,15 @@ class Validator(object):
                 for d in invisible_dirs:
                     dirnames.remove(d)
 
-            for filename in fnmatch.filter(filenames, self.match):
+            for filename in fnmatch.filter(filenames, match):
                 if skip_invisible and filename[0] == '.':
                     # filter out invisible files
                     continue
                 files.append(os.path.join(root, filename))
+
         return files
 
-    def validate(self, files=None):
-        if not files:
-            files = self.all_files()
+    def validate(self, files):
         if sys.platform == 'cygwin':
             files = [self._cygwin_path_convert(f) for f in files]
 

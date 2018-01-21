@@ -17,6 +17,13 @@ def test_invalid():
                             '--root={}/invalid/'.format(HTML_TEST_FILES)]) == 1
 
 
+def test_invalid_single_file():
+    assert subprocess.call([
+        'html5validator',
+        '{}/invalid/index.html'.format(HTML_TEST_FILES),
+    ]) == 1
+
+
 def test_warning():
     assert subprocess.call(['html5validator',
                             '--root={}/warning/'.format(HTML_TEST_FILES),
