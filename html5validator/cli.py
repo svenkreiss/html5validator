@@ -18,16 +18,19 @@ def main():
         description='[v' + VERSION + '] ' + __doc__,
         prog='html5validator'
     )
+    parser.add_argument('files', nargs='*', default=None,
+                        help='specify files to check')
+
     parser.add_argument('--root', default='.',
                         help='start directory to search for files to validate')
     parser.add_argument('--match', default='*.html',
-                        help='match file pattern (default: *.html)')
+                        help='match file pattern in search (default: *.html)')
     parser.add_argument('--blacklist', type=str, nargs='*',
-                        help='directory names to skip', default=[])
+                        help='directory names to skip in search', default=[])
 
     parser.add_argument('--show-warnings', dest='errors_only',
                         action='store_false', default=True,
-                        help='show warnings')
+                        help='show warnings and count them as errors')
     parser.add_argument('--no-langdetect', dest='detect_language',
                         action='store_false', default=True,
                         help='disable language detection')
@@ -66,16 +69,19 @@ def main():
 
     logging.basicConfig(level=getattr(logging, args.log))
 
-    validator = Validator(directory=args.root,
-                          match=args.match,
-                          blacklist=args.blacklist,
-                          ignore=args.ignore,
+    validator = Validator(ignore=args.ignore,
                           ignore_re=args.ignore_re,
                           errors_only=args.errors_only,
                           detect_language=args.detect_language,
                           format=args.format,
                           stack_size=args.stack_size)
-    files = validator.all_files()
+
+    if args.files:
+        files = args.files
+    else:
+        files = validator.all_files(directory=args.root,
+                                    match=args.match,
+                                    blacklist=args.blacklist)
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
 
