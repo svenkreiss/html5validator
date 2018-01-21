@@ -27,7 +27,7 @@ def main():
 
     parser.add_argument('--show-warnings', dest='errors_only',
                         action='store_false', default=True,
-                        help='show warnings')
+                        help='show warnings and count them as errors')
     parser.add_argument('--no-langdetect', dest='detect_language',
                         action='store_false', default=True,
                         help='disable language detection')
