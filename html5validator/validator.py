@@ -54,7 +54,6 @@ class Validator(object):
             self.vnu_jar_location = self._cygwin_path_convert(
                 self.vnu_jar_location)
 
-    @property
     def _java_options(self):
         java_options = []
 
@@ -63,7 +62,6 @@ class Validator(object):
 
         return java_options
 
-    @property
     def _vnu_options(self):
         vnu_options = []
 
@@ -117,8 +115,9 @@ class Validator(object):
             files = [self._cygwin_path_convert(f) for f in files]
 
         try:
-            cmd = (['java'] + self._java_options +
-                   ['-jar', self.vnu_jar_location] + self._vnu_options + files)
+            cmd = (['java'] + self._java_options() +
+                   ['-jar', self.vnu_jar_location] + self._vnu_options() +
+                   files)
             LOGGER.debug(cmd)
             o = subprocess.check_output(
                 cmd,
@@ -143,7 +142,7 @@ class Validator(object):
             o = [l for l in o if not regex.search(l)]
 
         if o:
-            LOGGER.warn('\n'.join(o))
+            LOGGER.error('\n'.join(o))
         else:
             LOGGER.info('All good.')
 
