@@ -152,7 +152,15 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.2.8...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.0...master>`_
+* `0.3.0 <https://github.com/svenkreiss/html5validator/compare/v0.2.8...v0.3.0>`_ (2018-01-21)
+    * update vnu jar to 17.11.1
+    * support explicit list of files: ``html5validator file1.html file2.html``
+    * new command line options: ``--no-langdetect``, ``--format``
+    * new tests for ``--show-warnings`` flag
+    * refactored internal API
+    * bugfix: check existence of Java
+    * bugfix: split Java and vnu.jar command line options
 * `0.2.8 <https://github.com/svenkreiss/html5validator/compare/v0.2.7...v0.2.8>`_ (2017-09-08)
     * update vnu jar to 17.9.0
     * suppress a warning from the JDK about picked up environment variables
