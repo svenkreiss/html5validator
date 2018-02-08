@@ -45,7 +45,7 @@ Create a ``circle.yml`` file:
 
     machine:
       java:
-        version: oraclejdk8
+        version: openjdk8
     dependencies:
       pre:
         - sudo pip install html5validator
