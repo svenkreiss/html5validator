@@ -18,16 +18,15 @@ HTML5 Validator
 Install
 -------
 
-This module requires Python 2.7, 3.4, 3.5 or 3.6 and Java 8.
+This module requires Python 2.7, 3.4, 3.5 or 3.6 and Java 8 (``openjdk8`` or ``oraclejdk8``).
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
 
-    html5validator --root _build/ --ignore-re 'Attribute "ng-[a-z-]+" not allowed'
+    html5validator --root _build/
 
-to validate all html files in the ``_build`` directory and to ignore all messages
-that match the regular expression ``Attribute "ng-[a-z-]+" not allowed``.
-Run ``html5validator --help`` to see the list of command line options.
+to validate all html files in the ``_build`` directory.
+Run ``html5validator --help`` to see the list of command line options:
 
 .. image:: https://raw.githubusercontent.com/svenkreiss/html5validator/master/cmdlinehelp.png
 
