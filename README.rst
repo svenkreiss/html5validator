@@ -36,8 +36,8 @@ which is written in Java. Therefore, a Java Runtime Environment must be
 available on your system. Since version 0.2, Java 8 is required.
 
 
-Integration with CircleCI
--------------------------
+Integration with CircleCI 1.0
+-----------------------------
 
 Create a ``circle.yml`` file:
 
@@ -45,7 +45,7 @@ Create a ``circle.yml`` file:
 
     machine:
       java:
-        version: oraclejdk8
+        version: openjdk8
     dependencies:
       pre:
         - sudo pip install html5validator
@@ -55,6 +55,41 @@ Create a ``circle.yml`` file:
 
 in your repository with static html files and get HTML5 validation on every
 ``git push``.
+
+
+Integration with CircleCI 2.0
+-----------------------------
+
+Simplified example ``circle.yml`` file from
+`pelican-jsmath <https://github.com/svenkreiss/pelican-jsmath>`_:
+
+.. code-block:: yaml
+
+    version: 2
+    jobs:
+      test-3.6:
+        docker:
+          - image: python:3.6-stretch
+        steps:
+          - run:
+              name: install Java
+              command: apt-get update && apt-get install -y openjdk-8-jre
+          - checkout
+          - run:
+              name: install
+              command: pip install '.[test]'
+          - run:
+              name: generate html
+              working_directory: test/example_site
+              command: pelican content -s pelicanconf.py
+          - run:
+              name: validate html
+              command: html5validator --root test/example_site/output
+    workflows:
+      version: 2
+      build_and_test:
+        jobs:
+          - test-3.6
 
 
 Integration with TravisCI
@@ -70,7 +105,7 @@ Create a ``.travis.yml`` file. This is an example for a Python project:
     addons:
       apt:
         packages:
-          - oracle-java8-set-default  # install Java8 as required by vnu.jar
+          - openjdk-8-jre  # install Java8 as required by vnu.jar
 
     branches:
       only:
