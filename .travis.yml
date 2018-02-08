@@ -9,7 +9,7 @@ python:
 addons:
   apt:
     packages:
-      - oracle-java8-set-default  # install Java8 as required by vnu.jar
+      - openjdk-8-jre  # install Java8 as required by vnu.jar
 
 before_install:
  - pip install --upgrade pip
