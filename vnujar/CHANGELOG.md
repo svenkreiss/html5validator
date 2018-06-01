@@ -2,6 +2,38 @@ With a few exceptions, this is a record of mainly just user-facing
 changes—that is, either changes to the actual behavior of the checker, or
 changes to any options/interfaces the checker exposes for developers.
 
+# 18.3.0
+24 March 2018
+  - Add new major (optional) feature to command-line checker, Web-based checker,
+    and network API to check CSS documents (in addition to HTML documents)
+  - Add new major feature to check that `style` element contents and `style`
+    attribute values in HTML documents are valid CSS
+  - Add new (optional) feature to command-line checker to check SVG documents
+  - Add new option to command-line checker for specifying User-Agent string
+  - Add Dockerfile to Docker Hub https://hub.docker.com/r/validator/validator/
+  - Add ability to Web-based checker to check SVG documents by file upload
+  - Emit error (not warning) for HTML4/XHTML1 strict doctypes
+  - Further restrict `script[type]` and `style[type]`
+  - Allow the `autocapitalize` global attribute
+  - Allow the `slot` attribute (for Shadow DOM interaction)
+  - Allow the `allowpaymentrequest` attribute for the `iframe` element
+  - Allow only one non-hidden `main` element per document
+  - Allow only `html`, `body`, `div`, `form`, custom elements as `main` ancestor
+  - Allow `</caption>` end tag to be omitted
+  - Allow `role=none` where `role=presentation` is allowed
+  - Allow `role=rowgroup` element to be contained in `role=table` element
+  - Allow `role=row` element to be contained in `role=table` element
+  - Allow more values for `aria-haspopup` per current ARIA spec
+  - Allow more ARIA states & properties for `role=menuitem`
+  - Allow CSP `prefetch-src` directive (updated to Salvation 2.4.0)
+  - Disallow all character encodings other than UTF-8
+  - Disallow `script[charset]`
+  - Disallow nested interactive ARIA roles
+  - Disallow the `dropzone` attribute
+  - Disallow the `menuitem` element
+  - Fix bug that caused the checker to incorrectly treat `input[type]` values
+    case-sensitively when doing particular checks
+
 # 17.11.1
 07 October 2017
   - Fix bug that made the vnu.jar `--Werror` option not work as expected
