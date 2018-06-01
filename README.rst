@@ -35,12 +35,17 @@ which is written in Java. Therefore, a Java Runtime Environment must be
 available on your system. Since version 0.2, Java 8 is required.
 
 
-Checking CSS
-------------
+Checking CSS/SVG
+----------------
 
 .. code-block:: bash
 
-    html5validator --root _build/ --match *.html *.css --also-check-css
+    html5validator --root _build/ --also-check-css
+
+    # checking only CSS
+    html5validator --root _build/ --skip-non-css
+
+Replace ``css`` with ``svg`` for similar behavior with SVG files.
 
 
 Integration with CircleCI 1.0

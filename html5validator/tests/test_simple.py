@@ -21,9 +21,16 @@ def test_invalid_with_css():
     assert subprocess.call([
         'html5validator',
         '--root={}/invalid/'.format(HTML_TEST_FILES),
-        '--match', '*.html', '*.css',
         '--also-check-css',
     ]) == 2
+
+
+def test_invalid_css_only():
+    assert subprocess.call([
+        'html5validator',
+        '--root', '{}/invalid/'.format(HTML_TEST_FILES),
+        '--skip-non-css',
+    ]) == 1
 
 
 def test_invalid_single_file():

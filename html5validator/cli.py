@@ -27,8 +27,10 @@ def main():
 
     parser.add_argument('--root', default='.',
                         help='start directory to search for files to validate')
-    parser.add_argument('--match', default='*.html', nargs='+',
-                        help='match file pattern in search (default: *.html)')
+    parser.add_argument('--match', nargs='+',
+                        help=('match file pattern in search '
+                              '(default: "*.html" or '
+                              '"*.html *.css" if --also-check-css is used)'))
     parser.add_argument('--blacklist', type=str, nargs='*',
                         help='directory names to skip in search', default=[])
 
@@ -70,6 +72,21 @@ def main():
     parser.add_argument('--version', action='version',
                         version='%(prog)s ' + VERSION)
     args, extra_args = parser.parse_known_args()
+
+    if args.match is None:
+        args.match = ['*.html']
+
+        # append to match
+        if '--also-check-css' in extra_args or '--css' in extra_args:
+            args.match.append('*.css')
+        if '--also-check-svg' in extra_args or '--svg' in extra_args:
+            args.match.append('*.svg')
+
+        # overwrite match
+        if '--skip-non-css' in extra_args:
+            args.match = ['*.css']
+        if '--skip-non-svg' in extra_args:
+            args.match = ['*.svg']
 
     logging.basicConfig(level=getattr(logging, args.log))
 
