@@ -35,6 +35,14 @@ which is written in Java. Therefore, a Java Runtime Environment must be
 available on your system. Since version 0.2, Java 8 is required.
 
 
+Checking CSS
+------------
+
+.. code-block:: bash
+
+    html5validator --root _build/ --match *.html *.css --also-check-css
+
+
 Integration with CircleCI 1.0
 -----------------------------
 
@@ -186,7 +194,11 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.0...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.1...master>`_
+* `0.3.1 <https://github.com/svenkreiss/html5validator/compare/v0.3.0...v0.3.1>`_ (2018-06-01)
+    * update vnu jar to 18.3.0
+    * pass remaining command line options to ``vnu.jar``
+    * allow to match multiple file patterns, e.g. ``--match *.html *.css``
 * `0.3.0 <https://github.com/svenkreiss/html5validator/compare/v0.2.8...v0.3.0>`_ (2018-01-21)
     * update vnu jar to 17.11.1
     * support explicit list of files: ``html5validator file1.html file2.html``

@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-"""Command line tool for HTML5 validation. Return code is 0 for valid HTML5."""
+"""Command line tool for HTML5 validation. Return code is 0 for valid HTML5.
+
+Arguments that are unknown to html5validator are passed as arguments
+to `vnu.jar`.
+"""
 
 from __future__ import unicode_literals
 
@@ -23,7 +27,7 @@ def main():
 
     parser.add_argument('--root', default='.',
                         help='start directory to search for files to validate')
-    parser.add_argument('--match', default='*.html',
+    parser.add_argument('--match', default='*.html', nargs='+',
                         help='match file pattern in search (default: *.html)')
     parser.add_argument('--blacklist', type=str, nargs='*',
                         help='directory names to skip in search', default=[])
@@ -65,7 +69,7 @@ def main():
                               '(default: WARNING)'))
     parser.add_argument('--version', action='version',
                         version='%(prog)s ' + VERSION)
-    args = parser.parse_args()
+    args, extra_args = parser.parse_known_args()
 
     logging.basicConfig(level=getattr(logging, args.log))
 
@@ -74,7 +78,8 @@ def main():
                           errors_only=args.errors_only,
                           detect_language=args.detect_language,
                           format=args.format,
-                          stack_size=args.stack_size)
+                          stack_size=args.stack_size,
+                          vnu_args=extra_args)
 
     if args.files:
         files = args.files
