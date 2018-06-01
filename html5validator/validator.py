@@ -27,7 +27,7 @@ class Validator(object):
     def __init__(self,
                  ignore=None, ignore_re=None,
                  errors_only=False, detect_language=True, format=None,
-                 stack_size=None):
+                 stack_size=None, vnu_args=None):
         self.ignore = ignore if ignore else []
         self.ignore_re = ignore_re if ignore_re else []
 
@@ -38,6 +38,7 @@ class Validator(object):
         self.errors_only = errors_only
         self.detect_language = detect_language
         self.format = format
+        self.vnu_args = vnu_args
 
         # add default ignore_re
         self.ignore_re += DEFAULT_IGNORE_RE
@@ -72,6 +73,8 @@ class Validator(object):
         if self.format is not None:
             vnu_options.append('--format')
             vnu_options.append(self.format)
+        if self.vnu_args is not None:
+            vnu_options += self.vnu_args
 
         return vnu_options
 
@@ -88,6 +91,8 @@ class Validator(object):
                   skip_invisible=True):
         if blacklist is None:
             blacklist = []
+        if not isinstance(match, list):
+            match = [match]
 
         files = []
         for root, dirnames, filenames in os.walk(directory):
@@ -102,11 +107,12 @@ class Validator(object):
                 for d in invisible_dirs:
                     dirnames.remove(d)
 
-            for filename in fnmatch.filter(filenames, match):
-                if skip_invisible and filename[0] == '.':
-                    # filter out invisible files
-                    continue
-                files.append(os.path.join(root, filename))
+            for pattern in match:
+                for filename in fnmatch.filter(filenames, pattern):
+                    if skip_invisible and filename[0] == '.':
+                        # filter out invisible files
+                        continue
+                    files.append(os.path.join(root, filename))
 
         return files
 
