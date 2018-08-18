@@ -26,9 +26,45 @@ Install with ``pip install html5validator`` and run with
     html5validator --root _build/
 
 to validate all html files in the ``_build`` directory.
-Run ``html5validator --help`` to see the list of command line options:
+Run ``html5validator --help`` to see the list of command line options::
 
-.. image:: https://raw.githubusercontent.com/svenkreiss/html5validator/master/cmdlinehelp.png
+    usage: html5validator [-h] [--root ROOT] [--match MATCH [MATCH ...]]
+                          [--blacklist [BLACKLIST [BLACKLIST ...]]]
+                          [--show-warnings] [--no-langdetect]
+                          [--format {gnu,xml,json,text}]
+                          [--ignore [IGNORE [IGNORE ...]]]
+                          [--ignore-re [IGNORE_RE [IGNORE_RE ...]]] [-l] [-ll]
+                          [-lll] [--log LOG] [--version]
+                          [files [files ...]]
+
+    [v0.3.1] Command line tool for HTML5 validation. Return code is 0 for valid
+    HTML5. Arguments that are unknown to html5validator are passed as arguments to
+    `vnu.jar`.
+
+    positional arguments:
+      files                 specify files to check
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --root ROOT           start directory to search for files to validate
+      --match MATCH [MATCH ...]
+                            match file pattern in search (default: "*.html" or
+                            "*.html *.css" if --also-check-css is used)
+      --blacklist [BLACKLIST [BLACKLIST ...]]
+                            directory names to skip in search
+      --show-warnings       show warnings and count them as errors
+      --no-langdetect       disable language detection
+      --format {gnu,xml,json,text}
+                            output format
+      --ignore [IGNORE [IGNORE ...]]
+                            ignore messages containing the given strings
+      --ignore-re [IGNORE_RE [IGNORE_RE ...]]
+                            regular expression of messages to ignore
+      -l                    run on larger files: sets Java stack size to 2048k
+      -ll                   run on larger files: sets Java stack size to 8192k
+      -lll                  run on larger files: sets Java stack size to 32768k
+      --log LOG             log level: DEBUG, INFO or WARNING (default: WARNING)
+      --version             show program's version number and exit
 
 This module uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
 which is written in Java. Therefore, a Java Runtime Environment must be
