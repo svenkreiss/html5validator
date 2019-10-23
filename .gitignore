@@ -5,6 +5,6 @@ pypy*
 .eggs
 *.egg-info
 dist
-
+build
 .DS_Store
 .vscode
