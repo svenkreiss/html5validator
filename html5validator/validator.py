@@ -125,31 +125,33 @@ class Validator(object):
                    ['-jar', self.vnu_jar_location] + self._vnu_options() +
                    files)
             LOGGER.debug(cmd)
-            o = subprocess.check_output(
+            p = subprocess.Popen(
                 cmd,
-                stderr=subprocess.STDOUT,
-            ).decode('utf-8')
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            stdout, stderr = p.communicate()
         except OSError as e:
             if e.errno == os.errno.ENOENT:
                 raise JavaNotFoundException()
             else:
                 raise
-        except subprocess.CalledProcessError as e:
-            o = e.output.decode('utf-8')
+        except subprocess.CalledProcessError as error:
+            raise (error.output.decode('utf-8'))
 
         # process fancy quotes into standard quotes
-        o = self._normalize_string(o)
+        stderr = self._normalize_string(stderr.decode('utf-8'))
 
-        o = o.splitlines()
+        e = stderr.splitlines()
+
         for i in self.ignore:
-            o = [l for l in o if i not in l]
+            e = [l for l in e if i not in l]
         for i in self.ignore_re:
             regex = re.compile(i)
-            o = [l for l in o if not regex.search(l)]
+            e = [l for l in e if not regex.search(l)]
 
-        if o:
-            LOGGER.error('\n'.join(o))
+        if stderr:
+            LOGGER.error(stderr)
         else:
             LOGGER.info('All good.')
-
-        return len(o)
+        return len(e)
