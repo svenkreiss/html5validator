@@ -140,7 +140,8 @@ class Validator(object):
             raise (error.output.decode('utf-8'))
 
         # process fancy quotes into standard quotes
-        stderr = stderr.decode('utf-8')
+        stderr = self._normalize_string(stderr.decode('utf-8'))
+
         e = stderr.splitlines()
 
         for i in self.ignore:
