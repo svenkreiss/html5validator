@@ -13,7 +13,9 @@ import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
-DEFAULT_IGNORE_RE = ['Picked up _JAVA_OPTIONS:.*']
+DEFAULT_IGNORE_RE = ['Picked up _JAVA_OPTIONS:.*',
+                     'Document checking completed. No errors found.*',
+                     ]
 
 
 class JavaNotFoundException(Exception):
@@ -150,8 +152,26 @@ class Validator(object):
             regex = re.compile(i)
             e = [l for l in e if not regex.search(l)]
 
-        if stderr:
-            LOGGER.error(stderr)
+        if e:
+            LOGGER.debug(e)
+            if self.format == "text":
+                LOGGER.error(e)
+                return len(e)
+            elif self.format == "gnu":
+                LOGGER.error(e)
+                return len(e)
+            elif self.format == "json" and e[0] != u'{"messages":[]}':
+                LOGGER.error(e)
+                return len(e)
+            elif self.format == "xml" and len(e) > 4:
+                LOGGER.error(e)
+                return len(e)
+            elif self.format is None:
+                LOGGER.error(e)
+                return len(e)
+            else:
+                LOGGER.info('Expected errors found')
+                return 0
         else:
             LOGGER.info('All good.')
-        return len(e)
+            return len(e)
