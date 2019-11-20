@@ -3,6 +3,7 @@
 
 import errno
 import fnmatch
+import json
 import logging
 import os
 import re
@@ -210,3 +211,29 @@ class Validator:
         else:
             LOGGER.info('All good.')
         return len(err)
+
+    def get_messages(self, files):
+        """Validate one or more files and return a list of messages.
+
+        Each message is returned as a dictionary containing some or
+        all of the following keys:
+         - "type"
+         - "subtype"
+         - "message"
+         - "extract"
+         - "offset"
+         - "url"
+         - "firstLine"
+         - "firstColumn"
+         - "lastLine"
+         - "lastColumn"
+
+        Details of this format are documented at:
+        https://github.com/validator/validator/wiki/Output-%C2%BB-JSON
+        """
+        if sys.platform == 'cygwin':
+            files = [_cygwin_path_convert(f) for f in files]
+
+        stdout, stderr = self.run_vnu(self._vnu_options('json') + files)
+        json_data = json.loads(stdout + stderr)
+        return json_data['messages']
