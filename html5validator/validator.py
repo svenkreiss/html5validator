@@ -126,16 +126,19 @@ class Validator:
 
         return java_options
 
-    def _vnu_options(self) -> List[str]:
+    def _vnu_options(self, format: Optional[str] = None) -> List[str]:
+        if format is None:
+            format = self.format
+
         vnu_options = []
 
         if self.errors_only:
             vnu_options.append('--errors-only')
         if not self.detect_language:
             vnu_options.append('--no-langdetect')
-        if self.format is not None:
+        if format is not None:
             vnu_options.append('--format')
-            vnu_options.append(self.format)
+            vnu_options.append(format)
         if self.vnu_args is not None:
             vnu_options += self.vnu_args
 
