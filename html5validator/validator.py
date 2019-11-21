@@ -87,6 +87,17 @@ def _normalize_string(s) -> str:
 
 
 class Validator:
+    """An object that can be used to validate HTML and other files.
+
+    The constructor accepts the following optional arguments:
+     - ignore: A list of strings to ignore in error messages.
+     - ignore_re: A list of regular expressions to ignore.
+     - errors_only: If true, ignore non-fatal warning messages.
+     - format: Format for output messages, which must be one of
+       'gnu', 'xml', 'json', or 'text'.
+     - stack_size: Maximum stack size for the Java virtual machine.
+     - vnu_args: List of additional arguments to pass to 'vnu.jar'.
+    """
 
     def __init__(self,
                  ignore=None, ignore_re=None,
@@ -178,6 +189,7 @@ class Validator:
         return stdout, stderr
 
     def validate(self, files):
+        """Validate one or more files and report the number of errors."""
         if sys.platform == 'cygwin':
             files = [_cygwin_path_convert(f) for f in files]
 
