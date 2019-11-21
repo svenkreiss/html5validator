@@ -172,9 +172,10 @@ class Validator:
 
         stdout, stderr = self.run_vnu(self._vnu_options() + files)
 
-        # process fancy quotes into standard quotes
-        stdout = _normalize_string(stdout)
-        stderr = _normalize_string(stderr)
+        if self.format != 'json':
+            # process fancy quotes into standard quotes
+            stdout = _normalize_string(stdout)
+            stderr = _normalize_string(stderr)
 
         err = stdout.splitlines() + stderr.splitlines()
 
