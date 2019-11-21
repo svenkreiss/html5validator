@@ -14,7 +14,6 @@ import vnujar
 LOGGER = logging.getLogger(__name__)
 
 DEFAULT_IGNORE_RE: List[str] = [
-    r'\APicked up _JAVA_OPTIONS:.*',
     r'\ADocument checking completed. No errors found.*',
 ]
 
@@ -26,6 +25,10 @@ DEFAULT_IGNORE_XML: List[str] = [
     '</messages>',
     '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     '<messages xmlns="http://n.validator.nu/messages/">'
+]
+
+STDERR_IGNORE_RE: List[str] = [
+    '^Picked up (?:_JAVA_OPTIONS|JAVA_TOOL_OPTIONS):.*\n'
 ]
 
 
@@ -164,7 +167,14 @@ class Validator:
         except subprocess.CalledProcessError as error:
             raise (error.output.decode('utf-8'))
 
-        return stdout.decode('utf-8'), stderr.decode('utf-8')
+        stdout = stdout.decode('utf-8')
+        stderr = stderr.decode('utf-8')
+
+        # filter out Java cruft
+        for ignored in STDERR_IGNORE_RE:
+            stderr = re.sub(ignored, '', stderr, flags=re.MULTILINE)
+
+        return stdout, stderr
 
     def validate(self, files):
         if sys.platform == 'cygwin':
