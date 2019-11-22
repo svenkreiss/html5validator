@@ -30,6 +30,7 @@ setup(
     url='https://github.com/svenkreiss/html5validator',
 
     include_package_data=True,
+    zip_safe=False,
 
     install_requires=INSTALL_REQUIRES,
     extras_require={
