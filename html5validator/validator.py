@@ -13,9 +13,17 @@ import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
-DEFAULT_IGNORE_RE = ['Picked up _JAVA_OPTIONS:.*',
-                     'Document checking completed. No errors found.*',
-                     ]
+DEFAULT_IGNORE_RE = [
+    r'\APicked up _JAVA_OPTIONS:.*',
+    r'\ADocument checking completed. No errors found.*',
+]
+
+DEFAULT_IGNORE = [
+    '</messages>',
+    '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
+    '<messages xmlns="http://n.validator.nu/messages/">',
+    '{"messages":[]}',
+]
 
 
 class JavaNotFoundException(Exception):
@@ -44,6 +52,9 @@ class Validator(object):
 
         # add default ignore_re
         self.ignore_re += DEFAULT_IGNORE_RE
+
+        # add default ignore
+        self.ignore += DEFAULT_IGNORE
 
         # process fancy quotes in ignore
         self.ignore = [self._normalize_string(s) for s in self.ignore]
@@ -146,6 +157,15 @@ class Validator(object):
 
         e = stderr.splitlines()
 
+        # Removes any empty items in the list
+        e = list(filter(None, e))
+
+        # Prevents removal of xml tags if there are errors
+        if self.format == "xml" and len(e) > 4:
+            self.ignore = self.ignore[3:]
+
+        LOGGER.debug(e)
+
         for i in self.ignore:
             e = [l for l in e if i not in l]
         for i in self.ignore_re:
@@ -153,25 +173,8 @@ class Validator(object):
             e = [l for l in e if not regex.search(l)]
 
         if e:
-            LOGGER.debug(e)
-            if self.format == "text":
-                LOGGER.error(e)
-                return len(e)
-            elif self.format == "gnu":
-                LOGGER.error(e)
-                return len(e)
-            elif self.format == "json" and e[0] != u'{"messages":[]}':
-                LOGGER.error(e)
-                return len(e)
-            elif self.format == "xml" and len(e) > 4:
-                LOGGER.error(e)
-                return len(e)
-            elif self.format is None:
-                LOGGER.error(e)
-                return len(e)
-            else:
-                LOGGER.info('Expected errors found')
-                return 0
+            LOGGER.error(e)
+            return len(e)
         else:
             LOGGER.info('All good.')
             return len(e)
