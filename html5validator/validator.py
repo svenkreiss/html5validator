@@ -19,10 +19,13 @@ DEFAULT_IGNORE_RE = [
 ]
 
 DEFAULT_IGNORE = [
+    '{"messages":[]}'
+]
+
+DEFAULT_IGNORE_XML = [
     '</messages>',
     '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
-    '<messages xmlns="http://n.validator.nu/messages/">',
-    '{"messages":[]}',
+    '<messages xmlns="http://n.validator.nu/messages/">'
 ]
 
 
@@ -161,8 +164,8 @@ class Validator(object):
         e = list(filter(None, e))
 
         # Prevents removal of xml tags if there are errors
-        if self.format == "xml" and len(e) > 4:
-            self.ignore = self.ignore[3:]
+        if self.format == "xml" and len(e) < 4:
+            self.ignore = DEFAULT_IGNORE_XML
 
         LOGGER.debug(e)
 
@@ -174,7 +177,6 @@ class Validator(object):
 
         if e:
             LOGGER.error(e)
-            return len(e)
         else:
             LOGGER.info('All good.')
-            return len(e)
+        return len(e)
