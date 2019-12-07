@@ -71,6 +71,17 @@ def test_angularjs():
     ]) == 0
 
 
+def test_angularjs_no_output_with_ignore():
+    """Make sure there is no spurious output when messages are ignored."""
+
+    output = subprocess.check_output([
+        'html5validator',
+        '--root={}/angularjs/'.format(HTML_TEST_FILES),
+        '--ignore-re=Attribute “ng-[a-z-]+” not allowed',
+    ])
+    assert output == b''
+
+
 def test_angularjs_normal_quotes():
     assert subprocess.call([
         'html5validator',
