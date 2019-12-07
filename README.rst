@@ -252,10 +252,12 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.2...master>`_
+* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.3...master>`_
+* `0.3.3 <https://github.com/svenkreiss/html5validator/compare/v0.3.2...v0.3.3>`_ (2019-12-07)
+    * `PR#59 <https://github.com/svenkreiss/html5validator/pull/59>`_
 * `0.3.2 <https://github.com/svenkreiss/html5validator/compare/v0.3.1...v0.3.2>`_ (2019-11-22)
     * update vnu jar to 18.11.5
-    * better output check [PR#57](https://github.com/svenkreiss/html5validator/pull/57) by [@Cyb3r-Jak3](https://github.com/Cyb3r-Jak3)
+    * better output check `PR#57 <https://github.com/svenkreiss/html5validator/pull/57>`_ by `@Cyb3r-Jak3 <https://github.com/Cyb3r-Jak3>`_
 * `0.3.1 <https://github.com/svenkreiss/html5validator/compare/v0.3.0...v0.3.1>`_ (2018-06-01)
     * update vnu jar to 18.3.0
     * pass remaining command line options to ``vnu.jar``
