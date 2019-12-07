@@ -220,6 +220,23 @@ This is an example for Ruby project:
     jdk_switcher use oraclejdk8
     pip install html5validator
 
+Integration with GitLab CI
+--------------------------------
+
+There is a docker image available to be used with GitLab CI or stand alone.
+`Docker image <https://hub.docker.com/r/cyb3rjak3/html5validator>`_,
+`Docker image repo <https://github.com/Cyb3r-Jak3/html5validator-docker>`_.
+
+Example for html test `(Full) <https://gitlab.com/Cyb3r-Jak3/Portfolio-Website/blob/master/.gitlab-ci.yml>`_:
+
+.. code-block:: yaml
+
+    html_test:
+      stage: html_test
+      image: cyb3rjak3/html5validator:latest
+      script:
+        - html5validator --root public/ --also-check-css --format text
+
 
 Technical Notes
 ---------------

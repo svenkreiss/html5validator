@@ -105,6 +105,36 @@ def test_stack_size():
                             '-lll']) == 0
 
 
+def test_valid_format_flags():
+    assert subprocess.call(['html5validator',
+                            '--root={}/valid/'.format(HTML_TEST_FILES),
+                            '--format', 'text']) == 0
+    assert subprocess.call(['html5validator',
+                            '--root={}/valid/'.format(HTML_TEST_FILES),
+                            '--format', 'gnu']) == 0
+    assert subprocess.call(['html5validator',
+                            '--root={}/valid/'.format(HTML_TEST_FILES),
+                            '--format', 'json']) == 0
+    assert subprocess.call(['html5validator',
+                            '--root={}/valid/'.format(HTML_TEST_FILES),
+                            '--format', 'xml']) == 0
+
+
+def test_invalid_format_flags():
+    assert subprocess.call(['html5validator',
+                            '--root={}/invalid/'.format(HTML_TEST_FILES),
+                            '--format', 'text']) == 3
+    assert subprocess.call(['html5validator',
+                            '--root={}/invalid/'.format(HTML_TEST_FILES),
+                            '--format', 'gnu']) == 1
+    assert subprocess.call(['html5validator',
+                            '--root={}/invalid/'.format(HTML_TEST_FILES),
+                            '--format', 'json']) == 1
+    assert subprocess.call(['html5validator',
+                            '--root={}/invalid/'.format(HTML_TEST_FILES),
+                            '--format', 'xml']) == 8
+
+
 if __name__ == '__main__':
     test_valid()
     test_invalid()
@@ -112,3 +142,6 @@ if __name__ == '__main__':
     test_angularjs()
     test_multiple_ignoreres()
     test_ignore_and_ignorere()
+    test_stack_size()
+    test_valid_format_flags()
+    test_invalid_format_flags()
