@@ -99,8 +99,7 @@ def main():
         logging.basicConfig(level=getattr(logging, args.log),
                             handlers=[
                             logging.FileHandler("{}.log".format(args.log_file),
-                                                mode="w"),
-                            logging.StreamHandler()])
+                                                mode="w")])
 
     validator = Validator(ignore=args.ignore,
                           ignore_re=args.ignore_re,
