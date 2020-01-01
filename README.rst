@@ -64,6 +64,7 @@ Run ``html5validator --help`` to see the list of command line options::
       -ll                   run on larger files: sets Java stack size to 8192k
       -lll                  run on larger files: sets Java stack size to 32768k
       --log LOG             log level: DEBUG, INFO or WARNING (default: WARNING)
+       --log-file LOG_FILE   Name for log file. If no name supplied then no log file will be created
       --version             show program's version number and exit
 
 This module uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
