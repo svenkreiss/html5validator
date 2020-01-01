@@ -69,6 +69,10 @@ def main():
     parser.add_argument('--log', default='WARNING',
                         help=('log level: DEBUG, INFO or WARNING '
                               '(default: WARNING)'))
+    parser.add_argument('--log-file', dest="log_file",
+                        help=("Name for log file. If no name supplied then no "
+                              "log file will be created"))
+
     parser.add_argument('--version', action='version',
                         version='%(prog)s ' + VERSION)
     args, extra_args = parser.parse_known_args()
@@ -88,7 +92,15 @@ def main():
         if '--skip-non-svg' in extra_args:
             args.match = ['*.svg']
 
-    logging.basicConfig(level=getattr(logging, args.log))
+    if args.log_file is None:
+        logging.basicConfig(level=getattr(logging, args.log))
+
+    else:
+        logging.basicConfig(level=getattr(logging, args.log),
+                            handlers=[
+                            logging.FileHandler("{}.log".format(args.log_file),
+                                                mode="w"),
+                            logging.StreamHandler()])
 
     validator = Validator(ignore=args.ignore,
                           ignore_re=args.ignore_re,
