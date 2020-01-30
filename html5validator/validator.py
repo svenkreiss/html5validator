@@ -177,7 +177,8 @@ class Validator(object):
             e = [l for l in e if not regex.search(l)]
 
         if e:
-            LOGGER.error(e)
+            for line in e:
+                LOGGER.error(line)
         else:
             LOGGER.info('All good.')
         return len(e)
