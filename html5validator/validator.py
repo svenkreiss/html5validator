@@ -31,7 +31,7 @@ DEFAULT_IGNORE_XML = [
 
 class JavaNotFoundException(Exception):
     def __str__(self):
-        return ('Missing Java Runtime Environment on this system. ' +
+        return ('Missing Java Runtime Environment on this system. '
                 'The command "java" must be available.')
 
 
@@ -137,16 +137,17 @@ class Validator(object):
             files = [self._cygwin_path_convert(f) for f in files]
 
         try:
-            cmd = (['java'] + self._java_options() +
-                   ['-jar', self.vnu_jar_location] + self._vnu_options() +
-                   files)
+            cmd = (['java'] + self._java_options()
+                   + ['-jar', self.vnu_jar_location]
+                   + self._vnu_options()
+                   + files)
             LOGGER.debug(cmd)
             p = subprocess.Popen(
                 cmd,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            stdout, stderr = p.communicate()
+            _, stderr = p.communicate()
         except OSError as e:
             if e.errno == os.errno.ENOENT:
                 raise JavaNotFoundException()
