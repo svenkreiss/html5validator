@@ -236,7 +236,20 @@ Example for html test `(Full) <https://gitlab.com/Cyb3r-Jak3/Portfolio-Website/b
       image: cyb3rjak3/html5validator:latest
       script:
         - html5validator --root public/ --also-check-css --format text
+        
+Integration with GitHub Actions
+---------------------------------
 
+There is a Github Action that can be used to check repositories. `Marketplace Link <https://github.com/marketplace/actions/html5-validator>`_.
+
+Example action:
+
+.. code-block:: yaml
+
+    - name: HTML5 Validator
+      uses: Cyb3r-Jak3/html5validator-action@master
+      with:
+        root: html/
 
 Technical Notes
 ---------------
