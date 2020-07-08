@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 
 import fnmatch
+import json
 import logging
 import os
 import re
@@ -14,7 +15,6 @@ import vnujar
 LOGGER = logging.getLogger(__name__)
 
 DEFAULT_IGNORE_RE = [
-    r'\APicked up _JAVA_OPTIONS:.*',
     r'\ADocument checking completed. No errors found.*',
 ]
 
@@ -28,6 +28,8 @@ DEFAULT_IGNORE_XML = [
     '<messages xmlns="http://n.validator.nu/messages/">'
 ]
 
+STDERR_IGNORE_RE = '^Picked up (?:_JAVA_OPTIONS|JAVA_TOOL_OPTIONS):.*\n'
+
 
 class JavaNotFoundException(Exception):
     def __str__(self):
@@ -36,6 +38,17 @@ class JavaNotFoundException(Exception):
 
 
 class Validator(object):
+    """An object that can be used to validate HTML and other files.
+
+    The constructor accepts the following optional arguments:
+     - ignore: A list of strings to ignore in error messages.
+     - ignore_re: A list of regular expressions to ignore.
+     - errors_only: If true, ignore non-fatal warning messages.
+     - format: Format for output messages, which must be one of
+       'gnu', 'xml', 'json', or 'text'.
+     - stack_size: Maximum stack size for the Java virtual machine.
+     - vnu_args: List of additional arguments to pass to 'vnu.jar'.
+    """
 
     def __init__(self,
                  ignore=None, ignore_re=None,
@@ -79,16 +92,19 @@ class Validator(object):
 
         return java_options
 
-    def _vnu_options(self):
+    def _vnu_options(self, format=None):
+        if format is None:
+            format = self.format
+
         vnu_options = []
 
         if self.errors_only:
             vnu_options.append('--errors-only')
         if not self.detect_language:
             vnu_options.append('--no-langdetect')
-        if self.format is not None:
+        if format is not None:
             vnu_options.append('--format')
-            vnu_options.append(self.format)
+            vnu_options.append(format)
         if self.vnu_args is not None:
             vnu_options += self.vnu_args
 
@@ -132,14 +148,14 @@ class Validator(object):
 
         return files
 
-    def validate(self, files):
+    def _run_validator(self, files, format=None):
         if sys.platform == 'cygwin':
             files = [self._cygwin_path_convert(f) for f in files]
 
         try:
             cmd = (['java'] + self._java_options()
                    + ['-jar', self.vnu_jar_location]
-                   + self._vnu_options()
+                   + self._vnu_options(format)
                    + files)
             LOGGER.debug(cmd)
             p = subprocess.Popen(
@@ -156,8 +172,20 @@ class Validator(object):
         except subprocess.CalledProcessError as error:
             raise (error.output.decode('utf-8'))
 
-        # process fancy quotes into standard quotes
-        stderr = self._normalize_string(stderr.decode('utf-8'))
+        stderr = stderr.decode('utf-8')
+
+        # filter out Java cruft
+        stderr = re.sub(STDERR_IGNORE_RE, '', stderr, flags=re.MULTILINE)
+
+        if format != 'json':
+            # process fancy quotes into standard quotes
+            stderr = self._normalize_string(stderr)
+
+        return stderr
+
+    def validate(self, files):
+        """Validate one or more files and report the number of errors."""
+        stderr = self._run_validator(files)
 
         e = stderr.splitlines()
 
@@ -182,3 +210,26 @@ class Validator(object):
         else:
             LOGGER.info('All good.')
         return len(e)
+
+    def get_messages(self, files):
+        """Validate one or more files and return a list of messages.
+
+        Each message is returned as a dictionary containing some or
+        all of the following keys:
+         - "type"
+         - "subtype"
+         - "message"
+         - "extract"
+         - "offset"
+         - "url"
+         - "firstLine"
+         - "firstColumn"
+         - "lastLine"
+         - "lastColumn"
+
+        Details of this format are documented at:
+        https://github.com/validator/validator/wiki/Output-%C2%BB-JSON
+        """
+        stderr = self._run_validator(files, format='json')
+        json_data = json.loads(stderr)
+        return json_data['messages']
