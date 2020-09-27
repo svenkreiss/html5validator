@@ -9,10 +9,10 @@ from __future__ import unicode_literals
 
 from .validator import Validator, all_files
 import argparse
+from io import open
 import logging
 import sys
 import yaml
-from io import open
 
 from . import __version__ as VERSION
 

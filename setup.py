@@ -28,7 +28,7 @@ setup(
 
     include_package_data=True,
     zip_safe=False,
-
+    python_reqires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
     install_requires=INSTALL_REQUIRES,
     extras_require={
         'tests': [
@@ -54,7 +54,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: PyPy',
