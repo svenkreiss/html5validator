@@ -1,4 +1,6 @@
 language: python
+matrix:
+  fast_finish: true
 cache: pip
 python:
  - "2.7"
@@ -20,4 +22,4 @@ install:
  - "pip install .[tests]"
 script:
   - flake8
-  - nosetests --processes=4 -vv
+  - nosetests -vv
