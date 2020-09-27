@@ -1,15 +1,12 @@
 from setuptools import setup
 
-import re
 import sys
 
-INSTALL_REQUIRES = []
+from html5validator import __version__
 
-
-# extract html5validator version from __init__.py
-with open('html5validator/__init__.py', 'r') as f:
-    INIT = f.read()
-    VERSION = next(re.finditer('__version__ = \"(.*?)\"', INIT)).group(1)
+INSTALL_REQUIRES = [
+    "PyYAML>=5.3.1"
+]
 
 
 # add argparse dependency for python < 2.7
@@ -20,7 +17,7 @@ if major <= 2 and minor1 < 7:
 
 setup(
     name='html5validator',
-    version=VERSION,
+    version=__version__,
     packages=['html5validator', 'html5validator.tests', 'vnujar'],
     license='MIT',
     description='Validate HTML5 files.',

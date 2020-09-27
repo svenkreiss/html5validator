@@ -1,0 +1,4 @@
+root: ./html5validator/tests/angularjs/
+log: DEBUG
+ignore_re:
+  - 'Attribute "ng-[a-z-]+" not allowed'

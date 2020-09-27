@@ -146,6 +146,13 @@ def test_invalid_format_flags():
                             '--format', 'xml']) == 8
 
 
+def test_log_file():
+    assert subprocess.call(['html5validator',
+                            '--root={}/valid/'.format(HTML_TEST_FILES),
+                            '--log-file', 'test'
+                            '--log', 'DEBUG']) == 0
+
+
 if __name__ == '__main__':
     test_valid()
     test_invalid()
@@ -156,3 +163,4 @@ if __name__ == '__main__':
     test_stack_size()
     test_valid_format_flags()
     test_invalid_format_flags()
+    test_log_file()

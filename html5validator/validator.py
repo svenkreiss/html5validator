@@ -35,6 +35,47 @@ class JavaNotFoundException(Exception):
                 'The command "java" must be available.')
 
 
+def all_files(directory='.', match='*.html', blacklist=None,
+              skip_invisible=True):
+    if blacklist is None:
+        blacklist = []
+    if not isinstance(match, list):
+        match = [match]
+
+    files = []
+    for root, dirnames, filenames in os.walk(directory):
+        # filter out blacklisted directory names
+        for b in blacklist:
+            if b in dirnames:
+                dirnames.remove(b)
+
+        if skip_invisible:
+            # filter out directory names starting with '.'
+            invisible_dirs = [d for d in dirnames if d[0] == '.']
+            for d in invisible_dirs:
+                dirnames.remove(d)
+
+        for pattern in match:
+            for filename in fnmatch.filter(filenames, pattern):
+                if skip_invisible and filename[0] == '.':
+                    # filter out invisible files
+                    continue
+                files.append(os.path.join(root, filename))
+
+    return files
+
+
+def _cygwin_path_convert(filepath):
+    return subprocess.check_output(
+        ['cygpath', '-w', filepath], shell=False).strip().decode('utf8')
+
+
+def _normalize_string(s):
+    s = s.replace('“', '"')
+    s = s.replace('”', '"')
+    return s
+
+
 class Validator(object):
 
     def __init__(self,
@@ -60,15 +101,15 @@ class Validator(object):
         self.ignore += DEFAULT_IGNORE
 
         # process fancy quotes in ignore
-        self.ignore = [self._normalize_string(s) for s in self.ignore]
-        self.ignore_re = [self._normalize_string(s) for s in self.ignore_re]
+        self.ignore = [_normalize_string(s) for s in self.ignore]
+        self.ignore_re = [_normalize_string(s) for s in self.ignore_re]
 
         # Determine jar location.
         self.vnu_jar_location = (vnujar.__file__
                                  .replace('__init__.pyc', 'vnu.jar')
                                  .replace('__init__.py', 'vnu.jar'))
         if sys.platform == 'cygwin':
-            self.vnu_jar_location = self._cygwin_path_convert(
+            self.vnu_jar_location = _cygwin_path_convert(
                 self.vnu_jar_location)
 
     def _java_options(self):
@@ -94,47 +135,9 @@ class Validator(object):
 
         return vnu_options
 
-    def _normalize_string(self, s):
-        s = s.replace('“', '"')
-        s = s.replace('”', '"')
-        return s
-
-    def _cygwin_path_convert(self, filepath):
-        return subprocess.check_output(
-            ['cygpath', '-w', filepath]).strip().decode('utf8')
-
-    def all_files(self, directory='.', match='*.html', blacklist=None,
-                  skip_invisible=True):
-        if blacklist is None:
-            blacklist = []
-        if not isinstance(match, list):
-            match = [match]
-
-        files = []
-        for root, dirnames, filenames in os.walk(directory):
-            # filter out blacklisted directory names
-            for b in blacklist:
-                if b in dirnames:
-                    dirnames.remove(b)
-
-            if skip_invisible:
-                # filter out directory names starting with '.'
-                invisible_dirs = [d for d in dirnames if d[0] == '.']
-                for d in invisible_dirs:
-                    dirnames.remove(d)
-
-            for pattern in match:
-                for filename in fnmatch.filter(filenames, pattern):
-                    if skip_invisible and filename[0] == '.':
-                        # filter out invisible files
-                        continue
-                    files.append(os.path.join(root, filename))
-
-        return files
-
     def validate(self, files):
         if sys.platform == 'cygwin':
-            files = [self._cygwin_path_convert(f) for f in files]
+            files = [_cygwin_path_convert(f) for f in files]
 
         try:
             cmd = (['java'] + self._java_options()
@@ -157,28 +160,28 @@ class Validator(object):
             raise (error.output.decode('utf-8'))
 
         # process fancy quotes into standard quotes
-        stderr = self._normalize_string(stderr.decode('utf-8'))
+        stderr = _normalize_string(stderr.decode('utf-8'))
 
-        e = stderr.splitlines()
+        err = stderr.splitlines()
 
         # Removes any empty items in the list
-        e = list(filter(None, e))
+        err = list(filter(None, err))
 
         # Prevents removal of xml tags if there are errors
-        if self.format == "xml" and len(e) < 4:
+        if self.format == "xml" and len(err) < 4:
             self.ignore = DEFAULT_IGNORE_XML
 
-        LOGGER.debug(e)
+        LOGGER.debug(err)
 
-        for i in self.ignore:
-            e = [l for l in e if i not in l]
-        for i in self.ignore_re:
-            regex = re.compile(i)
-            e = [l for l in e if not regex.search(l)]
+        for ignored in self.ignore:
+            err = [line for line in err if ignored not in line]
+        for ignored in self.ignore_re:
+            regex = re.compile(ignored)
+            err = [line for line in err if not regex.search(line)]
 
-        if e:
-            for line in e:
+        if err:
+            for line in err:
                 LOGGER.error(line)
         else:
             LOGGER.info('All good.')
-        return len(e)
+        return len(err)

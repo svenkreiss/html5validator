@@ -1,6 +1,48 @@
 With a few exceptions, this is a record of mainly just user-facing
-changes—that is, either changes to the actual behavior of the checker, or
-changes to any options/interfaces the checker exposes for developers.
+changes — that is, either changes to the actual behavior of the checker,
+or changes to any options/interfaces the checker exposes for developers.
+
+# 20.6.30
+30 June 2020
+  - CLI: Add new `--stdout` option, to report all messages to stdout
+  - CLI: Ensure the `--version` option reports the actual version
+  - CLI: Actually check SVG files, rather than just seeming to (bug fix)
+  - CSS: Improvements in `calc()`, `min()`/`max()` checking, more
+  - Allow `height` and `width` attributes for SVG `symbol` element
+  - Allow `capture` attribute for the `input[type=file]` element
+  - Allow `disabled` attribute for the `link[rel=stylesheet]` element
+  - Treat custom elements as labelable elements for `label[for]` handling
+  - ARIA: Fix bug that disallowed implicit combobox/listbox for `select`
+  - ARIA: Improve error message for `alt`-less `img` with ARIA attributes
+  - ARIA: Allow `section[role=doc-glossary]`
+
+# 20.3.16
+16 March 2020
+  - Disallow `accept-charset` values other than `UTF-8`
+  - Disallow object[typemustmatch]
+  - Allow SVG feDropShadow element (from Filter Effects spec)
+  - Allow `loading` attribute for the `img` element (lazy loading)
+  - Allow `rel=modulepreload` for the `link` element
+  - Allow `integrity` attribute on link[rel=preload|modulepreload]
+  - Allow `integrity` attribute on script[type=module]
+  - Allow `autofocus` as a global attribute
+  - Allow `inputmode` as a global attribute
+  - Allow `nonce` as a global attribute
+  - Allow `allow-downloads` in iframe[sandbox]
+  - Allow heading content within `legend` element
+  - Allow negated media features in `media` and `sizes` attributes
+  - Align `autocomplete` checking with current spec
+  - CSS: Improve support for color values
+  - ARIA: Allow implicit roles to satisfy owned-by requirements
+  - ARIA: Add proper ARIA checking for the `math` element
+  - ARIA: Align all role checking with current HTML-ARIA spec
+  - Add option to specify additional script for Web-based checker
+  - CLI: Make --errors-only option take precedence over --Werror
+  - CLI: Enable checking standard input as SVG or CSS
+  - Include binary runtime images in release (alternative to jar/war)
+  - Dockerfile: Switch to using binary runtime image rather than jar
+  - Add checker.py script to repo (for building/testing/running checker)
+  - Add option to bind to specific IP address (rather than all interfaces)
 
 # 18.11.5
 05 November 2018
