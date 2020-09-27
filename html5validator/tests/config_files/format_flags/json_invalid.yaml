@@ -1,3 +1,2 @@
 root: ./html5validator/tests/invalid/
-log: DEBUG
 format: json

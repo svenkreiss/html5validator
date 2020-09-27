@@ -1,5 +1,4 @@
 root: ./html5validator/tests/invalid/
-log: DEBUG
 match:
   - "*.html"
   - "*.css"

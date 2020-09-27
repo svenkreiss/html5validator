@@ -1,3 +1,2 @@
 files:
   - ./html5validator/tests/invalid/index.html
-log: DEBUG

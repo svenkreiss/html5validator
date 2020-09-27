@@ -1,3 +1,2 @@
 root: ./html5validator/tests/warning
-log: DEBUG
 errors_only: False

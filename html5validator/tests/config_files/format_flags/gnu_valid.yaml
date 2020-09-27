@@ -1,3 +1,2 @@
 root: ./html5validator/tests/valid/
-log: DEBUG
 format: gnu

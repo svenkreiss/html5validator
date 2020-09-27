@@ -12,6 +12,7 @@ import argparse
 import logging
 import sys
 import yaml
+from io import open
 
 from . import __version__ as VERSION
 

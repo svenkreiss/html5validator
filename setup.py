@@ -5,7 +5,7 @@ import sys
 from html5validator import __version__
 
 INSTALL_REQUIRES = [
-    "PyYAML>=5.3.1"
+    "PyYAML"
 ]
 
 
