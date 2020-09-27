@@ -1,9 +1,4 @@
 language: python
-matrix:
-  fast_finish: true
-# This is needed because travis is using an old version of pypy3. I have tested and it works fine locally
-  allow_failures:
-   - python: "pypy3"
 cache: pip
 python:
  - "2.7"
