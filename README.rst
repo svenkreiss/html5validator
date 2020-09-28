@@ -18,7 +18,7 @@ HTML5 Validator
 Install
 -------
 
-This module requires Python 2.7, 3.4, 3.5 or 3.6 and Java 8 (``openjdk8`` or ``oraclejdk8``).
+This module requires Python 2.7, 3.5, 3.6, 3.7 or 3.8 and Java 8 (``openjdk8`` or ``oraclejdk8``).
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
@@ -33,11 +33,12 @@ Run ``html5validator --help`` to see the list of command line options::
                           [--show-warnings] [--no-langdetect]
                           [--format {gnu,xml,json,text}]
                           [--ignore [IGNORE [IGNORE ...]]]
-                          [--ignore-re [IGNORE_RE [IGNORE_RE ...]]] [-l] [-ll]
-                          [-lll] [--log LOG] [--version]
+                          [--ignore-re [IGNORE_RE [IGNORE_RE ...]]]
+                          [--config CONFIG] [-l] [-ll] [-lll] [--log LOG]
+                          [--log-file LOG_FILE] [--version]
                           [files [files ...]]
 
-    [v0.3.1] Command line tool for HTML5 validation. Return code is 0 for valid
+    [v0.3.3] Command line tool for HTML5 validation. Return code is 0 for valid
     HTML5. Arguments that are unknown to html5validator are passed as arguments to
     `vnu.jar`.
 
@@ -60,10 +61,13 @@ Run ``html5validator --help`` to see the list of command line options::
                             ignore messages containing the given strings
       --ignore-re [IGNORE_RE [IGNORE_RE ...]]
                             regular expression of messages to ignore
+      --config CONFIG       Path to a config file for options
       -l                    run on larger files: sets Java stack size to 2048k
       -ll                   run on larger files: sets Java stack size to 8192k
       -lll                  run on larger files: sets Java stack size to 32768k
       --log LOG             log level: DEBUG, INFO or WARNING (default: WARNING)
+      --log-file LOG_FILE   Name for log file. If no name supplied then no log
+                            file will be created
       --version             show program's version number and exit
 
 This module uses the `validator.nu backend <https://github.com/validator/validator.github.io>`_
@@ -236,7 +240,7 @@ Example for html test `(Full) <https://gitlab.com/Cyb3r-Jak3/Portfolio-Website/b
       image: cyb3rjak3/html5validator:latest
       script:
         - html5validator --root public/ --also-check-css --format text
-        
+
 Integration with GitHub Actions
 ---------------------------------
 

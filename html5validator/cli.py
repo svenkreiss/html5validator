@@ -7,14 +7,26 @@ to `vnu.jar`.
 
 from __future__ import unicode_literals
 
-from .validator import Validator
+from .validator import Validator, all_files
 import argparse
+from io import open
 import logging
 import sys
+import yaml
 
 from . import __version__ as VERSION
 
 LOGGER = logging.getLogger(__name__)
+
+
+def parse_yaml(filename, starter):
+    converted_namespace = vars(starter)
+    with open(filename, "r", encoding='utf8') as yaml_file:
+        yaml_contents = yaml.safe_load(yaml_file)
+    LOGGER.debug(yaml_contents)
+    for item in yaml_contents.keys():
+        converted_namespace[item] = yaml_contents[item]
+    return argparse.Namespace(**converted_namespace)
 
 
 def main():
@@ -52,7 +64,7 @@ def main():
                                         if isinstance(s, bytes) else s),
                         dest='ignore_re',
                         help='regular expression of messages to ignore')
-
+    parser.add_argument("--config", help="Path to a config file for options")
     parser.add_argument('-l', action='store_const', const=2048,
                         dest='stack_size',
                         help=('run on larger files: sets Java '
@@ -69,10 +81,17 @@ def main():
     parser.add_argument('--log', default='WARNING',
                         help=('log level: DEBUG, INFO or WARNING '
                               '(default: WARNING)'))
+    parser.add_argument('--log-file', dest="log_file",
+                        help=("Name for log file. If no name supplied then no "
+                              "log file will be created"))
+
     parser.add_argument('--version', action='version',
                         version='%(prog)s ' + VERSION)
     args, extra_args = parser.parse_known_args()
 
+    if args.config is not None:
+        args = parse_yaml(args.config, args)
+        LOGGER.debug(args)
     if args.match is None:
         args.match = ['*.html']
 
@@ -88,7 +107,14 @@ def main():
         if '--skip-non-svg' in extra_args:
             args.match = ['*.svg']
 
-    logging.basicConfig(level=getattr(logging, args.log))
+    if args.log_file is None:
+        logging.basicConfig(level=getattr(logging, args.log))
+
+    else:
+        logging.basicConfig(level=getattr(logging, args.log),
+                            handlers=[
+                            logging.FileHandler("{}.log".format(args.log_file),
+                                                mode="w")])
 
     validator = Validator(ignore=args.ignore,
                           ignore_re=args.ignore_re,
@@ -97,13 +123,13 @@ def main():
                           format=args.format,
                           stack_size=args.stack_size,
                           vnu_args=extra_args)
-
     if args.files:
         files = args.files
     else:
-        files = validator.all_files(directory=args.root,
-                                    match=args.match,
-                                    blacklist=args.blacklist)
+        files = all_files(
+            directory=args.root,
+            match=args.match,
+            blacklist=args.blacklist)
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
 

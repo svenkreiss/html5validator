@@ -1,0 +1,2 @@
+root: ./html5validator/tests/valid/
+stack_size: 32768

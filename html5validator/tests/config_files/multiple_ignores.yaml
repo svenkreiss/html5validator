@@ -1,0 +1,4 @@
+root: ./html5validator/tests/multiple_ignores/
+ignore_re:
+  - 'Attribute “ng-[a-z-]+” not allowed'
+  - 'Start tag seen without seeing a doctype first'

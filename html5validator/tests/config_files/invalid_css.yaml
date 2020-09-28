@@ -1,0 +1,4 @@
+root: ./html5validator/tests/invalid/
+match:
+  - "*.html"
+  - "*.css"
