@@ -149,7 +149,7 @@ def test_invalid_format_flags():
 def test_log_file():
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES),
-                            '--log-file', 'test'
+                            '--log-file', 'test_command_line',
                             '--log', 'DEBUG']) == 0
 
 

@@ -160,6 +160,12 @@ def test_config_log_file():
             HTML_TEST_FILES)]) == 0
 
 
+def test_config_extra():
+    assert subprocess.call([
+        'html5validator',
+        '--config={}/config_files/extra.yaml'.format(HTML_TEST_FILES)]) == 0
+
+
 if __name__ == '__main__':
     test_config_valid()
     test_config_invalid()
@@ -171,3 +177,4 @@ if __name__ == '__main__':
     test_config_valid_format_flags()
     test_config_invalid_format_flags()
     test_config_log_file()
+    test_config_extra()

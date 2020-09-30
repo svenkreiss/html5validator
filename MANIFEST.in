@@ -1,3 +1,2 @@
 include README.rst LICENSE vnujar/vnu.jar
-recursive-include tests *
-recursive-exclude tests *.pyc .DS_Store
+prune html5validator/tests

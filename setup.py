@@ -18,14 +18,13 @@ if major <= 2 and minor1 < 7:
 setup(
     name='html5validator',
     version=__version__,
-    packages=['html5validator', 'html5validator.tests', 'vnujar'],
+    packages=['html5validator', 'vnujar'],
     license='MIT',
     description='Validate HTML5 files.',
     long_description=open('README.rst').read(),
     author='Sven Kreiss',
     author_email='me@svenkreiss.com',
     url='https://github.com/svenkreiss/html5validator',
-
     include_package_data=True,
     zip_safe=False,
     python_reqires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
