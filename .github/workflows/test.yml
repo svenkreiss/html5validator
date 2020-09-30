@@ -9,7 +9,7 @@ jobs:
       # You can use PyPy versions in python-version.
       # For example, pypy2 and pypy3
       matrix:
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, pypy, pypy3.6-7.3.1]
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
@@ -22,9 +22,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     # You can test your matrix by printing the current Python version
-    - name: Display Python version
+    - name: Install Dependanices
       run: |
         pip install --upgrade pip
         pip install .[tests]
+    - name: Run Tests
+      run: |
         flake8
         nosetests -vv
