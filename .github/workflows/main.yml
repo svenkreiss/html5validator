@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
-        java-version: [ 8, 9, 10, 11, 12]
+        java-version: [ 8, 9, 10, 11, 12 ]
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v1.4.2
@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         python-version: [ 2.7, 3.5, 3.6, 3.7, 3.8 ]
-        java-version: [ 8, 9, 10, 11, 12]
+        java-version: [ 8, 9, 10, 11, 12 ]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1.4.2
@@ -67,34 +67,34 @@ jobs:
           flake8
           nosetests -vv
 
-    windows-latest:
-      runs-on: windows-latest
-      strategy:
-        matrix:
-          python-version: [ 2.7, 3.5, 3.6, 3.7, 3.8 ]
-          java-version: [ 8, 9, 10, 11, 12]
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-java@v1.4.2
-          with:
-            java-version: '8'
-            java-package: ${{ matrix.java-version }}
-        - uses: actions/cache@v2
-          with:
-            path: ~\AppData\Local\pip\Cache
-            key: ${{ runner.os }}-pip-version-${{ matrix.python-version }}
-            restore-keys: |
-              ${{ runner.os }}-pip-version-${{ matrix.python-version }}
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v2
-          with:
-            python-version: ${{ matrix.python-version }}
-        # You can test your matrix by printing the current Python version
-        - name: Install Dependanices
-          run: |
-            pip install --upgrade pip
-            pip install .[tests]
-        - name: Run Tests
-          run: |
-            flake8
-            nosetests -vv
+  windows-latest:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 2.7, 3.5, 3.6, 3.7, 3.8 ]
+        java-version: [ 8, 9, 10, 11, 12 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1.4.2
+        with:
+          java-version: '8'
+          java-package: ${{ matrix.java-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: ${{ runner.os }}-pip-version-${{ matrix.python-version }}
+          restore-keys: |
+            ${{ runner.os }}-pip-version-${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # You can test your matrix by printing the current Python version
+      - name: Install Dependanices
+        run: |
+          pip install --upgrade pip
+          pip install .[tests]
+      - name: Run Tests
+        run: |
+          flake8
+          nosetests -vv
