@@ -1,0 +1,6 @@
+root: ./tests/invalid/
+skip:
+  - "index.html"
+match:
+  - "*.html"
+  - "*.css"

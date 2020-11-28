@@ -1,0 +1,2 @@
+root: ./tests/valid/
+format: json

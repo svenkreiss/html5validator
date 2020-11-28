@@ -1,0 +1,4 @@
+root: ./tests/invalid/
+match:
+  - "*.html"
+  - "*.css"

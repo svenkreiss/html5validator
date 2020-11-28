@@ -68,6 +68,7 @@ def main():
                         dest='ignore_re',
                         help='regular expression of messages to ignore')
     parser.add_argument("--config", help="Path to a config file for options")
+    parser.add_argument("--skip", nargs='+', help="Skips the given file")
     parser.add_argument('-l', action='store_const', const=2048,
                         dest='stack_size',
                         help=('run on larger files: sets Java '
@@ -109,7 +110,6 @@ def main():
             args.match = ['*.css']
         if '--skip-non-svg' in extra_args:
             args.match = ['*.svg']
-
     if args.log_file is None:
         logging.basicConfig(level=getattr(logging, args.log))
 
@@ -132,7 +132,9 @@ def main():
         files = all_files(
             directory=args.root,
             match=args.match,
-            blacklist=args.blacklist)
+            blacklist=args.blacklist,
+            skip=args.skip
+        )
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
 

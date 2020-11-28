@@ -4,3 +4,5 @@
 __version__ = "0.3.3"
 
 from .validator import Validator, JavaNotFoundException
+
+__all__ = ["Validator", "JavaNotFoundException"]

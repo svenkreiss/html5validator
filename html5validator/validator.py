@@ -36,9 +36,12 @@ class JavaNotFoundException(Exception):
 
 
 def all_files(directory='.', match='*.html', blacklist=None,
-              skip_invisible=True):
+              skip_invisible=True, skip=None):
+
     if blacklist is None:
         blacklist = []
+    if skip is None:
+        skip = []
     if not isinstance(match, list):
         match = [match]
 
@@ -48,12 +51,13 @@ def all_files(directory='.', match='*.html', blacklist=None,
         for b in blacklist:
             if b in dirnames:
                 dirnames.remove(b)
+        for s in skip:
+            if s in filenames:
+                filenames.remove(s)
 
         if skip_invisible:
             # filter out directory names starting with '.'
-            invisible_dirs = [d for d in dirnames if d[0] == '.']
-            for d in invisible_dirs:
-                dirnames.remove(d)
+            [dirnames.remove(d) for d in dirnames if d[0] == '.']
 
         for pattern in match:
             for filename in fnmatch.filter(filenames, pattern):

@@ -8,6 +8,7 @@ HTML_TEST_FILES = os.path.abspath(os.path.dirname(__file__))
 
 
 def test_config_valid():
+    print("{}/config_files/valid.yaml".format(HTML_TEST_FILES))
     assert subprocess.call([
         'html5validator',
         '--config={}/config_files/valid.yaml'.format(HTML_TEST_FILES)]) == 0
@@ -17,6 +18,12 @@ def test_config_invalid():
     assert subprocess.call([
         'html5validator',
         '--config={}/config_files/invalid.yaml'.format(HTML_TEST_FILES)]) == 1
+
+
+def test_config_skip():
+    assert subprocess.call([
+        'html5validator',
+        '--config={}/config_files/skip.yaml'.format(HTML_TEST_FILES)]) == 2
 
 
 def test_config_invalid_with_css():
