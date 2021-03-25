@@ -1,2 +1,2 @@
-root: ./tests/invalid/
+root: ./html5validator/tests/invalid/
 format: xml

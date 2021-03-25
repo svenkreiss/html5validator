@@ -1,4 +1,4 @@
-root: ./tests/multiple_ignores/
+root: ./html5validator/tests/multiple_ignores/
 ignore_re:
   - 'Attribute “ng-[a-z-]+” not allowed'
 ignore:

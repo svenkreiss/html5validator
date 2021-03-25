@@ -1,2 +1,2 @@
-root: ./tests/warning
+root: ./html5validator/tests/warning
 errors_only: False

@@ -1,2 +1,2 @@
-root: ./tests/valid/
+root: ./html5validator/tests/valid/
 format: gnu
