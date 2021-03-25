@@ -47,7 +47,7 @@ def main():
                               '(default: "*.html" or '
                               '"*.html *.css" if --also-check-css is used)'))
     parser.add_argument('--blacklist', type=str, nargs='*',
-                        help='directory names to skip in search', default=[])
+                        help='directory or file names to skip in search', default=[])
 
     parser.add_argument('--show-warnings', dest='errors_only',
                         action='store_false', default=True,
@@ -68,7 +68,6 @@ def main():
                         dest='ignore_re',
                         help='regular expression of messages to ignore')
     parser.add_argument("--config", help="Path to a config file for options")
-    parser.add_argument("--skip", nargs='+', help="Skips the given file")
     parser.add_argument('-l', action='store_const', const=2048,
                         dest='stack_size',
                         help=('run on larger files: sets Java '
@@ -133,7 +132,6 @@ def main():
             directory=args.root,
             match=args.match,
             blacklist=args.blacklist,
-            skip=args.skip
         )
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info('Number of files: {0}'.format(len(files)))
