@@ -19,7 +19,7 @@ def test_invalid():
 
 def test_skip():
     assert subprocess.call(['html5validator',
-                            '--skip', 'index.html',
+                            '--blacklist', 'index.html',
                             '--also-check-css',
                             '--root={}/invalid/'.format(HTML_TEST_FILES)
                             ]) == 1

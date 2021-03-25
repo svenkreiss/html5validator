@@ -1,5 +1,5 @@
 root: ./html5validator/tests/invalid/
-skip:
+blacklist:
   - "index.html"
 match:
   - "*.html"
