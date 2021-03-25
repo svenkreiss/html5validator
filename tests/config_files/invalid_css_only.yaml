@@ -1,3 +1,0 @@
-root: ./tests/invalid/
-match:
-  - "*.css"

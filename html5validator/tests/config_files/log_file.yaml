@@ -1,0 +1,3 @@
+root: ./tests/valid/
+log_file: test_config
+log: DEBUG
