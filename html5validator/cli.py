@@ -47,7 +47,8 @@ def main():
                               '(default: "*.html" or '
                               '"*.html *.css" if --also-check-css is used)'))
     parser.add_argument('--blacklist', type=str, nargs='*',
-                        help='directory or file names to skip in search', default=[])
+                        help='directory or file names to skip in search',
+                        default=[])
 
     parser.add_argument('--show-warnings', dest='errors_only',
                         action='store_false', default=True,
