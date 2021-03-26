@@ -124,4 +124,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# IDE Folders
+.vscode/
 .idea
