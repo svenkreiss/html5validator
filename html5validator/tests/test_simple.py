@@ -107,18 +107,17 @@ def test_multiple_ignoreres():
         '--root={}/multiple_ignores/'.format(HTML_TEST_FILES),
         '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed',
         'Start tag seen without seeing a doctype first',
-    ]) == 0 
+    ]) == 0
 
 
 def test_ignore_and_ignorere():
     """Command line test for ignore and regex ignores"""
-    o = subprocess.call([
+    assert subprocess.call([
         'html5validator',
         '--root={}/multiple_ignores/'.format(HTML_TEST_FILES),
         '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed',
         '--ignore', 'Start tag seen without seeing a doctype first',
-    ])
-    assert o == 0
+    ]) == 0
 
 
 def test_stack_size():
