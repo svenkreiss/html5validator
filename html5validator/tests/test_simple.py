@@ -8,16 +8,19 @@ HTML_TEST_FILES = os.path.abspath(os.path.dirname(__file__))
 
 
 def test_valid():
+    """Command line test for valid files"""
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES)]) == 0
 
 
 def test_invalid():
+    """Command line test for invalid files"""
     assert subprocess.call(['html5validator',
                             '--root={}/invalid/'.format(HTML_TEST_FILES)]) == 1
 
 
 def test_invalid_with_css():
+    """Command line test for invalid CSS and HTML"""
     assert subprocess.call([
         'html5validator',
         '--root={}/invalid/'.format(HTML_TEST_FILES),
@@ -26,6 +29,7 @@ def test_invalid_with_css():
 
 
 def test_invalid_css_only():
+    """Command line test for invalid CSS only"""
     assert subprocess.call([
         'html5validator',
         '--root', '{}/invalid/'.format(HTML_TEST_FILES),
@@ -34,6 +38,7 @@ def test_invalid_css_only():
 
 
 def test_invalid_single_file():
+    """Command line test for invalid single file"""
     assert subprocess.call([
         'html5validator',
         '{}/invalid/index.html'.format(HTML_TEST_FILES),
@@ -41,17 +46,20 @@ def test_invalid_single_file():
 
 
 def test_warning():
+    """Command line test for warnings"""
     assert subprocess.call(['html5validator',
                             '--root={}/warning/'.format(HTML_TEST_FILES),
                             '--show-warnings']) == 1
 
 
 def test_warning_but_pass():
+    """Command line test for passing warnings"""
     assert subprocess.call(['html5validator',
                             '--root={}/warning/'.format(HTML_TEST_FILES)]) == 0
 
 
 def test_return_value():
+    """Command line test for error code return value"""
     assert subprocess.call(['html5validator',
                             '--root={}/return_value/'.format(HTML_TEST_FILES),
                             '--match=254.html']) == 254
@@ -64,6 +72,7 @@ def test_return_value():
 
 
 def test_angularjs():
+    """Command line test for angularjs"""
     assert subprocess.call([
         'html5validator',
         '--root={}/angularjs/'.format(HTML_TEST_FILES),
@@ -83,6 +92,7 @@ def test_angularjs_no_output_with_ignore():
 
 
 def test_angularjs_normal_quotes():
+    """Command line test for passing angularjs"""
     assert subprocess.call([
         'html5validator',
         '--root={}/angularjs/'.format(HTML_TEST_FILES),
@@ -91,16 +101,17 @@ def test_angularjs_normal_quotes():
 
 
 def test_multiple_ignoreres():
-    o = subprocess.call([
+    """Command line test for multiple regex ignores"""
+    assert subprocess.call([
         'html5validator',
         '--root={}/multiple_ignores/'.format(HTML_TEST_FILES),
         '--ignore-re', 'Attribute “ng-[a-z-]+” not allowed',
         'Start tag seen without seeing a doctype first',
-    ])
-    assert o == 0
+    ]) == 0 
 
 
 def test_ignore_and_ignorere():
+    """Command line test for ignore and regex ignores"""
     o = subprocess.call([
         'html5validator',
         '--root={}/multiple_ignores/'.format(HTML_TEST_FILES),
@@ -111,12 +122,14 @@ def test_ignore_and_ignorere():
 
 
 def test_stack_size():
+    """Command line test for stack size"""
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES),
                             '-lll']) == 0
 
 
 def test_valid_format_flags():
+    """Command line test for output format for valid files"""
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES),
                             '--format', 'text']) == 0
@@ -132,6 +145,7 @@ def test_valid_format_flags():
 
 
 def test_invalid_format_flags():
+    """Command line test for output format for invalid files"""
     assert subprocess.call(['html5validator',
                             '--root={}/invalid/'.format(HTML_TEST_FILES),
                             '--format', 'text']) == 3
@@ -147,6 +161,7 @@ def test_invalid_format_flags():
 
 
 def test_log_file():
+    """Command line test for log file"""
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES),
                             '--log-file', 'test_command_line',
@@ -154,6 +169,7 @@ def test_log_file():
 
 
 def test_skip():
+    """Command line test for skipping file"""
     assert subprocess.call(['html5validator',
                             '--blacklist', 'index.html',
                             '--also-check-css',

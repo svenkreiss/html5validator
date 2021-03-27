@@ -30,6 +30,7 @@ DEFAULT_IGNORE_XML = [
 
 
 class JavaNotFoundException(Exception):
+    """Error raised is there is no Java found"""
     def __str__(self):
         return ('Missing Java Runtime Environment on this system. '
                 'The command "java" must be available.')
