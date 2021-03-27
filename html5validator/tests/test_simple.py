@@ -149,8 +149,16 @@ def test_invalid_format_flags():
 def test_log_file():
     assert subprocess.call(['html5validator',
                             '--root={}/valid/'.format(HTML_TEST_FILES),
-                            '--log-file', 'test'
+                            '--log-file', 'test_command_line',
                             '--log', 'DEBUG']) == 0
+
+
+def test_skip():
+    assert subprocess.call(['html5validator',
+                            '--blacklist', 'index.html',
+                            '--also-check-css',
+                            '--root={}/invalid/'.format(HTML_TEST_FILES)
+                            ]) == 1
 
 
 if __name__ == '__main__':
@@ -164,3 +172,4 @@ if __name__ == '__main__':
     test_valid_format_flags()
     test_invalid_format_flags()
     test_log_file()
+    test_skip()

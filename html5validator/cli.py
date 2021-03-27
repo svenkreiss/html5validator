@@ -25,8 +25,11 @@ def parse_yaml(filename, starter):
         yaml_contents = yaml.safe_load(yaml_file)
     LOGGER.debug(yaml_contents)
     for item in yaml_contents.keys():
+        if item == "extra":
+            pass
         converted_namespace[item] = yaml_contents[item]
-    return argparse.Namespace(**converted_namespace)
+    extras = [item for item in yaml_contents.get("extra", [])]
+    return argparse.Namespace(**converted_namespace), extras
 
 
 def main():
@@ -90,8 +93,8 @@ def main():
     args, extra_args = parser.parse_known_args()
 
     if args.config is not None:
-        args = parse_yaml(args.config, args)
-        LOGGER.debug(args)
+        args, extra_args = parse_yaml(args.config, args)
+        LOGGER.debug(args, extra_args)
     if args.match is None:
         args.match = ['*.html']
 

@@ -19,6 +19,12 @@ def test_config_invalid():
         '--config={}/config_files/invalid.yaml'.format(HTML_TEST_FILES)]) == 1
 
 
+def test_config_skip():
+    assert subprocess.call([
+        'html5validator',
+        '--config={}/config_files/skip.yaml'.format(HTML_TEST_FILES)]) == 2
+
+
 def test_config_invalid_with_css():
     assert subprocess.call([
         'html5validator',
@@ -158,6 +164,12 @@ def test_config_log_file():
         'html5validator',
         '--config={}/config_files/log_file.yaml'.format(
             HTML_TEST_FILES)]) == 0
+
+
+def test_config_extra():
+    assert subprocess.call([
+        'html5validator',
+        '--config={}/config_files/extra.yaml'.format(HTML_TEST_FILES)]) == 0
 
 
 if __name__ == '__main__':

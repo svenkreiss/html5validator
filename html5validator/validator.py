@@ -48,6 +48,8 @@ def all_files(directory='.', match='*.html', blacklist=None,
         for b in blacklist:
             if b in dirnames:
                 dirnames.remove(b)
+            if b in filenames:
+                filenames.remove(b)
 
         if skip_invisible:
             # filter out directory names starting with '.'
