@@ -1,0 +1,6 @@
+root: ./html5validator/tests/invalid/
+blacklist:
+  - "index.html"
+match:
+  - "*.html"
+  - "*.css" 

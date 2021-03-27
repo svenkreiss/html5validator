@@ -20,16 +20,21 @@ LOGGER = logging.getLogger(__name__)
 
 
 def parse_yaml(filename, starter):
+    """Parses yaml config file"""
     converted_namespace = vars(starter)
     with open(filename, "r", encoding='utf8') as yaml_file:
         yaml_contents = yaml.safe_load(yaml_file)
     LOGGER.debug(yaml_contents)
     for item in yaml_contents.keys():
+        if item == "vnu":
+            pass
         converted_namespace[item] = yaml_contents[item]
-    return argparse.Namespace(**converted_namespace)
+    extras = [item for item in yaml_contents.get("vnu", [])]
+    return argparse.Namespace(**converted_namespace), extras
 
 
 def main():
+    """Main function of html5validator"""
     parser = argparse.ArgumentParser(
         description='[v' + VERSION + '] ' + __doc__,
         prog='html5validator'
@@ -90,8 +95,7 @@ def main():
     args, extra_args = parser.parse_known_args()
 
     if args.config is not None:
-        args = parse_yaml(args.config, args)
-        LOGGER.debug(args)
+        args, extra_args = parse_yaml(args.config, args)
     if args.match is None:
         args.match = ['*.html']
 

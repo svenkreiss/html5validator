@@ -30,6 +30,7 @@ DEFAULT_IGNORE_XML = [
 
 
 class JavaNotFoundException(Exception):
+    """Error raised is there is no Java found"""
     def __str__(self):
         return ('Missing Java Runtime Environment on this system. '
                 'The command "java" must be available.')
@@ -48,6 +49,8 @@ def all_files(directory='.', match='*.html', blacklist=None,
         for b in blacklist:
             if b in dirnames:
                 dirnames.remove(b)
+            if b in filenames:
+                filenames.remove(b)
 
         if skip_invisible:
             # filter out directory names starting with '.'
