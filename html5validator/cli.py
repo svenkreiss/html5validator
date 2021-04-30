@@ -57,6 +57,9 @@ def main():
     parser.add_argument('--no-langdetect', dest='detect_language',
                         action='store_false', default=True,
                         help='disable language detection')
+    parser.add_argument('--no-vnu-stdout', dest='vnu_stdout',
+                        action='store_false', default=True,
+                        help='do not use --stdout with vnu.jar')
     parser.add_argument('--format', choices=['gnu', 'xml', 'json', 'text'],
                         help='output format', default=None)
 
@@ -96,6 +99,8 @@ def main():
 
     if args.config is not None:
         args, extra_args = parse_yaml(args.config, args)
+    if args.vnu_stdout:
+        extra_args.append('--stdout')
     if args.match is None:
         args.match = ['*.html']
 
