@@ -163,7 +163,7 @@ def test_invalid_format_flags():
 def test_json_parseable():
     out = subprocess.run(['html5validator',
                           '--root={}/invalid/'.format(HTML_TEST_FILES),
-                          '--format=json'], capture_output=True).stdout
+                          '--format=json'], stdout=subprocess.PIPE).stdout
     assert out
     for line in out.decode('utf-8').splitlines():
         print(line)
