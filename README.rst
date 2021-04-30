@@ -9,8 +9,8 @@ HTML5 Validator
     (e.g. with `localcrawl <https://github.com/svenkreiss/localcrawl>`_)
     and then validated.
 
-.. image:: https://travis-ci.org/svenkreiss/html5validator.svg?branch=master
-    :target: https://travis-ci.org/svenkreiss/html5validator
+.. image:: https://github.com/svenkreiss/html5validator/actions/workflows/tests.yml/badge.svg?branch=main
+    :target: https://github.com/svenkreiss/html5validator/actions/workflows/tests.yml
 .. image:: https://badge.fury.io/py/html5validator.svg
     :target: https://pypi.python.org/pypi/html5validator/
 
@@ -18,7 +18,7 @@ HTML5 Validator
 Install
 -------
 
-This module requires Python 2.7, 3.5, 3.6, 3.7 or 3.8 and Java 8 (``openjdk8`` or ``oraclejdk8``).
+This module requires Python 3.6, 3.7, 3.8 or 3.9 and Java 8 (``openjdk8`` or ``oraclejdk8``).
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
