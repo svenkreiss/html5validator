@@ -4,16 +4,6 @@ import sys
 
 from html5validator import __version__
 
-INSTALL_REQUIRES = [
-    "PyYAML"
-]
-
-
-# add argparse dependency for python < 2.7
-major, minor1, minor2, release, serial = sys.version_info
-if major <= 2 and minor1 < 7:
-    INSTALL_REQUIRES.append('argparse==1.2.1')
-
 
 setup(
     name='html5validator',
@@ -29,7 +19,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     python_reqires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
-    install_requires=INSTALL_REQUIRES,
+    install_requires=[
+        'PyYAML',
+    ],
     extras_require={
         'tests': [
             'hacking',
