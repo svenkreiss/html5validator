@@ -185,7 +185,7 @@ class Validator(object):
 
         if err:
             for line in err:
-                LOGGER.error(line)
+                print(line)
         else:
             LOGGER.info('All good.')
         return len(err)
