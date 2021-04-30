@@ -60,6 +60,9 @@ def main():
     parser.add_argument('--no-vnu-stdout', dest='vnu_stdout',
                         action='store_false', default=True,
                         help='do not use --stdout with vnu.jar')
+    parser.add_argument('--no-asciiquotes', dest='vnu_asciiquotes',
+                        action='store_false', default=True,
+                        help='do not use --asciiquotes with vnu.jar')
     parser.add_argument('--format', choices=['gnu', 'xml', 'json', 'text'],
                         help='output format', default=None)
 
@@ -101,6 +104,8 @@ def main():
         args, extra_args = parse_yaml(args.config, args)
     if args.vnu_stdout:
         extra_args.append('--stdout')
+    if args.vnu_asciiquotes:
+        extra_args.append('--asciiquotes')
     if args.match is None:
         args.match = ['*.html']
 

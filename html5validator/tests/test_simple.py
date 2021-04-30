@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Do an integration test. Only use simple html files."""
 
+import json
 import os
 import subprocess
 
@@ -157,6 +158,16 @@ def test_invalid_format_flags():
     assert subprocess.call(['html5validator',
                             '--root={}/invalid/'.format(HTML_TEST_FILES),
                             '--format', 'xml']) == 8
+
+
+def test_json_parseable():
+    out = subprocess.run(['html5validator',
+                          '--root={}/invalid/'.format(HTML_TEST_FILES),
+                          '--format=json'], capture_output=True).stdout
+    assert out
+    for line in out.decode('utf-8').splitlines():
+        print(line)
+        json.loads(line)
 
 
 def test_log_file():
