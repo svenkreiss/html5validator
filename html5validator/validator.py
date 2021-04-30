@@ -153,7 +153,7 @@ class Validator(object):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            _, stderr = p.communicate()
+            stdout, stderr = p.communicate()
         except OSError as e:
             if e.errno == os.errno.ENOENT:
                 raise JavaNotFoundException()
@@ -163,9 +163,10 @@ class Validator(object):
             raise (error.output.decode('utf-8'))
 
         # process fancy quotes into standard quotes
+        stdout = _normalize_string(stdout.decode('utf-8'))
         stderr = _normalize_string(stderr.decode('utf-8'))
 
-        err = stderr.splitlines()
+        err = stdout.splitlines() + stderr.splitlines()
 
         # Removes any empty items in the list
         err = list(filter(None, err))
