@@ -1,7 +1,5 @@
 from setuptools import setup
 
-import sys
-
 from html5validator import __version__
 
 
