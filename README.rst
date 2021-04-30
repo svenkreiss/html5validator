@@ -269,7 +269,13 @@ Changelog
 
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
-* `master <https://github.com/svenkreiss/html5validator/compare/v0.3.3...master>`_
+* `main <https://github.com/svenkreiss/html5validator/compare/v0.4.0...main>`_
+* `0.4.0 <https://github.com/svenkreiss/html5validator/compare/v0.3.3...v0.4.0>`_ (2021-05-03)
+    * update vnu jar to 21.4.9
+    * use `--stdout` and `--asciiquotes` by default for vnu.jar
+    * make `--format=json` parsable
+    * better log file and config file tests
+    * move tests to GitHub Actions and setup auto-deploy to PyPI from GitHub releases
 * `0.3.3 <https://github.com/svenkreiss/html5validator/compare/v0.3.2...v0.3.3>`_ (2019-12-07)
     * `PR#59 <https://github.com/svenkreiss/html5validator/pull/59>`_
 * `0.3.2 <https://github.com/svenkreiss/html5validator/compare/v0.3.1...v0.3.2>`_ (2019-11-22)
