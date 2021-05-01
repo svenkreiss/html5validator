@@ -29,18 +29,17 @@ to validate all html files in the ``_build`` directory.
 Run ``html5validator --help`` to see the list of command line options::
 
     usage: html5validator [-h] [--root ROOT] [--match MATCH [MATCH ...]]
-                          [--blacklist [BLACKLIST [BLACKLIST ...]]]
-                          [--show-warnings] [--no-langdetect]
+                          [--blacklist [BLACKLIST ...]] [--show-warnings]
+                          [--no-langdetect] [--no-vnu-stdout] [--no-asciiquotes]
                           [--format {gnu,xml,json,text}]
-                          [--ignore [IGNORE [IGNORE ...]]]
-                          [--ignore-re [IGNORE_RE [IGNORE_RE ...]]]
+                          [--ignore [IGNORE ...]] [--ignore-re [IGNORE_RE ...]]
                           [--config CONFIG] [-l] [-ll] [-lll] [--log LOG]
                           [--log-file LOG_FILE] [--version]
-                          [files [files ...]]
+                          [files ...]
 
-    [v0.3.3] Command line tool for HTML5 validation. Return code is 0 for valid
-    HTML5. Arguments that are unknown to html5validator are passed as arguments to
-    `vnu.jar`.
+    [v0.4.0] Command line tool for HTML5 validation. Return code is 0 for valid
+    HTML5. Arguments that are unknown to html5validator
+    are passed as arguments to `vnu.jar`.
 
     positional arguments:
       files                 specify files to check
@@ -51,15 +50,17 @@ Run ``html5validator --help`` to see the list of command line options::
       --match MATCH [MATCH ...]
                             match file pattern in search (default: "*.html" or
                             "*.html *.css" if --also-check-css is used)
-      --blacklist [BLACKLIST [BLACKLIST ...]]
+      --blacklist [BLACKLIST ...]
                             directory names to skip in search
       --show-warnings       show warnings and count them as errors
       --no-langdetect       disable language detection
+      --no-vnu-stdout       do not use --stdout with vnu.jar
+      --no-asciiquotes      do not use --asciiquotes with vnu.jar
       --format {gnu,xml,json,text}
                             output format
-      --ignore [IGNORE [IGNORE ...]]
+      --ignore [IGNORE ...]
                             ignore messages containing the given strings
-      --ignore-re [IGNORE_RE [IGNORE_RE ...]]
+      --ignore-re [IGNORE_RE ...]
                             regular expression of messages to ignore
       --config CONFIG       Path to a config file for options
       -l                    run on larger files: sets Java stack size to 2048k
