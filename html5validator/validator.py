@@ -138,15 +138,11 @@ class Validator(object):
 
         return vnu_options
 
-    def validate(self, files):
-        if sys.platform == 'cygwin':
-            files = [_cygwin_path_convert(f) for f in files]
-
+    def run_vnu(self, arguments):
         try:
             cmd = (['java'] + self._java_options()
                    + ['-jar', self.vnu_jar_location]
-                   + self._vnu_options()
-                   + files)
+                   + arguments)
             LOGGER.debug(cmd)
             p = subprocess.Popen(
                 cmd,
@@ -162,9 +158,17 @@ class Validator(object):
         except subprocess.CalledProcessError as error:
             raise (error.output.decode('utf-8'))
 
+        return stdout.decode('utf-8'), stderr.decode('utf-8')
+
+    def validate(self, files):
+        if sys.platform == 'cygwin':
+            files = [_cygwin_path_convert(f) for f in files]
+
+        stdout, stderr = self.run_vnu(self._vnu_options() + files)
+
         # process fancy quotes into standard quotes
-        stdout = _normalize_string(stdout.decode('utf-8'))
-        stderr = _normalize_string(stderr.decode('utf-8'))
+        stdout = _normalize_string(stdout)
+        stderr = _normalize_string(stderr)
 
         err = stdout.splitlines() + stderr.splitlines()
 
