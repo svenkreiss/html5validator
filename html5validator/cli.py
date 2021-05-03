@@ -35,9 +35,20 @@ def parse_yaml(filename, starter):
 
 def main():
     """Main function of html5validator"""
+    vnu_help, _ = Validator().run_vnu(['--help'])
+
     parser = argparse.ArgumentParser(
         description='[v' + VERSION + '] ' + __doc__,
-        prog='html5validator'
+        prog='html5validator',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+
+This html5validator uses vnu.jar to check the files.
+It has many options that are documented in the
+vnu.jar help below.
+
+================= VNU help ========================
+        ''' + vnu_help,
     )
     parser.add_argument('files', nargs='*', default=None,
                         help='specify files to check')
