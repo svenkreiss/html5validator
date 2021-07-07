@@ -3,10 +3,10 @@
 
 from __future__ import unicode_literals
 
+import errno
 import fnmatch
 import logging
 import os
-import errno
 import re
 import subprocess
 import sys
