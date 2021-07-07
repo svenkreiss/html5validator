@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+import errno
 import fnmatch
 import logging
 import os
@@ -151,7 +152,7 @@ class Validator(object):
             )
             stdout, stderr = p.communicate()
         except OSError as e:
-            if e.errno == os.errno.ENOENT:
+            if e.errno == errno.ENOENT:
                 raise JavaNotFoundException()
             else:
                 raise
