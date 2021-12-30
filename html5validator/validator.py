@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 """The main validator class."""
 
-from __future__ import unicode_literals
 
 import errno
 import fnmatch
@@ -80,7 +78,7 @@ def _normalize_string(s):
     return s
 
 
-class Validator(object):
+class Validator:
 
     def __init__(self,
                  ignore=None, ignore_re=None,
@@ -120,7 +118,7 @@ class Validator(object):
         java_options = []
 
         if self.stack_size is not None:
-            java_options.append('-Xss{}k'.format(self.stack_size))
+            java_options.append(f'-Xss{self.stack_size}k')
 
         return java_options
 
