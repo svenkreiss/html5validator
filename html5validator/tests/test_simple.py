@@ -197,5 +197,6 @@ if __name__ == '__main__':
     test_stack_size()
     test_valid_format_flags()
     test_invalid_format_flags()
+    test_json_parseable()
     test_log_file()
     test_skip()
