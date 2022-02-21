@@ -48,7 +48,7 @@ def test_config_invalid_single_file():
     assert subprocess.call([
         'html5validator',
         f"--config={HTML_TEST_FILES}/config_files/invalid_single_file.yaml"
-        ]) == 1
+    ]) == 1
 
 
 def test_config_warning():
@@ -110,7 +110,8 @@ def test_config_ignore_and_ignorere():
     """Config test for ignore and regex ignore"""
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/ignore_and_ignorere.yaml']) == 0
+        f'--config={HTML_TEST_FILES}/config_files/ignore_and_ignorere.yaml'
+    ]) == 0
 
 
 def test_config_stack_size():
@@ -124,32 +125,44 @@ def test_config_valid_format_flags():
     """Config test for output format for valid files"""
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/text_valid.yaml']) == 0
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/text_valid.yaml'
+    ]) == 0
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/gnu_valid.yaml']) == 0
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/gnu_valid.yaml'
+    ]) == 0
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/json_valid.yaml']) == 0
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/json_valid.yaml'
+    ]) == 0
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/xml_valid.yaml']) == 0
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/xml_valid.yaml'
+    ]) == 0
 
 
 def test_config_invalid_format_flags():
     """Config test for output format with invalid files"""
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/text_invalid.yaml']) == 3
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/'
+        'text_invalid.yaml'
+    ]) == 3
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/gnu_invalid.yaml']) == 1
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/'
+        'gnu_invalid.yaml'
+    ]) == 1
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/json_invalid.yaml']) == 1
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/'
+        'json_invalid.yaml'
+    ]) == 1
     assert subprocess.call([
         'html5validator',
-        f'--config={HTML_TEST_FILES}/config_files/format_flags/xml_invalid.yaml']) == 8
+        f'--config={HTML_TEST_FILES}/config_files/format_flags/'
+        'xml_invalid.yaml'
+    ]) == 8
 
 
 def test_config_log_file():
