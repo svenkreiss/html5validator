@@ -8,6 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+      # Python 3.10 tests are disable due to still using nose
         include:
           - os: ubuntu-latest
             python: 3.6
@@ -17,8 +18,8 @@ jobs:
             python: 3.8
           - os: ubuntu-latest
             python: 3.9
-          - os: ubuntu-latest
-            python: '3.10'
+          # - os: ubuntu-latest
+          #   python: '3.10'
           - os: macos-latest
             python: 3.7
           - os: macos-latest
@@ -26,16 +27,16 @@ jobs:
             conda: True
           - os: macos-latest
             python: 3.9
-          - os: macos-latest
-            python: '3.10'
+          # - os: macos-latest
+          #   python: '3.10'
           - os: windows-latest
             python: 3.7
           - os: windows-latest
             python: 3.8
           - os: windows-latest
             python: 3.9
-          - os: windows-latest
-            python: '3.10'
+          # - os: windows-latest
+          #   python: '3.10'
 
     steps:
     - uses: actions/checkout@v2
