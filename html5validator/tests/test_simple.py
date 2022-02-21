@@ -190,7 +190,7 @@ def test_skip():
 def test_nofiles():
     """Command line test for missing files"""
     assert subprocess.call([
-        "html5validator", "--root=INVALID"
+        "html5validator", "--root=MISSING"
     ]) == 1
 
 

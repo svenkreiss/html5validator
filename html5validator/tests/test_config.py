@@ -179,6 +179,13 @@ def test_config_extra():
         f'--config={HTML_TEST_FILES}/config_files/extra.yaml']) == 0
 
 
+def test_config_nofiles():
+    """Command line test for missing files"""
+    assert subprocess.call([
+        "html5validator",
+        f'--config={HTML_TEST_FILES}/config_files/no_files.yaml'
+    ]) == 1
+
 if __name__ == '__main__':
     test_config_valid()
     test_config_invalid()
