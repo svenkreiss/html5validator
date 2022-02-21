@@ -153,6 +153,9 @@ vnu.jar help below.
             directory=args.root,
             match=args.match,
             blacklist=args.blacklist)
+    if len(files) == 0:
+        LOGGER.error("There are no files to check")
+        sys.exit(1)
     LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info(f'Number of files: {len(files)}')
 
