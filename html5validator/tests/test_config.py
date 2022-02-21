@@ -186,6 +186,7 @@ def test_config_nofiles():
         f'--config={HTML_TEST_FILES}/config_files/no_files.yaml'
     ]) == 1
 
+
 if __name__ == '__main__':
     test_config_valid()
     test_config_invalid()
