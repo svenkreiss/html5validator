@@ -24,7 +24,7 @@ setup(
     extras_require={
         'tests': [
             'hacking',
-            'nose',
+            'pytest',
         ],
     },
     entry_points={
@@ -32,9 +32,6 @@ setup(
             'html5validator = html5validator.cli:main',
         ]
     },
-
-    tests_require=['nose'],
-    test_suite='nose.collector',
 
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -48,6 +45,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         'Programming Language :: Python :: Implementation :: PyPy',
     ]
 )

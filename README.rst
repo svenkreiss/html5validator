@@ -271,6 +271,7 @@ Changelog
 Install a particular version, for example ``0.1.14``, with ``pip install html5validator==0.1.14``.
 
 * `main <https://github.com/svenkreiss/html5validator/compare/v0.4.0...main>`_
+    * test with Python 3.10
 * `0.4.0 <https://github.com/svenkreiss/html5validator/compare/v0.3.3...v0.4.0>`_ (2021-05-03)
     * update vnu jar to 21.4.9
     * use `--stdout` and `--asciiquotes` by default for vnu.jar

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """The main validator class."""
 
 
@@ -83,7 +82,7 @@ def _normalize_string(s) -> str:
     return s
 
 
-class Validator(object):
+class Validator:
 
     def __init__(self,
                  ignore=None, ignore_re=None,

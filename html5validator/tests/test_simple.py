@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Do an integration test. Only use simple html files."""
 
 import json

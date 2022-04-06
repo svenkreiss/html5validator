@@ -7,7 +7,6 @@ to `vnu.jar`.
 
 from .validator import Validator, all_files
 import argparse
-from io import open
 import logging
 import sys
 import yaml
@@ -20,7 +19,7 @@ LOGGER = logging.getLogger(__name__)
 def parse_yaml(filename, starter):
     """Parses yaml config file"""
     converted_namespace = vars(starter)
-    with open(filename, "r", encoding='utf8') as yaml_file:
+    with open(filename, encoding='utf8') as yaml_file:
         yaml_contents = yaml.safe_load(yaml_file)
     LOGGER.debug(yaml_contents)
     for item in yaml_contents.keys():

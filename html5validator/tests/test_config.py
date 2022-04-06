@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Do an integration test for config file usage."""
 
 import os
