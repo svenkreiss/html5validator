@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Do an integration test for config file usage."""
 
 import os
@@ -11,28 +10,28 @@ def test_config_valid():
     """Config test for valid HTML"""
     assert subprocess.call([
         'html5validator',
-        '--config={}/config_files/valid.yaml'.format(HTML_TEST_FILES)]) == 0
+        f'--config={HTML_TEST_FILES}/config_files/valid.yaml']) == 0
 
 
 def test_config_invalid():
     """Config test for invalid HTML"""
     assert subprocess.call([
         'html5validator',
-        '--config={}/config_files/invalid.yaml'.format(HTML_TEST_FILES)]) == 1
+        f'--config={HTML_TEST_FILES}/config_files/invalid.yaml']) == 1
 
 
 def test_config_skip():
     """Config test for skipping files"""
     assert subprocess.call([
         'html5validator',
-        '--config={}/config_files/skip.yaml'.format(HTML_TEST_FILES)]) == 2
+        f'--config={HTML_TEST_FILES}/config_files/skip.yaml']) == 2
 
 
 def test_config_invalid_with_css():
     """Config test for CSS and HTML"""
     assert subprocess.call([
         'html5validator',
-        '--config={}/config_files/invalid_css.yaml'.format(HTML_TEST_FILES)
+        f'--config={HTML_TEST_FILES}/config_files/invalid_css.yaml'
     ]) == 3
 
 
@@ -186,7 +185,7 @@ def test_config_extra():
     """Config test for vnu extra arguments"""
     assert subprocess.call([
         'html5validator',
-        '--config={}/config_files/extra.yaml'.format(HTML_TEST_FILES)]) == 0
+        f'--config={HTML_TEST_FILES}/config_files/extra.yaml']) == 0
 
 
 if __name__ == '__main__':

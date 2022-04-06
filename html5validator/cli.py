@@ -5,11 +5,9 @@ Arguments that are unknown to html5validator are passed as arguments
 to `vnu.jar`.
 """
 
-from __future__ import unicode_literals
 
 from .validator import Validator, all_files
 import argparse
-from io import open
 import logging
 import sys
 import yaml
@@ -22,7 +20,7 @@ LOGGER = logging.getLogger(__name__)
 def parse_yaml(filename, starter):
     """Parses yaml config file"""
     converted_namespace = vars(starter)
-    with open(filename, "r", encoding='utf8') as yaml_file:
+    with open(filename, encoding='utf8') as yaml_file:
         yaml_contents = yaml.safe_load(yaml_file)
     LOGGER.debug(yaml_contents)
     for item in yaml_contents.keys():
@@ -138,7 +136,7 @@ vnu.jar help below.
     else:
         logging.basicConfig(level=getattr(logging, args.log),
                             handlers=[
-                            logging.FileHandler("{}.log".format(args.log_file),
+                            logging.FileHandler(f"{args.log_file}.log",
                                                 mode="w")])
 
     validator = Validator(ignore=args.ignore,
@@ -155,8 +153,8 @@ vnu.jar help below.
             directory=args.root,
             match=args.match,
             blacklist=args.blacklist)
-    LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
-    LOGGER.info('Number of files: {0}'.format(len(files)))
+    LOGGER.info('Files to validate: \n  {}'.format('\n  '.join(files)))
+    LOGGER.info(f'Number of files: {len(files)}')
 
     error_count = validator.validate(files)
     sys.exit(min(error_count, 255))
