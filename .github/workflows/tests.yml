@@ -61,5 +61,4 @@ jobs:
     - name: Test
       env:
         PYTHONDEVMODE: 1
-      # run: pytest -vv
-      run: nosetests -vv
+      run: pytest -vv
