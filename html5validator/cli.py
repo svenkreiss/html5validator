@@ -5,7 +5,6 @@ Arguments that are unknown to html5validator are passed as arguments
 to `vnu.jar`.
 """
 
-
 from .validator import Validator, all_files
 import argparse
 import logging
@@ -153,7 +152,10 @@ vnu.jar help below.
             directory=args.root,
             match=args.match,
             blacklist=args.blacklist)
-    LOGGER.info('Files to validate: \n  {}'.format('\n  '.join(files)))
+    if len(files) == 0:
+        LOGGER.error("There are no files to check")
+        sys.exit(1)
+    LOGGER.info('Files to validate: \n  {0}'.format('\n  '.join(files)))
     LOGGER.info(f'Number of files: {len(files)}')
 
     error_count = validator.validate(files)

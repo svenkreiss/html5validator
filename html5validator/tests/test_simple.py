@@ -186,6 +186,13 @@ def test_skip():
                             ]) == 1
 
 
+def test_nofiles():
+    """Command line test for missing files"""
+    assert subprocess.call([
+        "html5validator", "--root=MISSING"
+    ]) == 1
+
+
 if __name__ == '__main__':
     test_valid()
     test_invalid()
@@ -196,5 +203,7 @@ if __name__ == '__main__':
     test_stack_size()
     test_valid_format_flags()
     test_invalid_format_flags()
+    test_json_parseable()
     test_log_file()
     test_skip()
+    test_nofiles()

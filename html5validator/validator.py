@@ -6,22 +6,23 @@ import fnmatch
 import logging
 import os
 import re
+from typing import List, Tuple, Optional
 import subprocess
 import sys
 import vnujar
 
 LOGGER = logging.getLogger(__name__)
 
-DEFAULT_IGNORE_RE = [
+DEFAULT_IGNORE_RE: List[str] = [
     r'\APicked up _JAVA_OPTIONS:.*',
     r'\ADocument checking completed. No errors found.*',
 ]
 
-DEFAULT_IGNORE = [
+DEFAULT_IGNORE: List[str] = [
     '{"messages":[]}'
 ]
 
-DEFAULT_IGNORE_XML = [
+DEFAULT_IGNORE_XML: List[str] = [
     '</messages>',
     '<?xml version=\'1.0\' encoding=\'utf-8\'?>',
     '<messages xmlns="http://n.validator.nu/messages/">'
@@ -35,8 +36,11 @@ class JavaNotFoundException(Exception):
                 'The command "java" must be available.')
 
 
-def all_files(directory='.', match='*.html', blacklist=None,
-              skip_invisible=True):
+def all_files(
+        directory: str = '.',
+        match: str = '*.html',
+        blacklist: Optional[List[str]] = None,
+        skip_invisible: bool = True) -> List:
     if blacklist is None:
         blacklist = []
     if not isinstance(match, list):
@@ -67,12 +71,12 @@ def all_files(directory='.', match='*.html', blacklist=None,
     return files
 
 
-def _cygwin_path_convert(filepath):
+def _cygwin_path_convert(filepath) -> str:
     return subprocess.check_output(
         ['cygpath', '-w', filepath], shell=False).strip().decode('utf8')
 
 
-def _normalize_string(s):
+def _normalize_string(s) -> str:
     s = s.replace('“', '"')
     s = s.replace('”', '"')
     return s
@@ -114,7 +118,7 @@ class Validator:
             self.vnu_jar_location = _cygwin_path_convert(
                 self.vnu_jar_location)
 
-    def _java_options(self):
+    def _java_options(self) -> List[str]:
         java_options = []
 
         if self.stack_size is not None:
@@ -122,7 +126,7 @@ class Validator:
 
         return java_options
 
-    def _vnu_options(self):
+    def _vnu_options(self) -> List[str]:
         vnu_options = []
 
         if self.errors_only:
@@ -137,7 +141,7 @@ class Validator:
 
         return vnu_options
 
-    def run_vnu(self, arguments):
+    def run_vnu(self, arguments) -> Tuple[str, str]:
         try:
             cmd = (['java'] + self._java_options()
                    + ['-jar', self.vnu_jar_location]

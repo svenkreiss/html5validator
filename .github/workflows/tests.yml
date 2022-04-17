@@ -8,6 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+      # Python 3.10 tests are disable due to still using nose #89
         include:
           - os: ubuntu-latest
             python: 3.6
