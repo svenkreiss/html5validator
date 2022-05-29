@@ -2,21 +2,6 @@ With a few exceptions, this is a record of mainly just user-facing
 changes — that is, either changes to the actual behavior of the checker,
 or changes to any options/interfaces the checker exposes for developers.
 
-# NN.NN.NN
-NN XXX NNNN
-  - Allow `loading` attribute for the `iframe` element (lazy loading)
-  - Allow `autocomplete=username` with `input[type=email]`
-  - Allow `operator=lighter` for SVG `feComposite` element
-  - Allow more values for SVG `feBlend` element `mode` attribute
-  - CLI: Add nu.validator.htmlparser.tools|test classes to vnu.jar
-  - CLI/Docker: Enable setting timeouts & bind address w/ environment vars
-  - CSS: Support color-adjust
-  - Docker: Migrate Dockerfile to “distroless” image (reduces image size)
-  - ARIA: Allow `aria-required` with `input[type=file]`
-  - Update doc-fetching backend to Apache HTTP Components HttpClient 4.5.9
-  - Make the checker use HTTP 1.0 for all requests it make, not HTTP 1.1
-  - Make the checker ignore error for malformed/missing HTTP closing chunk
-
 # 20.6.30
 30 June 2020
   - CLI: Add new `--stdout` option, to report all messages to stdout
