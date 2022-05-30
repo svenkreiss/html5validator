@@ -18,7 +18,7 @@ HTML5 Validator
 Install
 -------
 
-This module requires Python 3.6, 3.7, 3.8 or 3.9 and Java 8 (``openjdk8`` or ``oraclejdk8``).
+This module requires Python 3.6, 3.7, 3.8, 3.9 or 3.10 and Java 8 (``openjdk8`` or ``oraclejdk8``).
 Install with ``pip install html5validator`` and run with
 
 .. code-block:: bash
@@ -37,7 +37,7 @@ Run ``html5validator --help`` to see the list of command line options::
                           [--log-file LOG_FILE] [--version]
                           [files ...]
 
-    [v0.4.0] Command line tool for HTML5 validation. Return code is 0 for valid
+    [v0.4.2] Command line tool for HTML5 validation. Return code is 0 for valid
     HTML5. Arguments that are unknown to html5validator
     are passed as arguments to `vnu.jar`.
 
