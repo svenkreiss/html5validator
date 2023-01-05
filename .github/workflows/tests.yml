@@ -10,8 +10,6 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            python: 3.6
-          - os: ubuntu-latest
             python: 3.7
           - os: ubuntu-latest
             python: 3.8
