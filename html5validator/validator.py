@@ -123,7 +123,8 @@ class Validator:
 
         if self.stack_size is not None:
             java_options.append(f'-Xss{self.stack_size}k')
-
+        # Forcing UTF-8 encoding in JVM ensures JVM errors such as file access errors to be output in UTF-8
+        java_options.append('-Dfile.encoding=UTF-8')  # Sets default encoding in JVM to UTF-8
         return java_options
 
     def _vnu_options(self) -> List[str]:
