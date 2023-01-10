@@ -123,6 +123,9 @@ class Validator:
 
         if self.stack_size is not None:
             java_options.append(f'-Xss{self.stack_size}k')
+        else:
+            # Use sane default value for stack_size as a fallback
+            java_options.append('-Xss512k')
 
         return java_options
 
