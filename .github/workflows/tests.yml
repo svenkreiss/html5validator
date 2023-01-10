@@ -56,6 +56,7 @@ jobs:
         python --version
         python -c "import html5validator; print(html5validator.__version__)"
     - name: Lint html5validator
+      if: ${{ matrix.python == '3.10' }}
       # run: pylint html5validator --disable=fixme
       run: flake8
     # - name: pycodestyle html5validator
